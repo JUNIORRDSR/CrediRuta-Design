@@ -11,7 +11,26 @@ El lienzo y este repositorio tienen el mismo contenido. La copia local vive en
 es la página publicada entera, editor incluido.
 
 > Si alguien edita el lienzo en línea y le da a Save, el repositorio **no** se actualiza solo.
-> Hay que volver a exportar el artifact a `design/canvas/`.
+> Hay que volver a exportar el artifact con el script de abajo.
+
+### Traer al repositorio lo que se editó en línea
+
+El lienzo guarda todo su estado editable dentro de la propia página publicada. El script
+la abre y escribe cada archivo en `design/canvas/`:
+
+```bash
+node design/app/exportar-lienzo.mjs <pagina.html>
+```
+
+Para saber si hay cambios sin traer, sin escribir nada (sale con código 1 si difieren):
+
+```bash
+node design/app/exportar-lienzo.mjs <pagina.html> --verificar
+```
+
+El script no descarga la página —claude.ai pide sesión—. Para conseguir el HTML: pídele a
+una sesión de Claude Code que lea el artifact (deja el archivo completo en disco y te da la
+ruta), o abre el enlace y guarda la página desde el navegador.
 
 ## Por dónde empezar si vas a construir la app
 
@@ -40,12 +59,17 @@ Faltan los contratos 01 y 03; nunca se escribieron.
 | `design/app/base.css` | El sistema visual implementado. |
 | `design/app/crediruta.html` | Prototipo navegable en un solo archivo. Generado. |
 | `design/canvas/` | Los mismos diseños como artboards del lienzo. Generado. |
+| `design/app/exportar-lienzo.mjs` | Trae al repositorio lo que se editó en el lienzo publicado. |
 | `design/prototipo/` | Artboards de una iteración anterior. Histórico. |
 | `docs-crediruta/` | Auditoría del sistema anterior, ADR, contrato de API. |
 
 ## Regenerar lo generado
 
 Las pantallas se editan en `design/app/pantallas/`; el prototipo y los artboards salen de ahí.
+
+> `artboards.mjs` y `exportar-lienzo.mjs` escriben los dos en `design/canvas/` desde
+> orígenes distintos, así que se pisan. Antes de correr `artboards.mjs`, comprueba con
+> `--verificar` que no haya ediciones en línea sin traer.
 
 ```bash
 node design/app/construir.mjs
