@@ -1,0 +1,63 @@
+<section class="screen" id="editarCliente" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" type="button" data-back>
+      <svg class="i"><use href="#i-close"></use></svg>
+    </button>
+    <div class="topbar__grow">
+      <div class="topbar__title">Editar cliente</div>
+      <div class="topbar__sub">María Restrepo · Ruta Centro</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-16">
+
+      <div class="field">
+        <label class="field__label">Nombre y apellido</label>
+        <div class="field__box">
+          <input value="María Restrepo">
+        </div>
+      </div>
+
+      <div class="field is-error">
+        <label class="field__label">Cédula</label>
+        <div class="field__box">
+          <input class="num" value="4127" inputmode="numeric">
+        </div>
+        <div class="field__error">La cédula debe tener al menos 6 números.</div>
+      </div>
+
+      <div class="field">
+        <label class="field__label">Teléfono</label>
+        <div class="field__box">
+          <input class="num" value="310 555 4412" inputmode="tel">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field__label">Dónde vive</label>
+        <div class="field__box">
+          <input value="Cra 12 #4-30, Centro">
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="spread">
+          <div class="grow">
+            <div class="strong">Marcar como clavo</div>
+            <div class="small">Cliente que no responde. Es un aviso para ti y para Carlos.</div>
+          </div>
+          <div class="toggle none"><i></i></div>
+        </div>
+      </div>
+
+      <div class="stack-8">
+        <button class="btn btn--primary" type="button" data-back data-toast="Cliente guardado">Guardar cambios</button>
+        <div class="small center">Marcar el clavo no bloquea el cobro ni borra el préstamo.</div>
+      </div>
+
+    </div>
+  </div>
+</section>

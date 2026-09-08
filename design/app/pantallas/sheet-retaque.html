@@ -1,0 +1,54 @@
+<div class="sheet" id="sheetRetaque">
+  <div class="sheet__scrim" data-close></div>
+  <div class="sheet__panel">
+    <div class="sheet__handle"></div>
+
+    <div class="spread">
+      <div class="h2">Retaque</div>
+      <button class="iconbtn" data-close><svg class="i"><use href="#i-close"></use></svg></button>
+    </div>
+    <div class="small">Prestarle más sobre el préstamo que ya tiene.</div>
+
+    <div class="mt20">
+      <div class="lbl">Cuánto le prestas de más</div>
+      <div class="money mt8">
+        <span class="money__cur">$</span>
+        <input class="money__val num" value="100.000" inputmode="numeric">
+      </div>
+    </div>
+
+    <div>
+      <div class="lbl">¿Sobre qué se cobra el interés del 25%?</div>
+      <div class="seg mt12">
+        <div class="seg__item is-on">
+          Solo sobre los <span class="num">$ 100.000</span> nuevos · saldo <span class="num">$ 425.000</span>
+        </div>
+        <div class="seg__item">
+          Sobre todo el capital · saldo <span class="num">$ 450.000</span>
+        </div>
+      </div>
+      <div class="field__hint">Son <span class="num">$ 25.000</span> de diferencia para María. Elige antes de mirar el resumen.</div>
+    </div>
+
+    <div class="list mt16">
+      <div class="listrow">
+        <div class="grow">Saldo</div>
+        <span class="muted num">$ 300.000</span>
+        <svg class="i i--sm"><use href="#i-arrow"></use></svg>
+        <span class="num strong">$ 425.000</span>
+      </div>
+      <div class="listrow">
+        <div class="grow">Cuotas</div>
+        <span class="muted num">12 de 20</span>
+        <svg class="i i--sm"><use href="#i-arrow"></use></svg>
+        <span class="num strong">12 de 25</span>
+      </div>
+    </div>
+
+    <div class="stack-8 mt20">
+      <button class="btn btn--primary" data-close data-toast="Retaque registrado">Entregar <span class="num">$ 100.000</span></button>
+      <button class="btn btn--soft btn--sm" data-close>Cancelar</button>
+    </div>
+
+  </div>
+</div>

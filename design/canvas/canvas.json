@@ -1,0 +1,68 @@
+{
+  "pages": [
+    { "id": "resumen", "name": "Resumen" },
+    { "id": "entrada", "name": "Entrada y cuenta" },
+    { "id": "cobrador", "name": "Cobrador" },
+    { "id": "admin", "name": "Administrador" }
+  ],
+
+  "artboards": [
+    { "file": "Main.dc.html", "page": "resumen", "title": "Antes → Ahora", "x": 0, "y": 0, "w": 820, "h": 2000, "print": "flow" },
+
+    { "file": "Bienvenida.dc.html", "page": "entrada", "title": "Bienvenida", "x": 0, "y": 0, "w": 390, "h": 844 },
+    { "file": "Ingresar.dc.html", "page": "entrada", "title": "Ingresar", "x": 480, "y": 0, "w": 390, "h": 844 },
+    { "file": "Unirse.dc.html", "page": "entrada", "title": "Unirse a un equipo", "x": 960, "y": 0, "w": 390, "h": 844 },
+    { "file": "CrearNegocio.dc.html", "page": "entrada", "title": "Crear tu negocio", "x": 0, "y": 984, "w": 390, "h": 844 },
+    { "file": "VerificarCorreo.dc.html", "page": "entrada", "title": "Confirma tu correo", "x": 480, "y": 984, "w": 390, "h": 844 },
+    { "file": "CuentaPausada.dc.html", "page": "entrada", "title": "Acceso pausado", "x": 960, "y": 984, "w": 390, "h": 844 },
+    { "file": "RelojAlterado.dc.html", "page": "entrada", "title": "Hora del teléfono", "x": 1440, "y": 984, "w": 390, "h": 844 },
+
+    { "file": "Ruta.dc.html", "page": "cobrador", "title": "Ruta", "x": 0, "y": 0, "w": 390, "h": 844 },
+    { "file": "Clientes.dc.html", "page": "cobrador", "title": "Clientes", "x": 480, "y": 0, "w": 390, "h": 844 },
+    { "file": "Cartulina.dc.html", "page": "cobrador", "title": "Cartulina", "x": 960, "y": 0, "w": 390, "h": 844 },
+    { "file": "NuevoCliente.dc.html", "page": "cobrador", "title": "Nuevo cliente", "x": 1440, "y": 0, "w": 390, "h": 844 },
+    { "file": "NuevoPrestamo.dc.html", "page": "cobrador", "title": "Nuevo préstamo", "x": 1920, "y": 0, "w": 390, "h": 844 },
+    { "file": "Caja.dc.html", "page": "cobrador", "title": "Caja del día", "x": 0, "y": 984, "w": 390, "h": 844 },
+    { "file": "Cierre.dc.html", "page": "cobrador", "title": "Cerrar caja", "x": 480, "y": 984, "w": 390, "h": 844 },
+    { "file": "HojaCobro.dc.html", "page": "cobrador", "title": "Hoja · Registrar pago", "x": 960, "y": 984, "w": 390, "h": 844 },
+    { "file": "HojaVisita.dc.html", "page": "cobrador", "title": "Hoja · Resultado de visita", "x": 1440, "y": 984, "w": 390, "h": 844 },
+    { "file": "HojaRetaque.dc.html", "page": "cobrador", "title": "Hoja · Retaque", "x": 1920, "y": 984, "w": 390, "h": 844 },
+    { "file": "HojaGasto.dc.html", "page": "cobrador", "title": "Hoja · Agregar gasto", "x": 2400, "y": 984, "w": 390, "h": 844 },
+    { "file": "ModoCarretera.dc.html", "page": "cobrador", "title": "Modo carretera", "x": 0, "y": 1968, "w": 390, "h": 844 },
+    { "file": "OrdenVisita.dc.html", "page": "cobrador", "title": "Orden de visita", "x": 480, "y": 1968, "w": 390, "h": 844 },
+    { "file": "EditarCliente.dc.html", "page": "cobrador", "title": "Editar cliente", "x": 960, "y": 1968, "w": 390, "h": 844 },
+    { "file": "HistorialCierres.dc.html", "page": "cobrador", "title": "Cierres anteriores", "x": 1440, "y": 1968, "w": 390, "h": 844 },
+    { "file": "RutaVencida.dc.html", "page": "cobrador", "title": "Ruta con mensualidad vencida", "x": 1920, "y": 1968, "w": 390, "h": 844 },
+
+    { "file": "AdminHoy.dc.html", "page": "admin", "title": "Hoy", "x": 0, "y": 0, "w": 390, "h": 844 },
+    { "file": "AdminRutas.dc.html", "page": "admin", "title": "Rutas", "x": 480, "y": 0, "w": 390, "h": 844 },
+    { "file": "AdminCartera.dc.html", "page": "admin", "title": "Cartera", "x": 960, "y": 0, "w": 390, "h": 844 },
+    { "file": "AdminEquipo.dc.html", "page": "admin", "title": "Equipo", "x": 1440, "y": 0, "w": 390, "h": 844 },
+    { "file": "AdminCierre.dc.html", "page": "admin", "title": "Revisar cierre", "x": 0, "y": 984, "w": 390, "h": 844 },
+    { "file": "Reportes.dc.html", "page": "admin", "title": "Reportes", "x": 480, "y": 984, "w": 390, "h": 844 },
+    { "file": "Invitacion.dc.html", "page": "admin", "title": "Invitar cobrador", "x": 960, "y": 984, "w": 390, "h": 844 },
+    { "file": "NuevaRuta.dc.html", "page": "admin", "title": "Nueva ruta", "x": 0, "y": 1968, "w": 390, "h": 844 },
+    { "file": "Mensualidad.dc.html", "page": "admin", "title": "Mensualidad de la ruta", "x": 480, "y": 1968, "w": 390, "h": 844 },
+    { "file": "EquipoVacio.dc.html", "page": "admin", "title": "Equipo sin cobradores", "x": 960, "y": 1968, "w": 390, "h": 844 },
+    { "file": "PermisosCobrador.dc.html", "page": "admin", "title": "Permisos del cobrador", "x": 1440, "y": 1968, "w": 390, "h": 844 },
+    { "file": "Ajustes.dc.html", "page": "admin", "title": "Ajustes", "x": 1920, "y": 1968, "w": 390, "h": 844 },
+    { "file": "ReporteDetalle.dc.html", "page": "admin", "title": "Recaudo por cliente", "x": 2400, "y": 1968, "w": 390, "h": 844 }
+  ],
+
+  "annotations": [
+    { "id": "n-resumen", "page": "resumen", "x": 0, "y": -74, "w": 820, "text": "Qué cambia del sistema viejo al rediseño. Las pantallas están repartidas en las páginas Entrada, Cobrador y Administrador (menú de páginas, arriba)." },
+
+    { "id": "n-entrada-viejas", "page": "entrada", "x": 0, "y": -74, "w": 700, "text": "YA ESTABAN · la bifurcación ocurre en la bienvenida, no después del registro" },
+    { "id": "n-entrada-nuevas", "page": "entrada", "x": 0, "y": 910, "w": 700, "text": "NUEVAS · crear negocio, confirmar correo y los dos estados que bloquean la app" },
+
+    { "id": "n-cob-viejas", "page": "cobrador", "x": 0, "y": -74, "w": 700, "text": "YA ESTABAN · pestañas Ruta y Clientes, ficha del cliente y alta de préstamo" },
+    { "id": "n-cob-caja", "page": "cobrador", "x": 0, "y": 910, "w": 700, "text": "YA ESTABAN · la pestaña Caja y las cuatro hojas inferiores" },
+    { "id": "n-cob-nuevas", "page": "cobrador", "x": 0, "y": 1894, "w": 700, "text": "NUEVAS · lo que el sistema viejo tenía suelto: mapa, orden, edición, historial y el bloqueo por mensualidad" },
+
+    { "id": "n-adm-viejas", "page": "admin", "x": 0, "y": -74, "w": 700, "text": "YA ESTABAN · las cuatro pestañas del administrador" },
+    { "id": "n-adm-detalle", "page": "admin", "x": 0, "y": 910, "w": 700, "text": "YA ESTABAN · pantallas de detalle a las que se llega desde Hoy y desde Equipo" },
+    { "id": "n-adm-nuevas", "page": "admin", "x": 0, "y": 1894, "w": 700, "text": "NUEVAS · crear y pagar rutas, permisos del equipo, ajustes y el detalle del reporte" }
+  ],
+
+  "launch": { "view": "canvas", "page": "resumen" }
+}

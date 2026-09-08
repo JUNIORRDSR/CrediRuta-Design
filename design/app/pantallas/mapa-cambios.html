@@ -1,0 +1,149 @@
+<section class="board app">
+  <div class="stack-24">
+
+    <div>
+      <div class="lbl">CrediRuta · rediseño</div>
+      <div class="h1 mt8">El rediseño de CrediRuta</div>
+      <div class="muted mt12">Las 47 capturas del sistema viejo, reordenadas con los contratos
+      02 (sistema visual), 04 (arquitectura de la información) y 05 (contenido y terminología).
+      El lienzo tiene las 36 pantallas del sistema, repartidas en las páginas
+      <span class="strong">Entrada</span>, <span class="strong">Cobrador</span> y
+      <span class="strong">Administrador</span>: primero las que ya estaban, y debajo las 15 nuevas.</div>
+    </div>
+
+    <div>
+      <div class="lbl">1 · La navegación se encoge</div>
+      <div class="grid2 mt12">
+        <div class="card card--flat">
+          <div class="strong">Antes · cobrador</div>
+          <div class="small mt8">Ruta · Clientes · Gastos · Cierre</div>
+          <div class="strong mt16">Antes · administrador</div>
+          <div class="small mt8">Resumen · Rutas · Clientes · Cobradores · Config</div>
+        </div>
+        <div class="card">
+          <div class="strong">Ahora · cobrador</div>
+          <div class="small mt8">Ruta · Clientes · <span class="strong">Caja</span></div>
+          <div class="strong mt16">Ahora · administrador</div>
+          <div class="small mt8">Hoy · Rutas · Cartera · Equipo</div>
+        </div>
+      </div>
+      <div class="field__hint">Gastos y Cierre eran dos pestañas para el mismo dinero: ahora son
+      una sola, Caja. Config deja de ser pestaña y se vuelve el icono de ajustes de la barra superior.</div>
+    </div>
+
+    <div>
+      <div class="lbl">2 · Una palabra por concepto</div>
+      <div class="list mt12">
+        <div class="listrow listrow--static">
+          <div class="grow"><div class="listrow__title">Marcar como mal pagador</div></div>
+          <svg class="i none t-mute"><use href="#i-arrow"></use></svg>
+          <div class="grow right"><div class="listrow__title t-indigo">Marcar como clavo</div></div>
+        </div>
+        <div class="listrow listrow--static">
+          <div class="grow"><div class="listrow__title">Descuadre</div></div>
+          <svg class="i none t-mute"><use href="#i-arrow"></use></svg>
+          <div class="grow right"><div class="listrow__title t-indigo">Faltan $ 4.000 / Sobran $ 5.000</div></div>
+        </div>
+        <div class="listrow listrow--static">
+          <div class="grow"><div class="listrow__title">Detalle del cliente</div></div>
+          <svg class="i none t-mute"><use href="#i-arrow"></use></svg>
+          <div class="grow right"><div class="listrow__title t-indigo">Cartulina</div></div>
+        </div>
+        <div class="listrow listrow--static">
+          <div class="grow"><div class="listrow__title">CobroMaster · Presta Ya</div></div>
+          <svg class="i none t-mute"><use href="#i-arrow"></use></svg>
+          <div class="grow right"><div class="listrow__title t-indigo">CrediRuta</div></div>
+        </div>
+        <div class="listrow listrow--static">
+          <div class="grow"><div class="listrow__title">Suscripción de la ruta</div></div>
+          <svg class="i none t-mute"><use href="#i-arrow"></use></svg>
+          <div class="grow right"><div class="listrow__title t-indigo">Mensualidad</div></div>
+        </div>
+        <div class="listrow listrow--static">
+          <div class="grow"><div class="listrow__title num">1.275.000 $</div></div>
+          <svg class="i none t-mute"><use href="#i-arrow"></use></svg>
+          <div class="grow right"><div class="listrow__title t-indigo num">$ 1.275.000</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="lbl">3 · Los bloqueos ahora dicen por qué</div>
+      <div class="grid2 mt12">
+        <div class="card card--flat">
+          <div class="strong">Antes</div>
+          <div class="small mt8">«Suscripción de la ruta vencida. Puedes consultarla, pero no
+          registrar cobros.» El cobrador quedaba sin poder trabajar.</div>
+        </div>
+        <div class="card card--warn">
+          <div class="strong">Ahora</div>
+          <div class="small mt8">Cobrar, registrar visitas y cerrar caja siguen habilitados.
+          Solo se bloquea prestar y retaquear, con el aviso ámbar y la acción para renovar.</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="lbl">4 · Lo que se quitó, y por qué</div>
+      <div class="stack-8 mt12">
+        <div class="alert alert--gray">
+          <svg class="i i--sm"><use href="#i-info"></use></svg>
+          <div class="grow"><span class="strong">Modo noche y selector de tema.</span>
+          El contrato 02 deja el modo oscuro para v2 y prohíbe la inversión automática.</div>
+        </div>
+        <div class="alert alert--gray">
+          <svg class="i i--sm"><use href="#i-info"></use></svg>
+          <div class="grow"><span class="strong">«Volver a abrir cajas cerradas».</span>
+          Una caja aprobada no se reabre: si hay error se crea un ajuste con motivo y autor.</div>
+        </div>
+        <div class="alert alert--gray">
+          <svg class="i i--sm"><use href="#i-info"></use></svg>
+          <div class="grow"><span class="strong">«Supervisarlos en tiempo real».</span>
+          Un estado vacío no anuncia una capacidad que el sistema no tiene.</div>
+        </div>
+        <div class="alert alert--gray">
+          <svg class="i i--sm"><use href="#i-info"></use></svg>
+          <div class="grow"><span class="strong">Toggle «ocultar descuadres al cobrador».</span>
+          Lo que falta o sobra es su plata contada: siempre lo ve.</div>
+        </div>
+        <div class="alert alert--gray">
+          <svg class="i i--sm"><use href="#i-info"></use></svg>
+          <div class="grow"><span class="strong">Registro de 4 pasos y foto de la ruta.</span>
+          La bifurcación pasa a la bienvenida; la foto no aportaba información.</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="lbl">5 · Auditoría de contraste</div>
+      <div class="muted mt12">Los degradados de los KPI llevaban texto blanco sobre el color sólido:
+      naranja daba 1,98:1 y verde 2,54:1, ilegibles al sol. Ahora cada degradado arranca en la tinta
+      de su propia familia y todo el texto de interfaz pasa 4,5:1.</div>
+      <div class="grid2 mt12">
+        <div class="card card--flat">
+          <div class="strong">Antes</div>
+          <div class="small mt8 num">Etiquetas 2,54:1 · KPI naranja 1,98:1 · botón bloqueado 1,39:1</div>
+        </div>
+        <div class="card">
+          <div class="strong">Ahora</div>
+          <div class="small mt8 num">Etiquetas 5,00:1 · KPI naranja 5,02:1 · botón bloqueado 6,07:1</div>
+        </div>
+      </div>
+      <div class="field__hint">El naranja se ve más terroso que antes. Es el precio de que se lea
+      con el teléfono al sol; el contrato 02 lo recoge.</div>
+    </div>
+
+    <div>
+      <div class="lbl">6 · Una sola marca</div>
+      <div class="alert alert--gray mt12">
+        <svg class="i"><use href="#i-check"></use></svg>
+        <div class="grow">El sistema viejo llevaba tres nombres a la vez: <span class="strong">CobroMaster</span>
+        en el repositorio, <span class="strong">CrediRuta</span> en la app de Android y
+        <span class="strong">Presta Ya</span> en Firebase. El ADR-001 ya había decidido
+        <span class="strong">CrediRuta</span>, que además es el dominio en producción. Los contratos
+        de diseño se habían desviado a «CobroMaster»; quedan alineados con el ADR.</div>
+      </div>
+    </div>
+
+  </div>
+</section>

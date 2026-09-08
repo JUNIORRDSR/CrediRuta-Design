@@ -1,0 +1,75 @@
+<section class="screen" id="adminEquipo" data-nav="admin">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <div class="topbar__grow">
+      <div class="topbar__title">Equipo</div>
+      <div class="topbar__sub">3 cobradores · 1 invitación pendiente</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-20">
+
+      <div>
+        <div class="lbl">Cobradores</div>
+        <div class="list mt8">
+          <div class="listrow" data-go="permisosCobrador">
+            <div class="avatar avatar--indigo">AG</div>
+            <div class="grow">
+              <div class="listrow__title">Andrés Gil</div>
+              <div class="listrow__sub">Ruta Centro · 24 clientes</div>
+            </div>
+            <span class="badge badge--orange none">Cierre por revisar</span>
+            <svg class="i i--sm"><use href="#i-right"></use></svg>
+          </div>
+          <div class="listrow" data-go="permisosCobrador">
+            <div class="avatar avatar--indigo">SP</div>
+            <div class="grow">
+              <div class="listrow__title">Sandra Peña</div>
+              <div class="listrow__sub">Ruta Norte · 31 clientes</div>
+            </div>
+            <span class="badge badge--green none">Al día</span>
+            <svg class="i i--sm"><use href="#i-right"></use></svg>
+          </div>
+          <div class="listrow" data-go="permisosCobrador">
+            <div class="avatar">JM</div>
+            <div class="grow">
+              <div class="listrow__title">Julián Marín</div>
+              <div class="listrow__sub">Ruta Sur · 18 clientes</div>
+            </div>
+            <span class="badge badge--red none">9 en mora</span>
+            <svg class="i i--sm"><use href="#i-right"></use></svg>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="lbl">Invitación pendiente</div>
+        <div class="card mt8">
+          <div class="row">
+            <div class="avatar">
+              <svg class="i"><use href="#i-clock"></use></svg>
+            </div>
+            <div class="grow">
+              <div class="h2 num">7K4M2P</div>
+              <div class="small">Para Ruta Sur · vence en 3 días</div>
+            </div>
+            <button class="iconbtn iconbtn--soft" type="button" data-toast="Código copiado">
+              <svg class="i"><use href="#i-copy"></use></svg>
+            </button>
+            <button class="iconbtn iconbtn--soft" type="button" data-toast="Listo para compartir">
+              <svg class="i"><use href="#i-share"></use></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="fab" data-go="invitacion">
+      <svg class="i"><use href="#i-plus"></use></svg>
+      Invitar
+    </div>
+  </div>
+</section>

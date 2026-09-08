@@ -1,0 +1,85 @@
+<section class="screen" id="adminHoy" data-nav="admin">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <div class="topbar__grow">
+      <div class="topbar__title">Hoy</div>
+      <div class="topbar__sub">Carlos Duarte · Administrador</div>
+    </div>
+    <div class="topbar__actions">
+      <button class="iconbtn" data-go="ajustes"><svg class="i"><use href="#i-settings"></use></svg></button>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="h1">Panel de control</div>
+    <div class="row mt8">
+      <svg class="i i--sm"><use href="#i-calendar"></use></svg>
+      <div class="small">Martes 31 de agosto</div>
+    </div>
+
+    <div class="grid2 mt20">
+      <div class="kpi kpi--green">
+        <div class="kpi__top">
+          <div class="kpi__label">Recaudado hoy</div>
+          <svg class="i"><use href="#i-trend"></use></svg>
+        </div>
+        <div>
+          <div class="kpi__value num">$ 1.204.000</div>
+          <div class="kpi__label mt8 num">de $ 1.470.000</div>
+        </div>
+      </div>
+      <div class="kpi kpi--orange">
+        <div class="kpi__top">
+          <div class="kpi__label">En mora</div>
+          <svg class="i"><use href="#i-alert"></use></svg>
+        </div>
+        <div>
+          <div class="kpi__value num">$ 2,1M</div>
+          <div class="kpi__label mt8 num">19 clientes atrasados</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="small mt12 num">En la calle $ 18,4M en 142 préstamos · 3 rutas activas</div>
+
+    <div class="mt28">
+      <div class="lbl">Necesita tu revisión</div>
+      <div class="stack mt12">
+        <div class="card card--tap" data-go="adminCierre">
+          <div class="row">
+            <div class="avatar avatar--orange">AG</div>
+            <div class="grow">
+              <div class="listrow__title">Andrés Gil · Ruta Centro</div>
+              <div class="listrow__sub">Cierre enviado hace 12 minutos</div>
+            </div>
+            <span class="badge badge--orange none num">Faltan $ 4.000</span>
+            <svg class="i"><use href="#i-right"></use></svg>
+          </div>
+        </div>
+        <div class="card card--tap" data-go="adminCierre">
+          <div class="row">
+            <div class="avatar avatar--indigo">SP</div>
+            <div class="grow">
+              <div class="listrow__title">Sandra Peña · Ruta Norte</div>
+              <div class="listrow__sub">Cierre enviado hace 40 minutos</div>
+            </div>
+            <div class="badge badge--green">Cuadrado</div>
+            <svg class="i"><use href="#i-right"></use></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card--tap mt16" data-go="reportes">
+      <div class="row">
+        <div class="avatar"><svg class="i"><use href="#i-doc"></use></svg></div>
+        <div class="grow">
+          <div class="listrow__title">Reportes</div>
+          <div class="listrow__sub">Excel por periodo y por ruta</div>
+        </div>
+        <svg class="i"><use href="#i-right"></use></svg>
+      </div>
+    </div>
+  </div>
+</section>

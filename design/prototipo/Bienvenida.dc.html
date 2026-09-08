@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap">
+  <style>
+    *{ box-sizing: border-box; }
+    body { margin: 0; background: #0F1720; color: #FFFFFF;
+           font-family: Archivo, Roboto, "Helvetica Neue", Arial, sans-serif;
+           font-size: 15px; line-height: 1.35; -webkit-font-smoothing: antialiased; }
+    a { color: #7FC7E2; text-decoration: none; } a:hover { color: #A8DBEE; }
+    .num { font-variant-numeric: tabular-nums; letter-spacing: -0.012em; }
+    .cap { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; }
+  </style>
+</helmet>
+
+<div style="width: 390px; min-height: 844px; background: #0F1720; display: flex; flex-direction: column">
+
+  <div style="height: 44px; flex: none"></div>
+
+  <div style="flex-grow: 1; padding: 32px 24px 24px 24px; display: flex; flex-direction: column">
+
+    <!-- Marca -->
+    <div style="display: flex; align-items: center; gap: 10px">
+      <div style="width: 32px; height: 32px; border-radius: 9px; background: #0C6B8F; display: flex; align-items: center; justify-content: center">
+        <div style="display: grid; grid-template-columns: repeat(2, 5px); gap: 3px">
+          <div style="width: 5px; height: 5px; border-radius: 1px; background: #FFFFFF"></div>
+          <div style="width: 5px; height: 5px; border-radius: 1px; background: #FFFFFF"></div>
+          <div style="width: 5px; height: 5px; border-radius: 1px; background: #FFFFFF"></div>
+          <div style="width: 5px; height: 5px; border-radius: 1px; background: #4E97B4"></div>
+        </div>
+      </div>
+      <div style="font-size: 17px; font-weight: 700; letter-spacing: -0.01em">CrediRuta</div>
+    </div>
+
+    <div style="flex-grow: 1; min-height: 24px"></div>
+
+    <!-- Titular -->
+    <div>
+      <div style="font-size: 40px; font-weight: 700; letter-spacing: -0.035em; line-height: 1.08; text-wrap: pretty">Tu ruta, cuadrada al final del día.</div>
+      <div style="font-size: 17px; color: #A8B3BF; margin-top: 16px; line-height: 1.5; text-wrap: pretty">Cobras sin señal, la caja se cuadra sola y el administrador ve la entrega el mismo día.</div>
+    </div>
+
+    <!-- Motivo de la cuadrícula -->
+    <div style="margin-top: 32px">
+      <div style="display: grid; grid-template-columns: repeat(20, minmax(0, 1fr)); gap: 3px">
+        <div style="height: 20px; border-radius: 3px; background: #12704A"></div>
+        <div style="height: 20px; border-radius: 3px; background: #12704A"></div>
+        <div style="height: 20px; border-radius: 3px; background: #12704A"></div>
+        <div style="height: 20px; border-radius: 3px; background: #12704A"></div>
+        <div style="height: 20px; border-radius: 3px; background: #12704A"></div>
+        <div style="height: 20px; border-radius: 3px; background: #12704A"></div>
+        <div style="height: 20px; border-radius: 3px; background: #12704A"></div>
+        <div style="height: 20px; border-radius: 3px; background: #12704A"></div>
+        <div style="height: 20px; border-radius: 3px; background: #12704A"></div>
+        <div style="height: 20px; border-radius: 3px; background: #12704A"></div>
+        <div style="height: 20px; border-radius: 3px; background: #12704A"></div>
+        <div style="height: 20px; border-radius: 3px; background: #0C6B8F"></div>
+        <div style="height: 20px; border-radius: 3px; background: #253039"></div>
+        <div style="height: 20px; border-radius: 3px; background: #253039"></div>
+        <div style="height: 20px; border-radius: 3px; background: #253039"></div>
+        <div style="height: 20px; border-radius: 3px; background: #253039"></div>
+        <div style="height: 20px; border-radius: 3px; background: #253039"></div>
+        <div style="height: 20px; border-radius: 3px; background: #253039"></div>
+        <div style="height: 20px; border-radius: 3px; background: #253039"></div>
+        <div style="height: 20px; border-radius: 3px; background: #253039"></div>
+      </div>
+      <div class="num" style="font-size: 13px; color: #7A8896; margin-top: 10px">12 de 20 cuotas · Ruta Centro</div>
+    </div>
+
+    <div style="flex-grow: 1; min-height: 32px"></div>
+
+    <!-- Dos caminos -->
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <div style="background: #FFFFFF; border-radius: 16px; padding: 18px 20px; display: flex; align-items: center; gap: 14px">
+        <div style="flex-grow: 1">
+          <div style="font-size: 17px; font-weight: 700; color: #0F1720">Tengo mi negocio de préstamos</div>
+          <div style="font-size: 14px; color: #5C6672; margin-top: 3px">Crea tu empresa y tus rutas</div>
+        </div>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0F1720" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+      </div>
+
+      <div style="background: #1B252F; border: 1px solid #2E3A45; border-radius: 16px; padding: 18px 20px; display: flex; align-items: center; gap: 14px">
+        <div style="flex-grow: 1">
+          <div style="font-size: 17px; font-weight: 700">Me invitó un administrador</div>
+          <div style="font-size: 14px; color: #A8B3BF; margin-top: 3px">Entra con el código que te dieron</div>
+        </div>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+      </div>
+    </div>
+
+    <div style="height: 52px; display: flex; align-items: center; justify-content: center; margin-top: 12px">
+      <div style="font-size: 15px; color: #A8B3BF">¿Ya tienes cuenta? <span style="color: #7FC7E2; font-weight: 600">Entrar</span></div>
+    </div>
+
+    <div style="height: 8px"></div>
+    <div style="display: flex; justify-content: center">
+      <div style="width: 130px; height: 4px; border-radius: 2px; background: #FFFFFF; opacity: 0.3"></div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

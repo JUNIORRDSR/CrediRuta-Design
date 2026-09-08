@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap">
+  <style>
+    *{ box-sizing: border-box; }
+    body { margin: 0; background: #F5F7F9; color: #0F1720;
+           font-family: Archivo, Roboto, "Helvetica Neue", Arial, sans-serif;
+           font-size: 15px; line-height: 1.35; -webkit-font-smoothing: antialiased; }
+    a { color: #0C6B8F; text-decoration: none; } a:hover { color: #08536F; }
+    .num { font-variant-numeric: tabular-nums; letter-spacing: -0.012em; }
+    .cap { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; }
+  </style>
+</helmet>
+
+<div style="width: 390px; min-height: 844px; background: #F5F7F9; display: flex; flex-direction: column">
+
+  <div style="height: 44px; flex: none; background: #FFFFFF"></div>
+
+  <div style="flex: none; background: #FFFFFF; border-bottom: 1px solid #DDE3E9; display: flex; align-items: center; padding: 0 8px 0 4px; height: 56px">
+    <div style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex: none">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0F1720" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"></path><path d="M6 6l12 12"></path></svg>
+    </div>
+    <div style="flex-grow: 1">
+      <div style="font-size: 17px; font-weight: 600; letter-spacing: -0.01em">Cerrar caja</div>
+      <div class="num" style="font-size: 12px; color: #5C6672">Martes 31 de agosto</div>
+    </div>
+  </div>
+
+  <div style="flex-grow: 1; padding: 16px 16px 24px 16px; display: flex; flex-direction: column; gap: 12px">
+
+    <!-- Conteo -->
+    <div style="background: #FFFFFF; border: 1px solid #DDE3E9; border-radius: 14px; padding: 16px">
+      <div style="font-size: 17px; font-weight: 600; letter-spacing: -0.01em">¿Cuánto efectivo vas a entregar?</div>
+      <div style="font-size: 14px; color: #5C6672; margin-top: 4px">Cuenta el dinero antes de escribir.</div>
+      <div style="border: 2px solid #0C6B8F; border-radius: 14px; padding: 14px 16px; margin-top: 14px; display: flex; align-items: baseline; gap: 6px">
+        <div class="num" style="font-size: 26px; font-weight: 600; color: #8A94A1">$</div>
+        <div class="num" style="font-size: 34px; font-weight: 700; letter-spacing: -0.03em; flex-grow: 1">250.000</div>
+        <div style="width: 2px; height: 34px; background: #0C6B8F"></div>
+      </div>
+    </div>
+
+    <!-- Comparación -->
+    <div style="background: #FFFFFF; border: 1px solid #DDE3E9; border-radius: 14px; padding: 16px">
+      <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 12px">
+        <div style="font-size: 15px; color: #5C6672">Esperado</div>
+        <div class="num" style="font-size: 17px; font-weight: 600">$ 254.000</div>
+      </div>
+      <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 14px; border-bottom: 1px solid #EDF1F4">
+        <div style="font-size: 15px; color: #5C6672">Vas a entregar</div>
+        <div class="num" style="font-size: 17px; font-weight: 600">$ 250.000</div>
+      </div>
+      <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 14px">
+        <div style="display: flex; align-items: center; gap: 8px">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#A9530B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>
+          <div style="font-size: 16px; font-weight: 600; color: #A9530B">Faltan</div>
+        </div>
+        <div class="num" style="font-size: 22px; font-weight: 700; color: #A9530B">$ 4.000</div>
+      </div>
+    </div>
+
+    <!-- Explicación obligatoria -->
+    <div style="background: #FBE7D4; border: 1px solid #E8B98F; border-radius: 14px; padding: 16px">
+      <div style="font-size: 15px; font-weight: 600; color: #A9530B">Explica la diferencia</div>
+      <div style="font-size: 14px; color: #8A5426; margin-top: 3px; line-height: 1.45">El administrador va a ver esta nota junto al cierre.</div>
+      <div style="background: #FFFFFF; border: 1px solid #E8B98F; border-radius: 12px; padding: 14px 16px; margin-top: 12px; min-height: 82px; color: #0F1720; font-size: 15px; line-height: 1.45">Le di $4.000 de vuelto a don Luis y no alcancé a pasar por el banco.</div>
+    </div>
+
+    <!-- Resumen del día -->
+    <div style="background: #FFFFFF; border: 1px solid #DDE3E9; border-radius: 14px; padding: 16px">
+      <div class="cap" style="color: #8A94A1">Lo que se cierra</div>
+      <div style="display: flex; flex-direction: column; gap: 9px; margin-top: 12px">
+        <div style="display: flex; align-items: center; justify-content: space-between">
+          <div style="font-size: 14px; color: #5C6672">18 pagos cobrados</div>
+          <div class="num" style="font-size: 14px; font-weight: 600">$ 486.000</div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between">
+          <div style="font-size: 14px; color: #5C6672">2 gastos</div>
+          <div class="num" style="font-size: 14px; font-weight: 600">$ 32.000</div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between">
+          <div style="font-size: 14px; color: #5C6672">2 préstamos entregados</div>
+          <div class="num" style="font-size: 14px; font-weight: 600">$ 200.000</div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between">
+          <div style="font-size: 14px; color: #5C6672">4 clientes sin pagar</div>
+          <div class="num" style="font-size: 14px; font-weight: 600; color: #A9530B">$ 85.000</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="flex: none; background: #FFFFFF; border-top: 1px solid #DDE3E9; padding: 12px 16px 8px 16px">
+    <div style="height: 56px; border-radius: 14px; background: #0C6B8F; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 17px; font-weight: 600">Enviar cierre a Carlos</div>
+    <div style="font-size: 13px; color: #8A94A1; text-align: center; margin-top: 9px">Queda guardado aunque no tengas señal.</div>
+    <div style="height: 12px"></div>
+    <div style="display: flex; justify-content: center">
+      <div style="width: 130px; height: 4px; border-radius: 2px; background: #0F1720; opacity: 0.25"></div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

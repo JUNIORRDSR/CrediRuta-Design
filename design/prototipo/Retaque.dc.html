@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap">
+  <style>
+    *{ box-sizing: border-box; }
+    body { margin: 0; background: #F5F7F9; color: #0F1720;
+           font-family: Archivo, Roboto, "Helvetica Neue", Arial, sans-serif;
+           font-size: 15px; line-height: 1.35; -webkit-font-smoothing: antialiased; }
+    a { color: #0C6B8F; text-decoration: none; } a:hover { color: #08536F; }
+    .num { font-variant-numeric: tabular-nums; letter-spacing: -0.012em; }
+    .cap { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; }
+  </style>
+</helmet>
+
+<div style="width: 390px; min-height: 844px; background: #6C737B; display: flex; flex-direction: column; justify-content: flex-end">
+
+  <div style="flex-grow: 1"></div>
+
+  <div style="flex: none; background: #FFFFFF; border-radius: 24px 24px 0 0; padding: 10px 20px 20px 20px">
+
+    <div style="display: flex; justify-content: center">
+      <div style="width: 40px; height: 4px; border-radius: 2px; background: #DDE3E9"></div>
+    </div>
+
+    <div style="margin-top: 16px">
+      <div style="font-size: 20px; font-weight: 700; letter-spacing: -0.02em">Retaque</div>
+      <div style="font-size: 14px; color: #5C6672; margin-top: 3px">Prestarle más sobre el préstamo que ya tiene.</div>
+    </div>
+
+    <!-- Monto -->
+    <div style="margin-top: 20px">
+      <div class="cap" style="color: #8A94A1">Cuánto le prestas de más</div>
+      <div style="border: 2px solid #0C6B8F; border-radius: 14px; padding: 14px 16px; margin-top: 8px; display: flex; align-items: baseline; gap: 6px">
+        <div class="num" style="font-size: 26px; font-weight: 600; color: #8A94A1">$</div>
+        <div class="num" style="font-size: 34px; font-weight: 700; letter-spacing: -0.03em; flex-grow: 1">100.000</div>
+        <div style="width: 2px; height: 34px; background: #0C6B8F"></div>
+      </div>
+    </div>
+
+    <!-- Antes y después -->
+    <div style="margin-top: 20px; border: 1px solid #DDE3E9; border-radius: 14px; overflow: hidden">
+      <div style="display: flex; background: #F5F7F9; border-bottom: 1px solid #DDE3E9">
+        <div class="cap" style="flex-grow: 1; color: #8A94A1; padding: 10px 16px">Ahora</div>
+        <div class="cap" style="flex-grow: 1; color: #0C6B8F; padding: 10px 16px; text-align: right">Después del retaque</div>
+      </div>
+
+      <div style="display: flex; align-items: center; padding: 13px 16px; border-bottom: 1px solid #EDF1F4">
+        <div style="width: 92px; flex: none; font-size: 13px; color: #5C6672">Saldo</div>
+        <div class="num" style="flex-grow: 1; font-size: 15px; font-weight: 600; color: #8A94A1">$ 300.000</div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B9C0CA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin: 0 10px"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+        <div class="num" style="font-size: 16px; font-weight: 700; flex: none">$ 425.000</div>
+      </div>
+
+      <div style="display: flex; align-items: center; padding: 13px 16px; border-bottom: 1px solid #EDF1F4">
+        <div style="width: 92px; flex: none; font-size: 13px; color: #5C6672">Cuota</div>
+        <div class="num" style="flex-grow: 1; font-size: 15px; font-weight: 600; color: #8A94A1">$ 25.000</div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B9C0CA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin: 0 10px"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+        <div class="num" style="font-size: 16px; font-weight: 700; flex: none">$ 25.000</div>
+      </div>
+
+      <div style="display: flex; align-items: center; padding: 13px 16px">
+        <div style="width: 92px; flex: none; font-size: 13px; color: #5C6672">Cuotas</div>
+        <div class="num" style="flex-grow: 1; font-size: 15px; font-weight: 600; color: #8A94A1">12 de 20</div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B9C0CA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin: 0 10px"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+        <div class="num" style="font-size: 16px; font-weight: 700; flex: none">12 de 25</div>
+      </div>
+    </div>
+
+    <!-- Base del interés -->
+    <div style="margin-top: 16px; background: #F5F7F9; border-radius: 12px; padding: 14px 16px">
+      <div style="font-size: 14px; font-weight: 600">El interés del 25% se cobra sobre</div>
+      <div style="display: flex; gap: 8px; margin-top: 10px">
+        <div style="flex-grow: 1; height: 46px; border-radius: 11px; background: #0F1720; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600">Solo los $100.000</div>
+        <div style="flex-grow: 1; height: 46px; border-radius: 11px; background: #FFFFFF; border: 1px solid #DDE3E9; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 500">Todo el capital</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 20px">
+      <div style="height: 56px; border-radius: 14px; background: #0C6B8F; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 17px; font-weight: 600">Entregar $ 100.000</div>
+      <div style="height: 52px; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600; color: #5C6672; margin-top: 4px">Cancelar</div>
+    </div>
+
+    <div style="height: 8px"></div>
+    <div style="display: flex; justify-content: center">
+      <div style="width: 130px; height: 4px; border-radius: 2px; background: #0F1720; opacity: 0.25"></div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<section class="screen" id="reportes" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" type="button" data-back>
+      <svg class="i"><use href="#i-back"></use></svg>
+    </button>
+    <div class="topbar__grow">
+      <div class="topbar__title">Reportes</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-20">
+
+      <div>
+        <div class="lbl">Periodo</div>
+        <div class="grid4 mt8">
+          <div class="chip">Hoy</div>
+          <div class="chip">Semana</div>
+          <div class="chip is-on">Mes</div>
+          <div class="chip">Otro</div>
+        </div>
+        <div class="small num mt8">Del 1 al 31 de agosto de 2026</div>
+      </div>
+
+      <div>
+        <div class="lbl">Rutas</div>
+        <div class="field__box mt8">
+          <div class="grow">Todas las rutas</div>
+          <svg class="i"><use href="#i-down"></use></svg>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="lbl">Lo que va a incluir</div>
+        <div class="stack mt16">
+          <div class="spread">
+            <div>Recaudado</div>
+            <div class="num strong">$ 24.860.000</div>
+          </div>
+          <div class="spread">
+            <div>Prestado</div>
+            <div class="num strong">$ 19.400.000</div>
+          </div>
+          <div class="spread">
+            <div>Gastos</div>
+            <div class="num strong">$ 720.000</div>
+          </div>
+          <div class="spread">
+            <div>Interés cobrado</div>
+            <span class="num strong t-green">$ 4.180.000</span>
+          </div>
+          <div class="spread">
+            <div>Cierres aprobados</div>
+            <div class="num strong">62 de 62</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn--primary" data-go="reporteDetalle" type="button" data-toast="Archivo generado">
+        <svg class="i"><use href="#i-download"></use></svg>
+        Descargar Excel
+      </button>
+
+      <div class="alert alert--gray">
+        <svg class="i"><use href="#i-info"></use></svg>
+        <div class="grow">El archivo se arma con los cierres aprobados del periodo. Los cierres pendientes no entran.</div>
+      </div>
+
+    </div>
+  </div>
+</section>

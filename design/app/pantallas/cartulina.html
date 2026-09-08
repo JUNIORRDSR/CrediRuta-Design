@@ -1,0 +1,137 @@
+<section class="screen" id="cartulina" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" data-back><svg class="i"><use href="#i-back"></use></svg></button>
+    <div class="topbar__grow">
+      <div class="topbar__title">Cartulina</div>
+      <div class="topbar__sub">María Restrepo</div>
+    </div>
+    <div class="topbar__actions">
+      <button class="iconbtn" data-go="editarCliente"><svg class="i"><use href="#i-edit"></use></svg></button>
+      <button class="iconbtn"><svg class="i"><use href="#i-dots"></use></svg></button>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-16">
+
+      <div class="card">
+        <div class="row">
+          <div class="avatar avatar--orange">MR</div>
+          <div class="grow">
+            <div class="h2">María Restrepo</div>
+            <div class="small">Cra 12 #4-30, Centro · 310 555 4412</div>
+          </div>
+        </div>
+        <div class="row mt16">
+          <span class="badge badge--orange">Atrasado · 3 cuotas</span>
+          <span class="badge">Cliente desde 2024</span>
+        </div>
+        <div class="grid2 mt16">
+          <button class="btn btn--ghost btn--sm">
+            <svg class="i i--sm"><use href="#i-phone"></use></svg>
+            Llamar
+          </button>
+          <button class="btn btn--ghost btn--sm">
+            <svg class="i i--sm"><use href="#i-pin"></use></svg>
+            Cómo llegar
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="spread">
+          <div class="lbl">Préstamo activo</div>
+          <div class="small">Desde 12 ago · diario</div>
+        </div>
+
+        <div class="spread mt12">
+          <div>
+            <div class="small">Saldo</div>
+            <div class="h1 num">$ 300.000</div>
+          </div>
+          <div class="right">
+            <div class="small">Cuota</div>
+            <div class="h2 num">$ 25.000</div>
+          </div>
+        </div>
+
+        <div class="spread mt20">
+          <div class="lbl">Cuotas</div>
+          <div class="small num">8 de 20 pagadas</div>
+        </div>
+
+        <div class="cuotas cuotas--big mt12">
+          <div class="cuota is-paid">1</div>
+          <div class="cuota is-paid">2</div>
+          <div class="cuota is-paid">3</div>
+          <div class="cuota is-paid">4</div>
+          <div class="cuota is-paid">5</div>
+          <div class="cuota is-paid">6</div>
+          <div class="cuota is-paid">7</div>
+          <div class="cuota is-paid">8</div>
+          <div class="cuota is-late">9</div>
+          <div class="cuota is-late">10</div>
+          <div class="cuota is-late">11</div>
+          <div class="cuota is-today">12</div>
+          <div class="cuota">13</div>
+          <div class="cuota">14</div>
+          <div class="cuota">15</div>
+          <div class="cuota">16</div>
+          <div class="cuota">17</div>
+          <div class="cuota">18</div>
+          <div class="cuota">19</div>
+          <div class="cuota">20</div>
+        </div>
+
+        <div class="row small mt12">
+          <span class="row"><i class="swatch swatch--paid"></i>pagada</span>
+          <span class="row"><i class="swatch swatch--late"></i>se saltó</span>
+          <span class="row"><i class="swatch swatch--today"></i>hoy</span>
+        </div>
+
+        <div class="small mt16 num">Capital $ 400.000 + interés 25% · total $ 500.000 · pagado $ 200.000</div>
+      </div>
+
+      <div class="card">
+        <div class="spread">
+          <div class="lbl">Movimientos</div>
+          <a href="#">Ver todos</a>
+        </div>
+
+        <div class="mt8">
+          <div class="listrow">
+            <div class="avatar avatar--sm avatar--green">
+              <svg class="i i--sm"><use href="#i-check"></use></svg>
+            </div>
+            <div class="grow">
+              <div class="listrow__title">Pago</div>
+              <div class="listrow__sub">27 ago · Andrés Gil</div>
+            </div>
+            <span class="num strong t-green">$ 25.000</span>
+          </div>
+
+          <div class="listrow">
+            <div class="avatar avatar--sm avatar--orange">
+              <svg class="i i--sm"><use href="#i-close"></use></svg>
+            </div>
+            <div class="grow">
+              <div class="listrow__title">No pagó · dijo que no tenía</div>
+              <div class="listrow__sub">28 ago · Andrés Gil</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stack-8 mt8">
+        <button class="btn btn--primary" data-sheet="sheetCobro">Registrar pago</button>
+        <div class="grid2">
+          <button class="btn btn--ghost btn--sm" data-sheet="sheetRetaque">Retaque</button>
+          <button class="btn btn--ghost btn--sm" data-go="nuevoPrestamo">Nuevo préstamo</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

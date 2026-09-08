@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap">
+  <style>
+    *{ box-sizing: border-box; }
+    body { margin: 0; background: #F5F7F9; color: #0F1720;
+           font-family: Archivo, Roboto, "Helvetica Neue", Arial, sans-serif;
+           font-size: 15px; line-height: 1.35; -webkit-font-smoothing: antialiased; }
+    a { color: #0C6B8F; text-decoration: none; } a:hover { color: #08536F; }
+    .num { font-variant-numeric: tabular-nums; letter-spacing: -0.012em; }
+    .cap { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; }
+    .lbl { font-size: 14px; font-weight: 600; color: #0F1720; margin-bottom: 7px; }
+    .fld { height: 54px; border: 1px solid #DDE3E9; border-radius: 12px; background: #FFFFFF;
+           display: flex; align-items: center; padding: 0 16px; font-size: 16px; }
+  </style>
+</helmet>
+
+<div style="width: 390px; min-height: 844px; background: #F5F7F9; display: flex; flex-direction: column">
+
+  <div style="height: 44px; flex: none; background: #FFFFFF"></div>
+
+  <div style="flex: none; background: #FFFFFF; border-bottom: 1px solid #DDE3E9">
+    <div style="display: flex; align-items: center; padding: 0 8px 0 4px; height: 56px">
+      <div style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex: none">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0F1720" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"></path><path d="M6 6l12 12"></path></svg>
+      </div>
+      <div style="flex-grow: 1">
+        <div style="font-size: 17px; font-weight: 600; letter-spacing: -0.01em">Nuevo cliente</div>
+        <div style="font-size: 12px; color: #5C6672">Paso 1 de 3 · Quién es</div>
+      </div>
+    </div>
+    <div style="display: flex; gap: 4px; padding: 0 16px 12px 16px">
+      <div style="flex-grow: 1; height: 4px; border-radius: 2px; background: #0C6B8F"></div>
+      <div style="flex-grow: 1; height: 4px; border-radius: 2px; background: #E4E9ED"></div>
+      <div style="flex-grow: 1; height: 4px; border-radius: 2px; background: #E4E9ED"></div>
+    </div>
+  </div>
+
+  <div style="flex-grow: 1; padding: 20px 16px 24px 16px; display: flex; flex-direction: column; gap: 20px">
+
+    <!-- Foto -->
+    <div style="display: flex; align-items: center; gap: 14px">
+      <div style="width: 72px; height: 72px; flex: none; border-radius: 20px; background: #FFFFFF; border: 1px dashed #B9C0CA; display: flex; align-items: center; justify-content: center">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#8A94A1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h3l1.5-2.5h9L18 8h3v11H3z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>
+      </div>
+      <div style="flex-grow: 1">
+        <div style="font-size: 15px; font-weight: 600">Foto del cliente</div>
+        <div style="font-size: 13px; color: #5C6672; margin-top: 2px; line-height: 1.4">Opcional. Ayuda a reconocerlo en la ruta.</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="lbl">Nombre completo</div>
+      <div class="fld">María Restrepo Ochoa</div>
+    </div>
+
+    <!-- Campo con error inline -->
+    <div>
+      <div class="lbl">Cédula</div>
+      <div class="fld" style="border: 2px solid #B3261E">
+        <div class="num" style="flex-grow: 1">4321</div>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B3261E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v5"></path><path d="M12 16h.01"></path></svg>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 6px; margin-top: 7px">
+        <div style="font-size: 13px; color: #B3261E; font-weight: 500; line-height: 1.4">La cédula debe tener al menos 6 números.</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="lbl">Teléfono</div>
+      <div class="fld">
+        <div class="num" style="flex-grow: 1">310 555 4412</div>
+        <div style="width: 32px; height: 32px; border-radius: 8px; background: #DBF0E5; display: flex; align-items: center; justify-content: center">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#12704A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+        </div>
+      </div>
+      <div style="font-size: 13px; color: #5C6672; margin-top: 7px">Se usa para llamarlo y para WhatsApp.</div>
+    </div>
+
+    <div>
+      <div class="lbl">Apodo o negocio <span style="font-weight: 400; color: #8A94A1">(opcional)</span></div>
+      <div class="fld" style="color: #8A94A1">Tienda La Esquina</div>
+    </div>
+
+  </div>
+
+  <div style="flex: none; background: #FFFFFF; border-top: 1px solid #DDE3E9; padding: 12px 16px 8px 16px">
+    <div style="height: 56px; border-radius: 14px; background: #B9C0CA; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 17px; font-weight: 600">Continuar</div>
+    <div style="height: 12px"></div>
+    <div style="display: flex; justify-content: center">
+      <div style="width: 130px; height: 4px; border-radius: 2px; background: #0F1720; opacity: 0.25"></div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

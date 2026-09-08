@@ -1,0 +1,73 @@
+<section class="screen" id="adminRutas" data-nav="admin">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <div class="topbar__grow">
+      <div class="topbar__title">Rutas</div>
+      <div class="topbar__sub">3 activas · 1 vencida</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="chips">
+      <div class="chip is-on">Todas</div>
+      <div class="chip">Activas</div>
+      <div class="chip">Vencidas</div>
+    </div>
+
+    <div class="card mt16">
+      <div class="spread">
+        <div class="h3">Ruta Centro</div>
+        <div class="badge badge--green">Activa</div>
+      </div>
+      <div class="row mt12">
+        <div class="avatar avatar--sm avatar--indigo">AG</div>
+        <div class="small">Andrés Gil</div>
+      </div>
+      <div class="small mt16 num">24 clientes · $ 6,2M en la calle · 4 en mora</div>
+      <div class="bar bar--thin mt16"><div class="bar__fill bar__fill--green" style="width:67%"></div></div>
+      <div class="small mt8">Recaudado hoy <span class="num">$ 486.000</span> de <span class="num">$ 720.000</span></div>
+      <div class="small mt12">Mensualidad al día · vence el 15 de sep</div>
+    </div>
+
+    <div class="card mt12">
+      <div class="spread">
+        <div class="h3">Ruta Norte</div>
+        <div class="badge badge--green">Activa</div>
+      </div>
+      <div class="row mt12">
+        <div class="avatar avatar--sm avatar--indigo">SP</div>
+        <div class="small">Sandra Peña</div>
+      </div>
+      <div class="small mt16 num">31 clientes · $ 7,8M en la calle · 6 en mora</div>
+      <div class="bar bar--thin mt16"><div class="bar__fill bar__fill--green" style="width:94%"></div></div>
+      <div class="small mt8">Recaudado hoy <span class="num">$ 512.000</span> de <span class="num">$ 545.000</span></div>
+      <div class="small mt12">Mensualidad al día · vence el 2 de sep</div>
+    </div>
+
+    <div class="card mt12">
+      <div class="spread">
+        <div class="h3">Ruta Sur</div>
+        <div class="badge badge--orange">Vencida</div>
+      </div>
+      <div class="row mt12">
+        <div class="avatar avatar--sm">JM</div>
+        <div class="small">Julián Marín</div>
+      </div>
+      <div class="small mt16 num">18 clientes · $ 4,4M en la calle · 9 en mora</div>
+      <div class="alert alert--amber mt16">
+        <svg class="i"><use href="#i-alert"></use></svg>
+        <div>
+          <span class="strong">Julián puede cobrar, no puede prestar.</span>
+          La mensualidad venció el 24 de agosto. Renueva para volver a habilitar préstamos nuevos.
+        </div>
+      </div>
+      <button class="btn btn--primary btn--sm mt16" data-go="mensualidad">Renovar por <span class="num">$ 25.000</span></button>
+    </div>
+
+    <div class="fab" data-go="nuevaRuta">
+      <svg class="i"><use href="#i-plus"></use></svg>
+      Nueva ruta
+    </div>
+  </div>
+</section>

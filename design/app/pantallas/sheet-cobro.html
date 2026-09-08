@@ -1,0 +1,52 @@
+<div class="sheet" id="sheetCobro">
+  <div class="sheet__scrim" data-close></div>
+  <div class="sheet__panel">
+    <div class="sheet__handle"></div>
+
+    <div class="row">
+      <div class="avatar avatar--orange">MR</div>
+      <div class="grow">
+        <div class="h2">María Restrepo</div>
+        <div class="small">Cuota $ 25.000 · saldo $ 300.000</div>
+      </div>
+      <button class="iconbtn none" data-close><svg class="i"><use href="#i-close"></use></svg></button>
+    </div>
+
+    <div class="lbl mt20">¿Qué pasó en la visita?</div>
+    <div class="seg grid2 mt12">
+      <div class="seg__item is-on">
+        <svg class="i i--sm"><use href="#i-check"></use></svg>
+        Pagó
+      </div>
+      <div class="seg__item">Abono parcial</div>
+      <div class="seg__item">No pagó</div>
+      <div class="seg__item">No estaba</div>
+    </div>
+
+    <div class="lbl mt20">Monto recibido</div>
+    <div class="money mt12">
+      <div class="money__cur">$</div>
+      <input class="money__val num" id="montoCobro" value="25.000" inputmode="numeric">
+    </div>
+
+    <div class="grid3 mt12">
+      <div class="chip is-on">Cuota $ 25.000</div>
+      <div class="chip">Media $ 12.500</div>
+      <div class="chip">Saldo total</div>
+    </div>
+
+    <div class="card card--flat mt16">
+      <div class="spread">
+        <div class="muted">Saldo después del pago</div>
+        <div class="num strong">$ 275.000</div>
+      </div>
+      <div class="spread mt12">
+        <div class="muted">Queda</div>
+        <div class="strong">2 cuotas atrás</div>
+      </div>
+    </div>
+
+    <button class="btn btn--primary mt20" data-close data-toast="Pago registrado">Registrar pago de $ 25.000</button>
+    <button class="btn btn--soft btn--sm mt8" data-close>Cancelar</button>
+  </div>
+</div>

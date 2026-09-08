@@ -1,0 +1,50 @@
+<div class="sheet" id="sheetVisita">
+  <div class="sheet__scrim" data-close></div>
+  <div class="sheet__panel">
+    <div class="sheet__handle"></div>
+
+    <div class="row">
+      <div class="avatar avatar--red">HP</div>
+      <div class="grow">
+        <div class="h2">Hernán Pardo</div>
+        <div class="small">Cuota $ 20.000 · saldo $ 480.000</div>
+      </div>
+      <button class="iconbtn none" data-close><svg class="i"><use href="#i-close"></use></svg></button>
+    </div>
+
+    <div class="lbl mt20">¿Qué pasó en la visita?</div>
+    <div class="seg grid2 mt12">
+      <div class="seg__item">Pagó</div>
+      <div class="seg__item">Abono parcial</div>
+      <div class="seg__item is-on is-on--orange">
+        <svg class="i i--sm"><use href="#i-check"></use></svg>
+        No pagó
+      </div>
+      <div class="seg__item">No estaba</div>
+    </div>
+
+    <div class="lbl mt20">Motivo</div>
+    <div class="chips mt12">
+      <div class="chip is-on">Dijo que no tenía</div>
+      <div class="chip">Local cerrado</div>
+      <div class="chip">Pidió plazo</div>
+      <div class="chip">Se mudó</div>
+      <div class="chip">Otro</div>
+    </div>
+
+    <div class="lbl mt20">Nota para el administrador (opcional)</div>
+    <div class="field mt12">
+      <div class="field__box">
+        <textarea rows="3" placeholder="Vuelvo el viernes, dice que cobra el jueves."></textarea>
+      </div>
+    </div>
+
+    <div class="alert alert--gray mt16">
+      <svg class="i"><use href="#i-info"></use></svg>
+      <div>La visita queda registrada con hora y ubicación. No mueve el saldo ni la caja.</div>
+    </div>
+
+    <button class="btn btn--dark mt20" data-close data-toast="Visita guardada">Guardar visita</button>
+    <button class="btn btn--soft btn--sm mt8" data-close>Cancelar</button>
+  </div>
+</div>

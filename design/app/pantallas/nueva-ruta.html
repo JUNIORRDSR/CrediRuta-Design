@@ -1,0 +1,60 @@
+<section class="screen" id="nuevaRuta" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" type="button" data-back>
+      <svg class="i"><use href="#i-close"></use></svg>
+    </button>
+    <div class="topbar__grow">
+      <div class="topbar__title">Nueva ruta</div>
+      <div class="topbar__sub">CrediRuta · Carlos Duarte</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-16">
+
+      <div class="field">
+        <label class="field__label">¿Cómo se llama la ruta?</label>
+        <div class="field__box">
+          <input placeholder="Ruta Oriente">
+        </div>
+        <div class="field__hint">Los cobradores la buscan por este nombre.</div>
+      </div>
+
+      <div>
+        <div class="lbl">¿Cada cuánto se cobra?</div>
+        <div class="seg grid2 mt12">
+          <button class="seg__item is-on" type="button">Diaria</button>
+          <button class="seg__item" type="button">Semanal</button>
+          <button class="seg__item" type="button">Quincenal</button>
+          <button class="seg__item" type="button">Mensual</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="lbl">¿Quién la cobra?</div>
+        <div class="list mt12">
+          <div class="listrow">
+            <div class="avatar avatar--indigo">AG</div>
+            <div class="grow">
+              <div class="listrow__title">Andrés Gil</div>
+              <div class="listrow__sub">Ya lleva Ruta Centro · 24 clientes</div>
+            </div>
+            <svg class="i none t-mute"><use href="#i-right"></use></svg>
+          </div>
+        </div>
+        <div class="field__hint">Puedes dejarla sin cobrador y asignarla después.</div>
+      </div>
+
+      <div class="alert alert--blue">
+        <svg class="i"><use href="#i-info"></use></svg>
+        <div class="grow">La ruta trae <span class="strong">14 días de prueba</span>. Después son
+        $ 25.000 al mes, sin límite de clientes.</div>
+      </div>
+
+      <button class="btn btn--primary" type="button" data-go="adminRutas" data-toast="Ruta creada">Crear ruta</button>
+
+    </div>
+  </div>
+</section>

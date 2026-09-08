@@ -1,0 +1,53 @@
+<div class="sheet" id="sheetGasto">
+  <div class="sheet__scrim" data-close></div>
+  <div class="sheet__panel">
+    <div class="sheet__handle"></div>
+
+    <div class="spread">
+      <div class="h2">Agregar gasto</div>
+      <button class="iconbtn" type="button" data-close>
+        <svg class="i"><use href="#i-close"></use></svg>
+      </button>
+    </div>
+
+    <div class="stack-16 mt16">
+
+      <div>
+        <div class="lbl">Concepto</div>
+        <div class="chips mt8">
+          <button class="chip is-on" type="button">Gasolina</button>
+          <button class="chip" type="button">Almuerzo</button>
+          <button class="chip" type="button">Transporte</button>
+          <button class="chip" type="button">Recarga</button>
+          <button class="chip" type="button">Otro</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field__label">Detalle (opcional)</label>
+        <div class="field__box">
+          <input placeholder="Tanqueada en la bomba de la 20">
+        </div>
+      </div>
+
+      <div>
+        <div class="lbl">Monto</div>
+        <div class="money mt8">
+          <span class="money__cur">$</span>
+          <input class="money__val num" value="20.000" inputmode="numeric">
+        </div>
+      </div>
+
+      <div class="alert alert--gray">
+        <svg class="i"><use href="#i-info"></use></svg>
+        <div class="grow">El gasto baja lo que tienes que entregar hoy.</div>
+      </div>
+
+      <div class="stack-8">
+        <button class="btn btn--primary" type="button" data-close data-toast="Gasto agregado">Agregar gasto</button>
+        <button class="btn btn--soft btn--sm" type="button" data-close>Cancelar</button>
+      </div>
+
+    </div>
+  </div>
+</div>

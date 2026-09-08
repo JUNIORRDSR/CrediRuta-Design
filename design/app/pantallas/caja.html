@@ -1,0 +1,95 @@
+<section class="screen" id="caja" data-nav="cobrador">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <div class="topbar__grow">
+      <div class="topbar__title">Caja del día</div>
+      <div class="topbar__sub">Martes 31 de agosto · Ruta Centro</div>
+    </div>
+    <div class="topbar__actions row">
+      <span class="badge badge--green">Abierta</span>
+      <button class="iconbtn" type="button" data-go="historialCierres">
+        <svg class="i"><use href="#i-clock"></use></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-16">
+
+      <div class="kpi kpi--indigo">
+        <div class="kpi__top">
+          <div class="kpi__label">Debes entregar</div>
+          <svg class="i i--lg"><use href="#i-wallet"></use></svg>
+        </div>
+        <div>
+          <div class="kpi__value h1 num">$ 254.000</div>
+          <div class="kpi__label mt8 num">Cobraste $ 486.000 y gastaste $ 32.000</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="lbl">Cómo se calcula</div>
+        <div class="stack mt16">
+          <div class="spread">
+            <div>Cobrado hoy · 18 pagos</div>
+            <span class="num strong t-green">+ $ 486.000</span>
+          </div>
+          <div class="spread">
+            <div>Gastos · 2</div>
+            <span class="num strong t-orange">− $ 32.000</span>
+          </div>
+          <div class="spread">
+            <div>Prestado hoy · 2 préstamos</div>
+            <span class="num strong t-orange">− $ 200.000</span>
+          </div>
+          <div class="spread">
+            <div class="strong">Entrega esperada</div>
+            <div class="h3 num">$ 254.000</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="spread">
+          <div class="lbl">Gastos del día</div>
+          <div class="num strong">$ 32.000</div>
+        </div>
+
+        <div class="mt12">
+          <div class="listrow">
+            <div class="avatar avatar--orange">
+              <svg class="i"><use href="#i-fuel"></use></svg>
+            </div>
+            <div class="grow">
+              <div class="listrow__title">Gasolina</div>
+              <div class="listrow__sub">8:15 a. m.</div>
+            </div>
+            <div class="num strong none">$ 20.000</div>
+          </div>
+          <div class="listrow">
+            <div class="avatar avatar--orange">
+              <svg class="i"><use href="#i-food"></use></svg>
+            </div>
+            <div class="grow">
+              <div class="listrow__title">Almuerzo</div>
+              <div class="listrow__sub">12:40 p. m.</div>
+            </div>
+            <div class="num strong none">$ 12.000</div>
+          </div>
+        </div>
+
+        <button class="btn btn--ghost btn--sm mt12" type="button" data-sheet="sheetGasto">
+          <svg class="i"><use href="#i-plus"></use></svg>
+          Agregar gasto
+        </button>
+      </div>
+
+      <div>
+        <button class="btn btn--primary" type="button" data-go="cierre">Cerrar caja y entregar</button>
+        <div class="small center mt12">Después de cerrar no puedes registrar más pagos de hoy.</div>
+      </div>
+
+    </div>
+  </div>
+</section>

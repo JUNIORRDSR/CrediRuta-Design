@@ -1,0 +1,67 @@
+<section class="screen" id="nuevoCliente" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" type="button" data-back>
+      <svg class="i"><use href="#i-close"></use></svg>
+    </button>
+    <div class="topbar__grow">
+      <div class="topbar__title">Nuevo cliente</div>
+      <div class="topbar__sub">Paso 1 de 3 · Quién es</div>
+    </div>
+  </div>
+
+  <div class="body">
+
+
+    <div class="row mt24">
+      <div class="avatar" style="width:72px;height:72px;border-radius:22px">
+        <svg class="i i--lg"><use href="#i-camera"></use></svg>
+      </div>
+      <div class="grow">
+        <div class="strong">Foto del cliente</div>
+        <div class="small mt8">Opcional. Ayuda a reconocerlo en la ruta.</div>
+      </div>
+    </div>
+
+    <div class="stack-20 mt24">
+
+      <div class="field">
+        <label class="field__label">Nombre completo</label>
+        <div class="field__box">
+          <input value="María Restrepo Ochoa">
+        </div>
+      </div>
+
+      <div class="field is-error">
+        <label class="field__label">Cédula</label>
+        <div class="field__box">
+          <input class="num" value="4321" inputmode="numeric">
+          <svg class="i"><use href="#i-alert"></use></svg>
+        </div>
+        <div class="field__error">La cédula debe tener al menos 6 números.</div>
+      </div>
+
+      <div class="field">
+        <label class="field__label">Teléfono</label>
+        <div class="field__box">
+          <input class="num" value="310 555 4412" inputmode="tel">
+          <svg class="i"><use href="#i-check"></use></svg>
+        </div>
+        <div class="field__hint">Se usa para llamarlo y para WhatsApp.</div>
+      </div>
+
+      <div class="field">
+        <label class="field__label">Apodo o negocio (opcional)</label>
+        <div class="field__box">
+          <input placeholder="Tienda La Esquina">
+        </div>
+      </div>
+
+    </div>
+
+    <button class="btn btn--primary is-off mt24" type="button">Continuar</button>
+    <div class="small center mt12">Corrige la cédula para continuar.</div>
+
+  </div>
+</section>

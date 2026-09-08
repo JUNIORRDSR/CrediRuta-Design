@@ -1,0 +1,69 @@
+<section class="screen" id="cierre" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" type="button" data-back>
+      <svg class="i"><use href="#i-close"></use></svg>
+    </button>
+    <div class="topbar__grow">
+      <div class="topbar__title">Cerrar caja</div>
+      <div class="topbar__sub">Martes 31 de agosto · Ruta Centro</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-16">
+
+      <div>
+        <div class="h1">¿Cuánto vas a entregar?</div>
+        <div class="muted mt8">Cuenta el efectivo antes de escribir.</div>
+      </div>
+
+      <div class="money">
+        <span class="money__cur">$</span>
+        <input class="money__val num" id="efectivo" value="250.000" inputmode="numeric">
+      </div>
+
+      <div class="card">
+        <div class="stack">
+          <div class="spread">
+            <div>Esperado</div>
+            <div class="num strong">$ 254.000</div>
+          </div>
+          <div class="spread">
+            <div>Vas a entregar</div>
+            <div class="num strong">$ 250.000</div>
+          </div>
+          <div class="spread">
+            <span class="badge badge--orange">
+              <svg class="i i--sm"><use href="#i-alert"></use></svg>
+              Faltan
+            </span>
+            <span class="h2 num t-orange">$ 4.000</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="alert alert--amber">
+          <svg class="i"><use href="#i-alert"></use></svg>
+          <div class="grow">
+            <div class="strong">Explica la diferencia</div>
+            <div>El administrador va a ver esta nota junto al cierre.</div>
+          </div>
+        </div>
+        <div class="field mt12">
+          <div class="field__box">
+            <textarea rows="3">Le di $4.000 de vuelto a don Luis y no alcancé a pasar por el banco.</textarea>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button class="btn btn--primary" type="button" data-go="historialCierres" data-toast="Cierre enviado a Carlos Duarte">Enviar cierre a Carlos</button>
+        <div class="small center mt12">Queda guardado aunque no tengas señal.</div>
+      </div>
+
+    </div>
+  </div>
+</section>

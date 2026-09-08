@@ -1,0 +1,3478 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CrediRuta</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap">
+<style>
+/* CrediRuta · sistema visual del prototipo
+   Blanco, aire, titulares grandes, KPI con degradado, esquinas suaves. */
+
+:root{
+  --ink:#0B0F14; --ink2:#575F6B; --ink3:#68707C;
+  --line:#EDEFF3; --soft:#F7F8FA; --white:#FFFFFF;
+  --indigo:#4F46E5; --indigo-soft:#EEF0FF; --indigo-ink:#3730A3;
+  --green:#10B981; --green-soft:#E7F8F1; --green-ink:#047857;
+  --orange:#F59E0B; --orange-soft:#FEF3E2; --orange-ink:#B45309;
+  --purple:#A855F7; --purple-soft:#F5EDFE; --purple-ink:#7E22CE;
+  --red:#EF4444; --red-soft:#FEECEC; --red-ink:#B91C1C;
+  --r-card:20px; --r-kpi:22px; --r-btn:16px; --r-sheet:28px;
+}
+
+*{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body{ margin:0; }
+
+.app{
+  font-family:Onest, Roboto, "Helvetica Neue", Arial, sans-serif;
+  color:var(--ink); background:var(--white); font-size:15px; line-height:1.4;
+  -webkit-font-smoothing:antialiased;
+}
+a{ color:var(--indigo); text-decoration:none; }
+a:hover{ color:var(--indigo-ink); }
+
+/* ---------- estructura de pantalla ---------- */
+.screen{ display:none; flex-direction:column; min-height:100%; background:var(--white); }
+.screen.is-active{ display:flex; }
+.screen--dark{ background:var(--ink); color:#fff; }
+
+.inset{ height:44px; flex:none; }          /* zona del sistema: se reserva, no se dibuja */
+.body{ flex-grow:1; padding:0 20px 28px; overflow-y:auto; }
+.body--flush{ padding-left:0; padding-right:0; }
+.gesture{ height:22px; flex:none; display:flex; align-items:center; justify-content:center; }
+.gesture i{ width:130px; height:4px; border-radius:2px; background:var(--ink); opacity:.22; display:block; }
+
+/* ---------- barra superior ---------- */
+.topbar{ flex:none; padding:6px 12px 10px 20px; display:flex; align-items:flex-start; gap:10px; }
+.topbar__grow{ flex-grow:1; min-width:0; padding-top:6px; }
+.topbar__title{ font-size:20px; font-weight:800; letter-spacing:-.02em; }
+.topbar__sub{ font-size:13px; color:var(--ink2); margin-top:1px; }
+.topbar__actions{ display:flex; gap:2px; flex:none; }
+
+.iconbtn{ width:44px; height:44px; border-radius:14px; display:flex; align-items:center;
+  justify-content:center; background:transparent; border:0; cursor:pointer; color:var(--ink); }
+.iconbtn:active{ background:var(--soft); }
+.iconbtn--soft{ background:var(--soft); }
+
+/* ---------- tipografía ---------- */
+.h1{ font-size:30px; font-weight:800; letter-spacing:-.035em; line-height:1.12; }
+.h2{ font-size:20px; font-weight:800; letter-spacing:-.02em; }
+.h3{ font-size:17px; font-weight:700; letter-spacing:-.01em; }
+.lbl{ font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink3); }
+.muted{ color:var(--ink2); font-size:14px; }
+.small{ font-size:13px; color:var(--ink2); }
+.num{ font-variant-numeric:tabular-nums; letter-spacing:-.015em; }
+.strong{ font-weight:700; }
+
+/* ---------- utilidades ---------- */
+.stack{ display:flex; flex-direction:column; gap:12px; }
+.stack-8{ display:flex; flex-direction:column; gap:8px; }
+.stack-16{ display:flex; flex-direction:column; gap:16px; }
+.stack-20{ display:flex; flex-direction:column; gap:20px; }
+.row{ display:flex; align-items:center; gap:12px; }
+.spread{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.grid2{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px; }
+.grid3{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:10px; }
+.grid4{ display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:8px; }
+.grow{ flex-grow:1; min-width:0; }
+.none{ flex:none; }
+.mt8{ margin-top:8px; } .mt12{ margin-top:12px; } .mt16{ margin-top:16px; }
+.mt20{ margin-top:20px; } .mt24{ margin-top:24px; } .mt28{ margin-top:28px; }
+.center{ text-align:center; }
+.right{ text-align:right; }
+
+/* ---------- tarjetas ---------- */
+.card{ background:var(--white); border:1px solid var(--line); border-radius:var(--r-card); padding:18px; }
+.card--flat{ background:var(--soft); border-color:transparent; }
+.card--tap{ cursor:pointer; }
+.card--tap:active{ background:var(--soft); }
+
+/* ---------- KPI con degradado ---------- */
+.kpi{ border-radius:var(--r-kpi); padding:16px 18px 18px; color:#fff; min-height:132px;
+  display:flex; flex-direction:column; justify-content:space-between; }
+.kpi__top{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+.kpi__label{ font-size:14px; font-weight:600; opacity:.92; }
+.kpi__value{ font-size:24px; font-weight:800; letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums; }
+.kpi--indigo{ background:linear-gradient(150deg,#5450E8,#4338CA); box-shadow:0 10px 22px -12px rgba(79,70,229,.75); }
+.kpi--orange{ background:linear-gradient(150deg,#B45309,#8A4708); box-shadow:0 10px 22px -12px rgba(217,119,6,.7); }
+.kpi--green { background:linear-gradient(150deg,#047857,#035E44); box-shadow:0 10px 22px -12px rgba(16,185,129,.7); }
+.kpi--purple{ background:linear-gradient(150deg,#8E4FD8,#6B1FA8); box-shadow:0 10px 22px -12px rgba(168,85,247,.7); }
+
+/* ---------- botones ---------- */
+.btn{ height:56px; border-radius:var(--r-btn); display:flex; align-items:center;
+  justify-content:center; gap:9px; font-size:16px; font-weight:700; cursor:pointer;
+  border:0; width:100%; font-family:inherit; padding:0 18px; }
+.btn--primary{ background:var(--indigo); color:#fff; }
+.btn--dark{ background:var(--ink); color:#fff; }
+.btn--green{ background:var(--green-ink); color:#fff; }
+.btn--ghost{ background:var(--white); color:var(--ink); border:1px solid var(--line); }
+.btn--soft{ background:var(--soft); color:var(--ink); }
+.btn--sm{ height:48px; font-size:15px; border-radius:14px; }
+.btn--xs{ height:40px; font-size:14px; border-radius:12px; padding:0 14px; width:auto; }
+.btn:active{ opacity:.85; }
+.btn[disabled], .btn.is-off{ background:var(--soft); color:var(--ink2);
+  border:1px solid var(--line); pointer-events:none; }
+
+/* ---------- chips / segmentos ---------- */
+.chip{ height:44px; padding:0 16px; border-radius:999px; display:inline-flex; align-items:center;
+  justify-content:center; gap:6px; font-size:14px; font-weight:600; background:var(--white);
+  border:1px solid var(--line); color:var(--ink); cursor:pointer; white-space:nowrap; }
+.chip.is-on{ background:var(--ink); border-color:var(--ink); color:#fff; }
+.chips{ display:flex; gap:8px; overflow-x:auto; padding-bottom:2px; }
+.chips::-webkit-scrollbar{ display:none; }
+
+.seg{ display:grid; gap:8px; }
+.seg__item{ height:50px; border-radius:14px; display:flex; align-items:center; justify-content:center;
+  gap:7px; font-size:15px; font-weight:600; background:var(--white); border:1px solid var(--line);
+  color:var(--ink); cursor:pointer; }
+.seg__item.is-on{ background:var(--indigo); border-color:var(--indigo); color:#fff; }
+.seg__item.is-on--orange{ background:var(--orange-ink); border-color:var(--orange-ink); color:#fff; }
+
+/* ---------- avatares y badges ---------- */
+.avatar{ width:46px; height:46px; flex:none; border-radius:15px; display:flex; align-items:center;
+  justify-content:center; font-size:15px; font-weight:800; background:var(--soft); color:var(--ink2); }
+.avatar--sm{ width:30px; height:30px; border-radius:10px; font-size:12px; }
+.avatar--indigo{ background:var(--indigo-soft); color:var(--indigo); }
+.avatar--green { background:var(--green-soft);  color:var(--green-ink); }
+.avatar--orange{ background:var(--orange-soft); color:var(--orange-ink); }
+.avatar--purple{ background:var(--purple-soft); color:var(--purple-ink); }
+.avatar--red   { background:var(--red-soft);    color:var(--red-ink); }
+
+.badge{ display:inline-flex; align-items:center; gap:5px; border-radius:9px; padding:5px 10px;
+  font-size:12px; font-weight:700; background:var(--soft); color:var(--ink2); white-space:nowrap; }
+.badge--green { background:var(--green-soft);  color:var(--green-ink); }
+.badge--orange{ background:var(--orange-soft); color:var(--orange-ink); }
+.badge--red   { background:var(--red-soft);    color:var(--red-ink); }
+.badge--indigo{ background:var(--indigo-soft); color:var(--indigo); }
+
+/* ---------- listas ---------- */
+.list{ border:1px solid var(--line); border-radius:var(--r-card); overflow:hidden; background:var(--white); }
+.listrow{ display:flex; align-items:center; gap:13px; padding:14px 16px; border-bottom:1px solid var(--line); cursor:pointer; }
+.listrow:last-child{ border-bottom:0; }
+.listrow:active{ background:var(--soft); }
+.listrow__title{ font-size:16px; font-weight:700; letter-spacing:-.01em; }
+.listrow__sub{ font-size:13px; color:var(--ink2); margin-top:2px; }
+
+/* ---------- barra de progreso ---------- */
+.bar{ height:8px; background:var(--line); border-radius:5px; overflow:hidden; }
+.bar__fill{ height:100%; background:var(--indigo); border-radius:5px; }
+.bar__fill--green{ background:var(--green); }
+.bar__fill--orange{ background:var(--orange); }
+.bar--thin{ height:6px; }
+
+/* ---------- cuadrícula de cuotas (elemento firma) ---------- */
+.cuotas{ display:grid; grid-template-columns:repeat(20, minmax(0,1fr)); gap:2px; }
+.cuotas--big{ grid-template-columns:repeat(10, minmax(0,1fr)); gap:4px; }
+.cuota{ height:10px; border-radius:3px; background:var(--line); }
+.cuotas--big .cuota{ height:34px; border-radius:8px; display:flex; align-items:center;
+  justify-content:center; font-size:12px; font-weight:700; color:var(--ink3);
+  font-variant-numeric:tabular-nums; border:1px solid var(--line); background:var(--white); }
+.cuota.is-paid { background:var(--green-ink); border-color:var(--green-ink); color:#fff; }
+.cuota.is-late { background:#FBD5A5; border-color:#F3B96B; color:#7C3A06; }
+.cuota.is-today{ background:var(--ink); border-color:var(--ink); color:#fff; }
+
+/* ---------- campos ---------- */
+.field__label{ font-size:14px; font-weight:700; margin-bottom:8px; display:block; }
+.field__box{ min-height:56px; border:1px solid var(--line); border-radius:16px; background:var(--white);
+  display:flex; align-items:center; gap:10px; padding:0 16px; font-size:16px; }
+.field__box textarea, .field__box input{ border:0; outline:0; flex-grow:1; font:inherit; color:inherit;
+  background:transparent; padding:16px 0; resize:none; width:100%; }
+.field__box:focus-within{ border-color:var(--indigo); box-shadow:0 0 0 3px var(--indigo-soft); }
+.field.is-error .field__box{ border-color:var(--red); }
+.field__error{ font-size:13px; color:var(--red-ink); font-weight:600; margin-top:8px; }
+.field__hint{ font-size:13px; color:var(--ink2); margin-top:8px; }
+
+.money{ border:2px solid var(--indigo); border-radius:16px; padding:12px 16px; display:flex;
+  align-items:baseline; gap:6px; background:var(--white); }
+.money__cur{ font-size:24px; font-weight:700; color:var(--ink3); }
+.money__val{ font-size:34px; font-weight:800; letter-spacing:-.035em; flex-grow:1; border:0; outline:0;
+  font-family:inherit; background:transparent; color:var(--ink); font-variant-numeric:tabular-nums;
+  width:100%; padding:0; }
+
+.toggle{ width:52px; height:31px; border-radius:16px; background:#B9BEC7; flex:none; padding:3px;
+  display:flex; align-items:center; cursor:pointer; transition:background .2s; position:relative; }
+.toggle::after{ content:""; position:absolute; left:0; right:0; top:-9px; bottom:-9px; }
+.toggle i{ width:25px; height:25px; border-radius:13px; background:#fff; display:block;
+  transition:transform .2s; box-shadow:0 1px 3px rgba(0,0,0,.2); }
+.toggle.is-on{ background:var(--green); }
+.toggle.is-on i{ transform:translateX(21px); }
+
+.stepper{ display:flex; align-items:center; gap:12px; }
+.stepper__btn{ width:56px; height:56px; flex:none; border:1px solid var(--line); border-radius:16px;
+  background:var(--white); display:flex; align-items:center; justify-content:center; cursor:pointer; }
+.stepper__val{ flex-grow:1; height:56px; border:1px solid var(--line); border-radius:16px;
+  display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:800;
+  font-variant-numeric:tabular-nums; }
+
+/* ---------- avisos ---------- */
+.alert{ border-radius:16px; padding:14px 16px; display:flex; gap:11px; align-items:flex-start;
+  font-size:14px; line-height:1.45; }
+.alert--red{ background:var(--red-soft); color:var(--red-ink); border:1px solid #F8C9C9; }
+.alert--amber{ background:var(--orange-soft); color:var(--orange-ink); border:1px solid #F6DCB4; }
+.alert--blue{ background:var(--indigo-soft); color:var(--indigo-ink); border:1px solid #D8DCFB; }
+.alert--gray{ background:var(--soft); color:var(--ink2); }
+
+/* ---------- línea de tiempo ---------- */
+.timeline{ display:flex; flex-direction:column; gap:10px; }
+.tl{ display:flex; gap:12px; align-items:stretch; }
+.tl__rail{ width:34px; flex:none; display:flex; flex-direction:column; align-items:center; }
+.tl__num{ width:34px; height:34px; border-radius:17px; border:2px solid var(--ink); display:flex;
+  align-items:center; justify-content:center; font-size:14px; font-weight:800; flex:none;
+  font-variant-numeric:tabular-nums; background:var(--white); }
+.tl__num.is-done{ background:var(--green-ink); border-color:var(--green-ink); color:#fff; }
+.tl__num.is-skip{ background:var(--orange-soft); border-color:var(--orange); color:var(--orange-ink); }
+.tl__line{ width:2px; flex-grow:1; background:var(--line); margin:4px 0; }
+.tl__body{ flex-grow:1; min-width:0; }
+
+/* ---------- navegación inferior ---------- */
+.nav{ flex:none; border-top:1px solid var(--line); background:var(--white); }
+.nav__items{ display:flex; height:66px; }
+.nav__item{ flex-grow:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:3px; cursor:pointer; border:0; background:transparent; font-family:inherit; }
+.nav__pill{ padding:5px 18px; border-radius:999px; display:flex; align-items:center; justify-content:center;
+  color:var(--ink2); }
+.nav__label{ font-size:11px; font-weight:600; color:var(--ink2); }
+.nav__item.is-on .nav__pill{ background:var(--indigo-soft); color:var(--indigo); }
+.nav__item.is-on .nav__label{ color:var(--indigo); font-weight:700; }
+
+/* ---------- FAB ---------- */
+.fab{ position:absolute; right:20px; bottom:96px; height:54px; border-radius:18px; background:var(--indigo);
+  color:#fff; display:flex; align-items:center; gap:9px; padding:0 20px; font-size:15px; font-weight:700;
+  box-shadow:0 10px 22px -10px rgba(79,70,229,.8); cursor:pointer; z-index:5; }
+
+/* ---------- hojas inferiores ---------- */
+.sheet{ position:absolute; inset:0; z-index:40; display:none; }
+.sheet.is-open{ display:block; }
+.sheet__scrim{ position:absolute; inset:0; background:rgba(11,15,20,.45); }
+.sheet__panel{ position:absolute; left:0; right:0; bottom:0; max-height:92%; overflow-y:auto;
+  background:var(--white); border-radius:var(--r-sheet) var(--r-sheet) 0 0; padding:10px 20px 20px;
+  animation:up .22s ease; }
+@keyframes up{ from{ transform:translateY(22px); opacity:.4 } to{ transform:none; opacity:1 } }
+.sheet__handle{ width:40px; height:4px; border-radius:2px; background:var(--line); margin:0 auto 16px; }
+
+/* ---------- brindis / confirmación ---------- */
+.toast{ position:absolute; left:20px; right:20px; bottom:88px; z-index:60; background:var(--ink);
+  color:#fff; border-radius:16px; padding:15px 18px; font-size:15px; font-weight:600;
+  display:none; align-items:center; gap:10px; box-shadow:0 12px 26px -12px rgba(0,0,0,.6); }
+.toast.is-on{ display:flex; animation:up .2s ease; }
+
+/* ---------- iconos ---------- */
+.i{ width:22px; height:22px; flex:none; display:block; }
+.i--sm{ width:18px; height:18px; }
+.i--lg{ width:26px; height:26px; }
+
+/* ---------- mapa de referencia ---------- */
+.map{ height:190px; border-radius:var(--r-card); overflow:hidden; position:relative;
+  background:
+    radial-gradient(circle at 22% 30%, #E8F0E4 0 60px, transparent 61px),
+    radial-gradient(circle at 78% 66%, #E4EEF3 0 70px, transparent 71px),
+    #F2F1EC;
+  border:1px solid var(--line); }
+.map__road{ position:absolute; background:#FFFFFF; }
+.map__pin{ position:absolute; width:32px; height:32px; border-radius:16px; background:var(--red);
+  color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:800;
+  border:2px solid #fff; box-shadow:0 3px 8px rgba(0,0,0,.28); font-variant-numeric:tabular-nums; }
+.map__pin--done{ background:var(--green); }
+.map__cta{ position:absolute; right:12px; bottom:12px; background:#fff; border-radius:14px;
+  padding:11px 16px; font-size:15px; font-weight:700; display:flex; align-items:center; gap:8px;
+  box-shadow:0 6px 16px rgba(0,0,0,.16); cursor:pointer; }
+
+/* ---------- correcciones de especificidad y utilidades de color ---------- */
+.kpi__value.h1{ font-size:32px; }
+.kpi .small, .kpi .muted{ color:rgba(255,255,255,.86); }
+.kpi .lbl{ color:rgba(255,255,255,.8); }
+
+.t-green { color:var(--green-ink); }
+.t-orange{ color:var(--orange-ink); }
+.t-red   { color:var(--red-ink); }
+.t-indigo{ color:var(--indigo); }
+.t-mute  { color:var(--ink2); }
+
+/* un badge que envuelve una cifra no debe pisarle el tamaño */
+.badge .h1, .badge .h2, .badge .h3, .badge .num.strong{ font-size:inherit; }
+
+/* ---------- pantalla oscura ---------- */
+.screen--dark{ color:#fff; }
+.screen--dark .h1, .screen--dark .h2, .screen--dark .h3, .screen--dark .strong{ color:#fff; }
+.screen--dark .muted{ color:#9AA6B2; }
+.screen--dark .small{ color:#8D99A6; }
+.screen--dark .lbl{ color:#78838F; }
+.screen--dark .cuota{ background:#253039; }
+.screen--dark .card{ background:#fff; color:var(--ink); border-color:transparent; }
+.screen--dark .card .h1, .screen--dark .card .h2, .screen--dark .card .h3,
+.screen--dark .card .strong{ color:var(--ink); }
+.screen--dark .card .small, .screen--dark .card .muted{ color:var(--ink2); }
+.screen--dark .card--flat{ background:#1A222B; border:1px solid #2A333D; color:#fff; }
+.screen--dark .card--flat .h1, .screen--dark .card--flat .h2,
+.screen--dark .card--flat .h3, .screen--dark .card--flat .strong{ color:#fff; }
+.screen--dark .card--flat .small, .screen--dark .card--flat .muted{ color:#9AA6B2; }
+.screen--dark a{ color:#A5B4FC; }
+.screen--dark .iconbtn{ color:#fff; }
+
+/* ---------- separador con texto ---------- */
+.sep{ display:flex; align-items:center; gap:14px; }
+.sep::before, .sep::after{ content:""; flex-grow:1; height:1px; background:var(--line); }
+
+/* ---------- ajustes finos ---------- */
+.body > .fab{ position:fixed; }
+.phone .fab{ position:absolute; }
+.listrow--static{ cursor:default; }
+.listrow--static:active{ background:transparent; }
+.badge--dark{ background:var(--ink); color:#fff; }
+.badge--purple{ background:var(--purple-soft); color:var(--purple-ink); }
+.swatch{ width:14px; height:14px; border-radius:4px; flex:none; display:block; }
+/* botón de icono en fila de contenido: 48px de área táctil */
+.iconbtn--soft{ width:48px; height:48px; }
+.card--warn{ border-color:#F3B96B; }
+.btn--sm{ padding:0 12px; white-space:nowrap; }
+.listrow__sub, .listrow__title{ overflow-wrap:anywhere; }
+/* KPI dentro de rejilla: la cifra nunca parte en dos líneas */
+.kpi__value{ white-space:nowrap; }
+.grid2 .kpi{ padding:14px 15px 16px; }
+.grid2 .kpi__value{ font-size:21px; letter-spacing:-.04em; }
+.grid2 .kpi__value.h1{ font-size:28px; }
+.screen--dark .cuota.is-paid { background:var(--green); }
+.screen--dark .cuota.is-late { background:#8A5A22; }
+.screen--dark .cuota.is-today{ background:var(--indigo); }
+
+/* ---------- modo carretera (mapa a pantalla completa) ---------- */
+.roadmap{ position:relative; flex-grow:1; display:flex; flex-direction:column; }
+.roadmap > .map{ position:absolute; inset:0; height:auto; border-radius:0; border:0; }
+.roadmap__top{ position:relative; z-index:2; display:flex; align-items:center; gap:10px; padding:8px 16px; }
+.roadmap__card{ position:relative; z-index:2; margin:auto 16px 16px; }
+.pill{ height:44px; padding:0 16px; border-radius:999px; background:var(--ink); color:#fff;
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  font-size:14px; font-weight:700; flex:none; }
+.iconbtn--float{ background:var(--white); border:1px solid var(--line); border-radius:16px; }
+.avatar--lg{ width:64px; height:64px; border-radius:20px; font-size:20px; }
+.mid{ display:flex; justify-content:center; }
+.stack-24{ display:flex; flex-direction:column; gap:24px; }
+
+/* cuadricula grande: la celda pagada lleva numero blanco, necesita la tinta oscura */
+/* pin del mapa: blanco sobre --red daba 3.76 */
+.map__pin{ background:#D42020; }
+.map__pin--done{ background:var(--green-ink); }
+.swatch--paid{ background:var(--green-ink); }
+.swatch--late{ background:#FBD5A5; }
+.swatch--today{ background:var(--ink); }
+
+
+  body{ margin:0; background:var(--soft); }
+  .stage{ min-height:100vh; display:flex; flex-direction:column; align-items:center;
+    justify-content:center; gap:18px; padding:24px 16px 32px;
+    font-family:Onest,Roboto,Arial,sans-serif; }
+  .phone{ position:relative; width:390px; height:844px; max-width:100%; overflow:hidden;
+    background:#fff; border-radius:38px; border:1px solid var(--line);
+    box-shadow:0 30px 70px -30px rgba(11,15,20,.45), 0 0 0 9px #12161C; }
+  .phone > .screen{ height:100%; }
+  .hud{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:center; }
+  .hud__lbl{ font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--ink3); margin-right:4px; }
+  .hud__btn{ height:40px; padding:0 16px; border-radius:999px; border:1px solid var(--line);
+    background:#fff; color:var(--ink); font:600 14px/1 Onest,Roboto,Arial,sans-serif;
+    cursor:pointer; display:flex; align-items:center; }
+  .hud__btn.is-on{ background:var(--ink); border-color:var(--ink); color:#fff; }
+  .hud__note{ font-size:13px; color:var(--ink2); text-align:center; max-width:390px; line-height:1.45; }
+  @media (max-width:460px){
+    .stage{ padding:0; gap:0; justify-content:flex-start; }
+    .phone{ width:100%; height:100vh; border-radius:0; border:0; box-shadow:none; }
+    .hud{ display:none; }
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]) body{ background:#12161C; }
+    :root:not([data-theme="light"]) .hud__btn{ background:#1C2229; border-color:#2A323B; color:#E7EAEE; }
+    :root:not([data-theme="light"]) .hud__lbl,
+    :root:not([data-theme="light"]) .hud__note{ color:#96A0AC; }
+  }
+  :root[data-theme="dark"] body{ background:#12161C; }
+  :root[data-theme="dark"] .hud__btn{ background:#1C2229; border-color:#2A323B; color:#E7EAEE; }
+  :root[data-theme="dark"] .hud__lbl, :root[data-theme="dark"] .hud__note{ color:#96A0AC; }
+
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="phone app" id="phone">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<g id="s" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></g>
+</defs>
+<symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></symbol>
+<symbol id="i-route" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V7l6-3 6 3 4-2v12l-4 2-6-3-6 3z"/><path d="M10 4v12"/><path d="M16 7v12"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="3.5"/><path d="M21 20v-2a4 4 0 0 0-3-3.9"/></symbol>
+<symbol id="i-wallet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="19" height="13" rx="2.5"/><path d="M2.5 10.5h19"/><path d="M17 15h2"/></symbol>
+<symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></symbol>
+<symbol id="i-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M3 10h18"/><path d="M8 15h5"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol>
+<symbol id="i-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.8 1.2V21a2 2 0 1 1-4 0v-.1A1.6 1.6 0 0 0 7.3 19.6l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.6 1.6 0 0 0 3.3 14H3a2 2 0 1 1 0-4h.1A1.6 1.6 0 0 0 4.4 7.3l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.6 1.6 0 0 0 10 3.3V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 2.7 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0 1.2 2.7H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></symbol>
+<symbol id="i-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></symbol>
+<symbol id="i-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></symbol>
+<symbol id="i-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M5 12h14"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></symbol>
+<symbol id="i-checkc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.2l2.5 2.4 4.5-4.6"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+<symbol id="i-nav" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 18-8-5-8 5z"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18"/><path d="M8 3v4"/><path d="M16 3v4"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 20h16"/></symbol>
+<symbol id="i-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13"/><path d="M7 8l5-5 5 5"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2.5"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5"/><path d="M12 8h.01"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.4 8.5-8 9.9-4.6-1.4-8-4.9-8-9.9V7z"/><path d="M9 12l2 2 4-4"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+<symbol id="i-dots" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="12" cy="19" r="1.9"/></symbol>
+<symbol id="i-trend" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></symbol>
+<symbol id="i-money" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 6v12"/><path d="M15 9.5A2.5 2.5 0 0 0 12.5 8h-1a2 2 0 0 0 0 4h1a2 2 0 0 1 0 4h-1A2.5 2.5 0 0 1 9 14.5"/></symbol>
+<symbol id="i-pie" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v9h9"/></symbol>
+<symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h5"/></symbol>
+<symbol id="i-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h3l1.5-2.5h9L18 8h3v11H3z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+<symbol id="i-fuel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17h2l1.5-5h11L19 17h2"/><circle cx="7.5" cy="18.5" r="1.8"/><circle cx="16.5" cy="18.5" r="1.8"/><path d="M6 12l1-5h10l1 5"/></symbol>
+<symbol id="i-food" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 9h2.5a2.5 2.5 0 0 1 0 5H17"/><path d="M7 3v2"/><path d="M11 3v2"/></symbol>
+<symbol id="i-qr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 14h3v3h-3z"/><path d="M20 14v1"/><path d="M14 20h3"/><path d="M20 19v2"/></symbol>
+<symbol id="i-logout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4"/><path d="M15 8l4 4-4 4"/><path d="M19 12H9"/></symbol>
+<symbol id="i-google" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19"/><path d="M12 2.5c2.5 2.6 3.8 6 3.8 9.5s-1.3 6.9-3.8 9.5c-2.5-2.6-3.8-6-3.8-9.5S9.5 5.1 12 2.5z"/></symbol>
+<symbol id="i-bike" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17" r="3.2"/><circle cx="18.5" cy="17" r="3.2"/><path d="M8.5 17h6l-3-7H8"/><path d="M14 6h3l1.5 4"/></symbol>
+<symbol id="i-drag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 9h14"/><path d="M5 15h14"/></symbol>
+</svg>
+
+<section class="screen screen--dark" id="bienvenida" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="body">
+
+    <div class="row mt8">
+      <div class="avatar avatar--indigo">
+        <svg class="i"><use href="#i-grid"></use></svg>
+      </div>
+      <div class="h3">CrediRuta</div>
+    </div>
+
+    <div class="h1 mt28">Tu ruta,<br>cuadrada al final<br>del día.</div>
+
+    <div class="muted mt16">Cobras sin señal, la caja se cuadra sola y el administrador ve la entrega el mismo día.</div>
+
+    <div class="stack mt28">
+
+      <div class="card card--tap" data-go="crearNegocio">
+        <div class="row">
+          <div class="grow">
+            <div class="h3">Tengo mi negocio de préstamos</div>
+            <div class="small mt8">Crea tu empresa y tus rutas</div>
+          </div>
+          <div class="iconbtn">
+            <svg class="i"><use href="#i-arrow"></use></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card--flat card--tap" data-go="unirse">
+        <div class="row">
+          <div class="grow">
+            <div class="h3">Me invitó un administrador</div>
+            <div class="small mt8">Entra con el código que te dieron</div>
+          </div>
+          <div class="iconbtn">
+            <svg class="i"><use href="#i-arrow"></use></svg>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="center mt28">¿Ya tienes cuenta? <a data-go="ingresar">Entrar</a></div>
+
+  </div>
+</section>
+
+<section class="screen" id="ingresar" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" type="button" data-back>
+      <svg class="i"><use href="#i-back"></use></svg>
+    </button>
+  </div>
+
+  <div class="body">
+
+    <div class="h1">Entrar a tu cuenta</div>
+
+    <div class="stack-16 mt24">
+
+      <div class="field">
+        <label class="field__label">Correo</label>
+        <div class="field__box">
+          <input type="email" value="andres.gil@correo.com">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field__label">Contraseña</label>
+        <div class="field__box">
+          <input type="password" value="claveDemo">
+          <svg class="i"><use href="#i-eye"></use></svg>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row btn--sm">
+      <a>Olvidé mi contraseña</a>
+    </div>
+
+    <button class="btn btn--primary mt8" type="button" data-go="ruta">Entrar</button>
+
+    <div class="spread mt20">
+      <div class="grow bar bar--thin"></div>
+      <div class="small center">o</div>
+      <div class="grow bar bar--thin"></div>
+    </div>
+
+    <button class="btn btn--ghost mt20" type="button" data-go="ruta">
+      <svg class="i"><use href="#i-google"></use></svg>
+      Continuar con Google
+    </button>
+
+    <div class="alert alert--blue mt20">
+      <svg class="i"><use href="#i-shield"></use></svg>
+      <div>Tu cartera queda en el teléfono. Puedes cobrar todo el día sin señal.</div>
+    </div>
+
+    <div class="card card--flat mt20">
+      <div class="lbl">Entrar como demo</div>
+      <div class="grid2 mt12">
+        <button class="btn btn--soft btn--sm" type="button" data-go="ruta">Cobrador</button>
+        <button class="btn btn--soft btn--sm" type="button" data-go="adminHoy">Administrador</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="screen" id="unirse" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" type="button" data-back>
+      <svg class="i"><use href="#i-back"></use></svg>
+    </button>
+    <div class="topbar__grow">
+      <div class="topbar__title">Unirme a un equipo</div>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="h1">Escribe el código que te dieron</div>
+    <div class="muted mt8">Son 6 letras y números. Te lo da el administrador de tu ruta.</div>
+
+    <div class="field mt24">
+      <div class="field__box">
+        <input class="money__val num center" value="7K4M2P" placeholder="7K4M2P">
+      </div>
+    </div>
+
+    <button class="btn btn--ghost mt16" type="button" data-toast="Equipo encontrado">Buscar equipo</button>
+
+    <div class="card mt20">
+      <div class="row">
+        <div class="avatar avatar--indigo">CD</div>
+        <div class="grow">
+          <div class="h3">CrediRuta</div>
+          <div class="small mt8">Carlos Duarte · Administrador</div>
+        </div>
+      </div>
+      <div class="mt12">
+        <div class="listrow">
+          <div class="grow muted">Vas a entrar como</div>
+          <div class="strong">Cobrador</div>
+        </div>
+        <div class="listrow">
+          <div class="grow muted">Ruta asignada</div>
+          <div class="strong">Ruta Sur</div>
+        </div>
+        <div class="listrow">
+          <div class="grow muted">Clientes</div>
+          <div class="strong num">18</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn--primary mt20" type="button" data-go="ruta" data-toast="Bienvenido al equipo">Entrar al equipo</button>
+
+    <button class="btn btn--soft btn--sm mt12" type="button">
+      <svg class="i"><use href="#i-qr"></use></svg>
+      Escanear código QR
+    </button>
+
+  </div>
+</section>
+
+<section class="screen" id="ruta" data-nav="cobrador">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <div class="topbar__grow">
+      <div class="row">
+        <div class="topbar__title">Ruta Centro</div>
+        <svg class="i"><use href="#i-down"></use></svg>
+      </div>
+      <div class="topbar__sub num">Martes 31 de agosto · 9 de 24 visitados</div>
+    </div>
+    <div class="topbar__actions">
+      <button class="iconbtn" data-go="modoCarretera"><svg class="i"><use href="#i-nav"></use></svg></button>
+      <button class="iconbtn"><svg class="i"><use href="#i-search"></use></svg></button>
+      <button class="iconbtn" data-go="ajustes"><svg class="i"><use href="#i-settings"></use></svg></button>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-20">
+
+      <div class="kpi kpi--green">
+        <div class="kpi__top">
+          <div class="kpi__label">Recaudado hoy</div>
+          <svg class="i i--lg"><use href="#i-money"></use></svg>
+        </div>
+        <div>
+          <div class="kpi__value h1 num">$ 486.000</div>
+          <div class="kpi__label mt8 num">de $ 720.000 esperados · faltan $ 234.000</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="spread">
+          <div class="h3">Orden de visita</div>
+          <button class="iconbtn iconbtn--soft" type="button" data-go="ordenVisita">
+            <svg class="i"><use href="#i-drag"></use></svg>
+          </button>
+        </div>
+        <div class="chips mt12">
+          <div class="chip is-on">Todos</div>
+          <div class="chip">Por visitar</div>
+          <div class="chip">Atrasados</div>
+          <div class="chip">Hechos</div>
+        </div>
+        <div class="row small mt12">
+          <span class="row"><i class="swatch swatch--paid"></i>pagada</span>
+          <span class="row"><i class="swatch swatch--late"></i>se saltó</span>
+          <span class="row"><i class="swatch swatch--today"></i>hoy</span>
+        </div>
+      </div>
+
+      <div class="timeline">
+
+        <div class="tl">
+          <div class="tl__rail">
+            <div class="tl__num">1</div>
+            <div class="tl__line"></div>
+          </div>
+          <div class="tl__body">
+            <div class="card">
+              <div class="row" data-go="cartulina">
+                <div class="avatar avatar--orange">MR</div>
+                <div class="grow">
+                  <div class="listrow__title">María Restrepo</div>
+                  <div class="listrow__sub">Cra 12 #4-30, Centro</div>
+                </div>
+                <div class="num strong none">$ 25.000</div>
+              </div>
+              <div class="row mt12">
+                <div class="badge badge--orange mt12">3 cuotas atrás</div>
+                <div class="grow"></div>
+                <button class="iconbtn iconbtn--soft none"><svg class="i"><use href="#i-phone"></use></svg></button>
+                <button class="iconbtn iconbtn--soft none"><svg class="i"><use href="#i-pin"></use></svg></button>
+              </div>
+              <div class="cuotas mt12">
+                <div class="cuota is-paid"></div>
+                <div class="cuota is-paid"></div>
+                <div class="cuota is-paid"></div>
+                <div class="cuota is-paid"></div>
+                <div class="cuota is-paid"></div>
+                <div class="cuota is-late"></div>
+                <div class="cuota is-paid"></div>
+                <div class="cuota is-paid"></div>
+                <div class="cuota is-late"></div>
+                <div class="cuota is-paid"></div>
+                <div class="cuota is-late"></div>
+                <div class="cuota is-today"></div>
+                <div class="cuota"></div>
+                <div class="cuota"></div>
+                <div class="cuota"></div>
+                <div class="cuota"></div>
+                <div class="cuota"></div>
+                <div class="cuota"></div>
+                <div class="cuota"></div>
+                <div class="cuota"></div>
+              </div>
+              <div class="small mt8">Cuota 12 de 20 · saldo $ 300.000</div>
+              <div class="row mt12">
+                <button class="btn btn--primary btn--sm grow" data-sheet="sheetCobro">Registrar pago de $ 25.000</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl">
+          <div class="tl__rail">
+            <div class="tl__num">2</div>
+            <div class="tl__line"></div>
+          </div>
+          <div class="tl__body">
+            <div class="card">
+              <div class="row" data-go="cartulina">
+                <div class="avatar avatar--green">JA</div>
+                <div class="grow">
+                  <div class="listrow__title">Jorge Álvarez</div>
+                  <div class="listrow__sub">Calle 5 #11-08</div>
+                </div>
+                <div class="num strong none">$ 15.000</div>
+              </div>
+              <div class="row mt12">
+                <div class="badge badge--green mt12">Al día</div>
+                <div class="grow"></div>
+                <button class="iconbtn iconbtn--soft none"><svg class="i"><use href="#i-phone"></use></svg></button>
+                <button class="iconbtn iconbtn--soft none"><svg class="i"><use href="#i-pin"></use></svg></button>
+              </div>
+              <div class="cuotas mt12">
+                <div class="cuota is-paid"></div>
+                <div class="cuota is-paid"></div>
+                <div class="cuota is-paid"></div>
+                <div class="cuota is-paid"></div>
+                <div class="cuota is-paid"></div>
+                <div class="cuota is-today"></div>
+                <div class="cuota"></div>
+                <div class="cuota"></div>
+                <div class="cuota"></div>
+                <div class="cuota"></div>
+                <div class="cuota"></div>
+                <div class="cuota"></div>
+                <div class="cuota"></div>
+                <div class="cuota"></div>
+                <div class="cuota"></div>
+                <div class="cuota"></div>
+                <div class="cuota"></div>
+                <div class="cuota"></div>
+                <div class="cuota"></div>
+                <div class="cuota"></div>
+              </div>
+              <div class="small mt8">Cuota 6 de 20 · saldo $ 210.000</div>
+              <div class="row mt12">
+                <button class="btn btn--soft btn--sm grow" data-sheet="sheetCobro">Registrar pago</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl">
+          <div class="tl__rail">
+            <div class="tl__num is-done">3</div>
+            <div class="tl__line"></div>
+          </div>
+          <div class="tl__body">
+            <div class="card">
+              <div class="row" data-go="cartulina">
+                <div class="avatar avatar--green">LC</div>
+                <div class="grow">
+                  <div class="listrow__title">Luz Carmona</div>
+                  <div class="listrow__sub">Pagó a las 9:42 a. m.</div>
+                </div>
+                <div class="num strong t-green none">+ $ 20.000</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl">
+          <div class="tl__rail">
+            <div class="tl__num is-skip">4</div>
+          </div>
+          <div class="tl__body">
+            <div class="card">
+              <div class="row" data-go="cartulina">
+                <div class="avatar avatar--red">HP</div>
+                <div class="grow">
+                  <div class="row">
+                    <div class="listrow__title">Hernán Pardo</div>
+                    <div class="badge badge--red">CLAVO</div>
+                  </div>
+                  <div class="listrow__sub">Calle 3 #14-22</div>
+                </div>
+                <div class="num strong none">$ 20.000</div>
+              </div>
+              <div class="badge badge--red mt12">21 cuotas atrás</div>
+              <div class="cuotas mt12">
+                <div class="cuota is-paid"></div>
+                <div class="cuota is-late"></div>
+                <div class="cuota is-late"></div>
+                <div class="cuota is-late"></div>
+                <div class="cuota is-late"></div>
+                <div class="cuota is-late"></div>
+                <div class="cuota is-late"></div>
+                <div class="cuota is-late"></div>
+                <div class="cuota is-late"></div>
+                <div class="cuota is-late"></div>
+                <div class="cuota is-late"></div>
+                <div class="cuota is-late"></div>
+                <div class="cuota is-late"></div>
+                <div class="cuota is-late"></div>
+                <div class="cuota is-late"></div>
+                <div class="cuota is-late"></div>
+                <div class="cuota is-late"></div>
+                <div class="cuota is-late"></div>
+                <div class="cuota is-late"></div>
+                <div class="cuota is-today"></div>
+              </div>
+              <div class="small mt8">Cuota 20 de 20 · saldo $ 480.000</div>
+              <div class="row mt12">
+                <button class="btn btn--ghost btn--sm grow" data-sheet="sheetVisita">No pagó</button>
+                <button class="btn btn--soft btn--sm grow" data-sheet="sheetCobro">Registrar pago</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="clientes" data-nav="cobrador">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <div class="topbar__grow">
+      <div class="topbar__title">Clientes</div>
+      <div class="topbar__sub">24 en Ruta Centro</div>
+    </div>
+    <div class="topbar__actions">
+      <button class="iconbtn" data-go="ajustes"><svg class="i"><use href="#i-settings"></use></svg></button>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-16">
+
+      <div class="field__box">
+        <svg class="i"><use href="#i-search"></use></svg>
+        <input placeholder="Buscar por nombre, cédula o dirección">
+      </div>
+
+      <div class="chips">
+        <div class="chip is-on">Todos</div>
+        <div class="chip">Atrasados</div>
+        <div class="chip">Liquidados</div>
+        <div class="chip">Clavo</div>
+      </div>
+
+      <div class="list">
+        <div class="listrow" data-go="cartulina">
+          <div class="avatar avatar--orange">MR</div>
+          <div class="grow">
+            <div class="listrow__title">María Restrepo</div>
+            <div class="listrow__sub">Centro · 1 préstamo</div>
+          </div>
+          <div class="right">
+            <div class="num strong">$ 300.000</div>
+            <div class="small">3 atrás</div>
+          </div>
+        </div>
+
+        <div class="listrow" data-go="cartulina">
+          <div class="avatar avatar--indigo">JA</div>
+          <div class="grow">
+            <div class="listrow__title">Jorge Álvarez</div>
+            <div class="listrow__sub">Calle 5 #11-08 · 1 préstamo</div>
+          </div>
+          <div class="right">
+            <div class="num strong">$ 210.000</div>
+            <div class="small">Al día</div>
+          </div>
+        </div>
+
+        <div class="listrow" data-go="cartulina">
+          <div class="avatar avatar--green">LC</div>
+          <div class="grow">
+            <div class="listrow__title">Luz Carmona</div>
+            <div class="listrow__sub">Cra 9 #2-15 · 2 préstamos</div>
+          </div>
+          <div class="right">
+            <div class="num strong">$ 640.000</div>
+            <div class="small">Pagó hoy</div>
+          </div>
+        </div>
+
+        <div class="listrow" data-go="cartulina">
+          <div class="avatar avatar--red">HP</div>
+          <div class="grow">
+            <div class="row">
+              <div class="listrow__title">Hernán Pardo</div>
+              <span class="badge badge--red">CLAVO</span>
+            </div>
+            <div class="listrow__sub">Calle 3 #14-22 · 1 préstamo</div>
+          </div>
+          <div class="right">
+            <div class="num strong">$ 480.000</div>
+            <div class="small">21 atrás</div>
+          </div>
+        </div>
+
+        <div class="listrow" data-go="cartulina">
+          <div class="avatar avatar--indigo">NR</div>
+          <div class="grow">
+            <div class="listrow__title">Nelson Ruiz</div>
+            <div class="listrow__sub">Cra 14 #8-05 · 1 préstamo</div>
+          </div>
+          <div class="right">
+            <div class="num strong">$ 162.000</div>
+            <div class="small">Al día</div>
+          </div>
+        </div>
+
+        <div class="listrow" data-go="cartulina">
+          <div class="avatar avatar--indigo">DO</div>
+          <div class="grow">
+            <div class="listrow__title">Diana Ortiz</div>
+            <div class="listrow__sub">Calle 9 #3-11 · 1 préstamo</div>
+          </div>
+          <div class="right">
+            <div class="num strong">$ 390.000</div>
+            <div class="small">Al día</div>
+          </div>
+        </div>
+
+        <div class="listrow" data-go="cartulina">
+          <div class="avatar">RS</div>
+          <div class="grow">
+            <div class="row">
+              <div class="listrow__title muted">Rosa Sánchez</div>
+              <span class="badge">Liquidado</span>
+            </div>
+            <div class="listrow__sub">Cra 15 #7-40 · sin préstamo activo</div>
+          </div>
+          <div class="right">
+            <div class="num strong muted">$ 0</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="fab" data-go="nuevoCliente">
+      <svg class="i"><use href="#i-plus"></use></svg>
+      Nuevo cliente
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="cartulina" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" data-back><svg class="i"><use href="#i-back"></use></svg></button>
+    <div class="topbar__grow">
+      <div class="topbar__title">Cartulina</div>
+      <div class="topbar__sub">María Restrepo</div>
+    </div>
+    <div class="topbar__actions">
+      <button class="iconbtn" data-go="editarCliente"><svg class="i"><use href="#i-edit"></use></svg></button>
+      <button class="iconbtn"><svg class="i"><use href="#i-dots"></use></svg></button>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-16">
+
+      <div class="card">
+        <div class="row">
+          <div class="avatar avatar--orange">MR</div>
+          <div class="grow">
+            <div class="h2">María Restrepo</div>
+            <div class="small">Cra 12 #4-30, Centro · 310 555 4412</div>
+          </div>
+        </div>
+        <div class="row mt16">
+          <span class="badge badge--orange">Atrasado · 3 cuotas</span>
+          <span class="badge">Cliente desde 2024</span>
+        </div>
+        <div class="grid2 mt16">
+          <button class="btn btn--ghost btn--sm">
+            <svg class="i i--sm"><use href="#i-phone"></use></svg>
+            Llamar
+          </button>
+          <button class="btn btn--ghost btn--sm">
+            <svg class="i i--sm"><use href="#i-pin"></use></svg>
+            Cómo llegar
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="spread">
+          <div class="lbl">Préstamo activo</div>
+          <div class="small">Desde 12 ago · diario</div>
+        </div>
+
+        <div class="spread mt12">
+          <div>
+            <div class="small">Saldo</div>
+            <div class="h1 num">$ 300.000</div>
+          </div>
+          <div class="right">
+            <div class="small">Cuota</div>
+            <div class="h2 num">$ 25.000</div>
+          </div>
+        </div>
+
+        <div class="spread mt20">
+          <div class="lbl">Cuotas</div>
+          <div class="small num">8 de 20 pagadas</div>
+        </div>
+
+        <div class="cuotas cuotas--big mt12">
+          <div class="cuota is-paid">1</div>
+          <div class="cuota is-paid">2</div>
+          <div class="cuota is-paid">3</div>
+          <div class="cuota is-paid">4</div>
+          <div class="cuota is-paid">5</div>
+          <div class="cuota is-paid">6</div>
+          <div class="cuota is-paid">7</div>
+          <div class="cuota is-paid">8</div>
+          <div class="cuota is-late">9</div>
+          <div class="cuota is-late">10</div>
+          <div class="cuota is-late">11</div>
+          <div class="cuota is-today">12</div>
+          <div class="cuota">13</div>
+          <div class="cuota">14</div>
+          <div class="cuota">15</div>
+          <div class="cuota">16</div>
+          <div class="cuota">17</div>
+          <div class="cuota">18</div>
+          <div class="cuota">19</div>
+          <div class="cuota">20</div>
+        </div>
+
+        <div class="row small mt12">
+          <span class="row"><i class="swatch swatch--paid"></i>pagada</span>
+          <span class="row"><i class="swatch swatch--late"></i>se saltó</span>
+          <span class="row"><i class="swatch swatch--today"></i>hoy</span>
+        </div>
+
+        <div class="small mt16 num">Capital $ 400.000 + interés 25% · total $ 500.000 · pagado $ 200.000</div>
+      </div>
+
+      <div class="card">
+        <div class="spread">
+          <div class="lbl">Movimientos</div>
+          <a href="#">Ver todos</a>
+        </div>
+
+        <div class="mt8">
+          <div class="listrow">
+            <div class="avatar avatar--sm avatar--green">
+              <svg class="i i--sm"><use href="#i-check"></use></svg>
+            </div>
+            <div class="grow">
+              <div class="listrow__title">Pago</div>
+              <div class="listrow__sub">27 ago · Andrés Gil</div>
+            </div>
+            <span class="num strong t-green">$ 25.000</span>
+          </div>
+
+          <div class="listrow">
+            <div class="avatar avatar--sm avatar--orange">
+              <svg class="i i--sm"><use href="#i-close"></use></svg>
+            </div>
+            <div class="grow">
+              <div class="listrow__title">No pagó · dijo que no tenía</div>
+              <div class="listrow__sub">28 ago · Andrés Gil</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stack-8 mt8">
+        <button class="btn btn--primary" data-sheet="sheetCobro">Registrar pago</button>
+        <div class="grid2">
+          <button class="btn btn--ghost btn--sm" data-sheet="sheetRetaque">Retaque</button>
+          <button class="btn btn--ghost btn--sm" data-go="nuevoPrestamo">Nuevo préstamo</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="nuevoCliente" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" type="button" data-back>
+      <svg class="i"><use href="#i-close"></use></svg>
+    </button>
+    <div class="topbar__grow">
+      <div class="topbar__title">Nuevo cliente</div>
+      <div class="topbar__sub">Paso 1 de 3 · Quién es</div>
+    </div>
+  </div>
+
+  <div class="body">
+
+
+    <div class="row mt24">
+      <div class="avatar" style="width:72px;height:72px;border-radius:22px">
+        <svg class="i i--lg"><use href="#i-camera"></use></svg>
+      </div>
+      <div class="grow">
+        <div class="strong">Foto del cliente</div>
+        <div class="small mt8">Opcional. Ayuda a reconocerlo en la ruta.</div>
+      </div>
+    </div>
+
+    <div class="stack-20 mt24">
+
+      <div class="field">
+        <label class="field__label">Nombre completo</label>
+        <div class="field__box">
+          <input value="María Restrepo Ochoa">
+        </div>
+      </div>
+
+      <div class="field is-error">
+        <label class="field__label">Cédula</label>
+        <div class="field__box">
+          <input class="num" value="4321" inputmode="numeric">
+          <svg class="i"><use href="#i-alert"></use></svg>
+        </div>
+        <div class="field__error">La cédula debe tener al menos 6 números.</div>
+      </div>
+
+      <div class="field">
+        <label class="field__label">Teléfono</label>
+        <div class="field__box">
+          <input class="num" value="310 555 4412" inputmode="tel">
+          <svg class="i"><use href="#i-check"></use></svg>
+        </div>
+        <div class="field__hint">Se usa para llamarlo y para WhatsApp.</div>
+      </div>
+
+      <div class="field">
+        <label class="field__label">Apodo o negocio (opcional)</label>
+        <div class="field__box">
+          <input placeholder="Tienda La Esquina">
+        </div>
+      </div>
+
+    </div>
+
+    <button class="btn btn--primary is-off mt24" type="button">Continuar</button>
+    <div class="small center mt12">Corrige la cédula para continuar.</div>
+
+  </div>
+</section>
+
+<section class="screen" id="nuevoPrestamo" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" type="button" data-back>
+      <svg class="i"><use href="#i-close"></use></svg>
+    </button>
+    <div class="topbar__grow">
+      <div class="topbar__title">Nuevo préstamo</div>
+      <div class="topbar__sub">María Restrepo</div>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <label class="field__label">¿Cuánto le vas a prestar?</label>
+    <div class="money">
+      <div class="money__cur">$</div>
+      <input class="money__val num" id="capital" value="400.000" inputmode="numeric">
+    </div>
+
+    <div class="lbl mt24">Interés</div>
+    <div class="grid4 mt8">
+      <div class="chip">20%</div>
+      <div class="chip is-on">25%</div>
+      <div class="chip">30%</div>
+      <div class="chip">Otro</div>
+    </div>
+
+    <div class="lbl mt24">¿Cada cuánto cobra?</div>
+    <div class="grid4 mt8">
+      <div class="chip is-on">Diario</div>
+      <div class="chip">Semanal</div>
+      <div class="chip">Quincenal</div>
+      <div class="chip">Mensual</div>
+    </div>
+
+    <div class="lbl mt24">Número de cuotas</div>
+    <div class="stepper mt8">
+      <div class="stepper__btn">
+        <svg class="i"><use href="#i-minus"></use></svg>
+      </div>
+      <div class="stepper__val num">20</div>
+      <div class="stepper__btn">
+        <svg class="i"><use href="#i-plus"></use></svg>
+      </div>
+    </div>
+
+    <div class="kpi kpi--indigo mt24">
+      <div class="kpi__top">
+        <div class="kpi__label">Así queda el préstamo</div>
+        <svg class="i"><use href="#i-money"></use></svg>
+      </div>
+      <div class="spread mt12">
+        <div>
+          <div class="kpi__label">Cuota diaria</div>
+          <div class="kpi__value h1 num">$ 25.000</div>
+        </div>
+        <div class="right">
+          <div class="kpi__label">Total a pagar</div>
+          <div class="kpi__value num">$ 500.000</div>
+        </div>
+      </div>
+      <div class="cuotas mt12">
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+      </div>
+    </div>
+
+    <div class="small mt20 num">Primera cuota el miércoles 1 de sep · última el lunes 20 de sep</div>
+
+    <button class="btn btn--primary mt16" type="button" data-go="cartulina" data-toast="Préstamo entregado">
+      Entregar <span class="num">$ 400.000</span>
+    </button>
+    <div class="small center mt12">Sale de tu caja de hoy.</div>
+
+  </div>
+</section>
+
+<section class="screen" id="caja" data-nav="cobrador">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <div class="topbar__grow">
+      <div class="topbar__title">Caja del día</div>
+      <div class="topbar__sub">Martes 31 de agosto · Ruta Centro</div>
+    </div>
+    <div class="topbar__actions row">
+      <span class="badge badge--green">Abierta</span>
+      <button class="iconbtn" type="button" data-go="historialCierres">
+        <svg class="i"><use href="#i-clock"></use></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-16">
+
+      <div class="kpi kpi--indigo">
+        <div class="kpi__top">
+          <div class="kpi__label">Debes entregar</div>
+          <svg class="i i--lg"><use href="#i-wallet"></use></svg>
+        </div>
+        <div>
+          <div class="kpi__value h1 num">$ 254.000</div>
+          <div class="kpi__label mt8 num">Cobraste $ 486.000 y gastaste $ 32.000</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="lbl">Cómo se calcula</div>
+        <div class="stack mt16">
+          <div class="spread">
+            <div>Cobrado hoy · 18 pagos</div>
+            <span class="num strong t-green">+ $ 486.000</span>
+          </div>
+          <div class="spread">
+            <div>Gastos · 2</div>
+            <span class="num strong t-orange">− $ 32.000</span>
+          </div>
+          <div class="spread">
+            <div>Prestado hoy · 2 préstamos</div>
+            <span class="num strong t-orange">− $ 200.000</span>
+          </div>
+          <div class="spread">
+            <div class="strong">Entrega esperada</div>
+            <div class="h3 num">$ 254.000</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="spread">
+          <div class="lbl">Gastos del día</div>
+          <div class="num strong">$ 32.000</div>
+        </div>
+
+        <div class="mt12">
+          <div class="listrow">
+            <div class="avatar avatar--orange">
+              <svg class="i"><use href="#i-fuel"></use></svg>
+            </div>
+            <div class="grow">
+              <div class="listrow__title">Gasolina</div>
+              <div class="listrow__sub">8:15 a. m.</div>
+            </div>
+            <div class="num strong none">$ 20.000</div>
+          </div>
+          <div class="listrow">
+            <div class="avatar avatar--orange">
+              <svg class="i"><use href="#i-food"></use></svg>
+            </div>
+            <div class="grow">
+              <div class="listrow__title">Almuerzo</div>
+              <div class="listrow__sub">12:40 p. m.</div>
+            </div>
+            <div class="num strong none">$ 12.000</div>
+          </div>
+        </div>
+
+        <button class="btn btn--ghost btn--sm mt12" type="button" data-sheet="sheetGasto">
+          <svg class="i"><use href="#i-plus"></use></svg>
+          Agregar gasto
+        </button>
+      </div>
+
+      <div>
+        <button class="btn btn--primary" type="button" data-go="cierre">Cerrar caja y entregar</button>
+        <div class="small center mt12">Después de cerrar no puedes registrar más pagos de hoy.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="cierre" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" type="button" data-back>
+      <svg class="i"><use href="#i-close"></use></svg>
+    </button>
+    <div class="topbar__grow">
+      <div class="topbar__title">Cerrar caja</div>
+      <div class="topbar__sub">Martes 31 de agosto · Ruta Centro</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-16">
+
+      <div>
+        <div class="h1">¿Cuánto vas a entregar?</div>
+        <div class="muted mt8">Cuenta el efectivo antes de escribir.</div>
+      </div>
+
+      <div class="money">
+        <span class="money__cur">$</span>
+        <input class="money__val num" id="efectivo" value="250.000" inputmode="numeric">
+      </div>
+
+      <div class="card">
+        <div class="stack">
+          <div class="spread">
+            <div>Esperado</div>
+            <div class="num strong">$ 254.000</div>
+          </div>
+          <div class="spread">
+            <div>Vas a entregar</div>
+            <div class="num strong">$ 250.000</div>
+          </div>
+          <div class="spread">
+            <span class="badge badge--orange">
+              <svg class="i i--sm"><use href="#i-alert"></use></svg>
+              Faltan
+            </span>
+            <span class="h2 num t-orange">$ 4.000</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="alert alert--amber">
+          <svg class="i"><use href="#i-alert"></use></svg>
+          <div class="grow">
+            <div class="strong">Explica la diferencia</div>
+            <div>El administrador va a ver esta nota junto al cierre.</div>
+          </div>
+        </div>
+        <div class="field mt12">
+          <div class="field__box">
+            <textarea rows="3">Le di $4.000 de vuelto a don Luis y no alcancé a pasar por el banco.</textarea>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button class="btn btn--primary" type="button" data-go="historialCierres" data-toast="Cierre enviado a Carlos Duarte">Enviar cierre a Carlos</button>
+        <div class="small center mt12">Queda guardado aunque no tengas señal.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="adminHoy" data-nav="admin">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <div class="topbar__grow">
+      <div class="topbar__title">Hoy</div>
+      <div class="topbar__sub">Carlos Duarte · Administrador</div>
+    </div>
+    <div class="topbar__actions">
+      <button class="iconbtn" data-go="ajustes"><svg class="i"><use href="#i-settings"></use></svg></button>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="h1">Panel de control</div>
+    <div class="row mt8">
+      <svg class="i i--sm"><use href="#i-calendar"></use></svg>
+      <div class="small">Martes 31 de agosto</div>
+    </div>
+
+    <div class="grid2 mt20">
+      <div class="kpi kpi--green">
+        <div class="kpi__top">
+          <div class="kpi__label">Recaudado hoy</div>
+          <svg class="i"><use href="#i-trend"></use></svg>
+        </div>
+        <div>
+          <div class="kpi__value num">$ 1.204.000</div>
+          <div class="kpi__label mt8 num">de $ 1.470.000</div>
+        </div>
+      </div>
+      <div class="kpi kpi--orange">
+        <div class="kpi__top">
+          <div class="kpi__label">En mora</div>
+          <svg class="i"><use href="#i-alert"></use></svg>
+        </div>
+        <div>
+          <div class="kpi__value num">$ 2,1M</div>
+          <div class="kpi__label mt8 num">19 clientes atrasados</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="small mt12 num">En la calle $ 18,4M en 142 préstamos · 3 rutas activas</div>
+
+    <div class="mt28">
+      <div class="lbl">Necesita tu revisión</div>
+      <div class="stack mt12">
+        <div class="card card--tap" data-go="adminCierre">
+          <div class="row">
+            <div class="avatar avatar--orange">AG</div>
+            <div class="grow">
+              <div class="listrow__title">Andrés Gil · Ruta Centro</div>
+              <div class="listrow__sub">Cierre enviado hace 12 minutos</div>
+            </div>
+            <span class="badge badge--orange none num">Faltan $ 4.000</span>
+            <svg class="i"><use href="#i-right"></use></svg>
+          </div>
+        </div>
+        <div class="card card--tap" data-go="adminCierre">
+          <div class="row">
+            <div class="avatar avatar--indigo">SP</div>
+            <div class="grow">
+              <div class="listrow__title">Sandra Peña · Ruta Norte</div>
+              <div class="listrow__sub">Cierre enviado hace 40 minutos</div>
+            </div>
+            <div class="badge badge--green">Cuadrado</div>
+            <svg class="i"><use href="#i-right"></use></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card--tap mt16" data-go="reportes">
+      <div class="row">
+        <div class="avatar"><svg class="i"><use href="#i-doc"></use></svg></div>
+        <div class="grow">
+          <div class="listrow__title">Reportes</div>
+          <div class="listrow__sub">Excel por periodo y por ruta</div>
+        </div>
+        <svg class="i"><use href="#i-right"></use></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="adminRutas" data-nav="admin">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <div class="topbar__grow">
+      <div class="topbar__title">Rutas</div>
+      <div class="topbar__sub">3 activas · 1 vencida</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="chips">
+      <div class="chip is-on">Todas</div>
+      <div class="chip">Activas</div>
+      <div class="chip">Vencidas</div>
+    </div>
+
+    <div class="card mt16">
+      <div class="spread">
+        <div class="h3">Ruta Centro</div>
+        <div class="badge badge--green">Activa</div>
+      </div>
+      <div class="row mt12">
+        <div class="avatar avatar--sm avatar--indigo">AG</div>
+        <div class="small">Andrés Gil</div>
+      </div>
+      <div class="small mt16 num">24 clientes · $ 6,2M en la calle · 4 en mora</div>
+      <div class="bar bar--thin mt16"><div class="bar__fill bar__fill--green" style="width:67%"></div></div>
+      <div class="small mt8">Recaudado hoy <span class="num">$ 486.000</span> de <span class="num">$ 720.000</span></div>
+      <div class="small mt12">Mensualidad al día · vence el 15 de sep</div>
+    </div>
+
+    <div class="card mt12">
+      <div class="spread">
+        <div class="h3">Ruta Norte</div>
+        <div class="badge badge--green">Activa</div>
+      </div>
+      <div class="row mt12">
+        <div class="avatar avatar--sm avatar--indigo">SP</div>
+        <div class="small">Sandra Peña</div>
+      </div>
+      <div class="small mt16 num">31 clientes · $ 7,8M en la calle · 6 en mora</div>
+      <div class="bar bar--thin mt16"><div class="bar__fill bar__fill--green" style="width:94%"></div></div>
+      <div class="small mt8">Recaudado hoy <span class="num">$ 512.000</span> de <span class="num">$ 545.000</span></div>
+      <div class="small mt12">Mensualidad al día · vence el 2 de sep</div>
+    </div>
+
+    <div class="card mt12">
+      <div class="spread">
+        <div class="h3">Ruta Sur</div>
+        <div class="badge badge--orange">Vencida</div>
+      </div>
+      <div class="row mt12">
+        <div class="avatar avatar--sm">JM</div>
+        <div class="small">Julián Marín</div>
+      </div>
+      <div class="small mt16 num">18 clientes · $ 4,4M en la calle · 9 en mora</div>
+      <div class="alert alert--amber mt16">
+        <svg class="i"><use href="#i-alert"></use></svg>
+        <div>
+          <span class="strong">Julián puede cobrar, no puede prestar.</span>
+          La mensualidad venció el 24 de agosto. Renueva para volver a habilitar préstamos nuevos.
+        </div>
+      </div>
+      <button class="btn btn--primary btn--sm mt16" data-go="mensualidad">Renovar por <span class="num">$ 25.000</span></button>
+    </div>
+
+    <div class="fab" data-go="nuevaRuta">
+      <svg class="i"><use href="#i-plus"></use></svg>
+      Nueva ruta
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="adminCartera" data-nav="admin">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <div class="topbar__grow">
+      <div class="topbar__title">Cartera</div>
+      <div class="topbar__sub">142 clientes · 3 rutas</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="field__box mt8">
+      <svg class="i"><use href="#i-search"></use></svg>
+      <input placeholder="Buscar cliente en todas las rutas">
+    </div>
+
+    <div class="chips mt20">
+      <div class="chip is-on">Todas las rutas</div>
+      <div class="chip">Centro</div>
+      <div class="chip">Norte</div>
+      <div class="chip">Sur</div>
+    </div>
+
+    <div class="lbl mt24">Los que más deben</div>
+    <div class="list mt12">
+      <div class="listrow" data-go="cartulina">
+        <div class="avatar avatar--red">HP</div>
+        <div class="grow">
+          <div class="listrow__title">Hernán Pardo</div>
+          <div class="listrow__sub">Ruta Centro · clavo</div>
+        </div>
+        <div class="right">
+          <div class="listrow__title num">$ 480.000</div>
+          <div class="badge badge--red mt8">21 atrás</div>
+        </div>
+      </div>
+      <div class="listrow" data-go="cartulina">
+        <div class="avatar avatar--green">LC</div>
+        <div class="grow">
+          <div class="listrow__title">Luz Carmona</div>
+          <div class="listrow__sub">Ruta Centro · 2 préstamos</div>
+        </div>
+        <div class="right">
+          <div class="listrow__title num">$ 640.000</div>
+          <div class="small">Al día</div>
+        </div>
+      </div>
+      <div class="listrow" data-go="cartulina">
+        <div class="avatar avatar--green">MO</div>
+        <div class="grow">
+          <div class="listrow__title">Marta Ospina</div>
+          <div class="listrow__sub">Ruta Norte · 1 préstamo</div>
+        </div>
+        <div class="right">
+          <div class="listrow__title num">$ 520.000</div>
+          <div class="small">Al día</div>
+        </div>
+      </div>
+      <div class="listrow" data-go="cartulina">
+        <div class="avatar avatar--orange">MR</div>
+        <div class="grow">
+          <div class="listrow__title">María Restrepo</div>
+          <div class="listrow__sub">Ruta Centro · 1 préstamo</div>
+        </div>
+        <div class="right">
+          <div class="listrow__title num">$ 300.000</div>
+          <div class="small">3 atrás</div>
+        </div>
+      </div>
+      <div class="listrow" data-go="cartulina">
+        <div class="avatar avatar--green">DO</div>
+        <div class="grow">
+          <div class="listrow__title">Diana Ortiz</div>
+          <div class="listrow__sub">Ruta Centro · 1 préstamo</div>
+        </div>
+        <div class="right">
+          <div class="listrow__title num">$ 390.000</div>
+          <div class="small">Al día</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="screen" id="adminEquipo" data-nav="admin">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <div class="topbar__grow">
+      <div class="topbar__title">Equipo</div>
+      <div class="topbar__sub">3 cobradores · 1 invitación pendiente</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-20">
+
+      <div>
+        <div class="lbl">Cobradores</div>
+        <div class="list mt8">
+          <div class="listrow" data-go="permisosCobrador">
+            <div class="avatar avatar--indigo">AG</div>
+            <div class="grow">
+              <div class="listrow__title">Andrés Gil</div>
+              <div class="listrow__sub">Ruta Centro · 24 clientes</div>
+            </div>
+            <span class="badge badge--orange none">Cierre por revisar</span>
+            <svg class="i i--sm"><use href="#i-right"></use></svg>
+          </div>
+          <div class="listrow" data-go="permisosCobrador">
+            <div class="avatar avatar--indigo">SP</div>
+            <div class="grow">
+              <div class="listrow__title">Sandra Peña</div>
+              <div class="listrow__sub">Ruta Norte · 31 clientes</div>
+            </div>
+            <span class="badge badge--green none">Al día</span>
+            <svg class="i i--sm"><use href="#i-right"></use></svg>
+          </div>
+          <div class="listrow" data-go="permisosCobrador">
+            <div class="avatar">JM</div>
+            <div class="grow">
+              <div class="listrow__title">Julián Marín</div>
+              <div class="listrow__sub">Ruta Sur · 18 clientes</div>
+            </div>
+            <span class="badge badge--red none">9 en mora</span>
+            <svg class="i i--sm"><use href="#i-right"></use></svg>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="lbl">Invitación pendiente</div>
+        <div class="card mt8">
+          <div class="row">
+            <div class="avatar">
+              <svg class="i"><use href="#i-clock"></use></svg>
+            </div>
+            <div class="grow">
+              <div class="h2 num">7K4M2P</div>
+              <div class="small">Para Ruta Sur · vence en 3 días</div>
+            </div>
+            <button class="iconbtn iconbtn--soft" type="button" data-toast="Código copiado">
+              <svg class="i"><use href="#i-copy"></use></svg>
+            </button>
+            <button class="iconbtn iconbtn--soft" type="button" data-toast="Listo para compartir">
+              <svg class="i"><use href="#i-share"></use></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="fab" data-go="invitacion">
+      <svg class="i"><use href="#i-plus"></use></svg>
+      Invitar
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="adminCierre" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" type="button" data-back>
+      <svg class="i"><use href="#i-back"></use></svg>
+    </button>
+    <div class="topbar__grow">
+      <div class="topbar__title">Cierre de Andrés Gil</div>
+      <div class="topbar__sub">Ruta Centro · martes 31 de agosto</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-16">
+
+      <div>
+        <div class="alert alert--amber">
+          <svg class="i"><use href="#i-alert"></use></svg>
+          <div class="grow">
+            <div class="strong num">Faltan $ 4.000 en la entrega</div>
+            <div class="num">Esperado $ 254.000 · entregó $ 250.000</div>
+          </div>
+        </div>
+        <div class="card card--flat mt12">
+          <div class="lbl">Nota de Andrés</div>
+          <div class="mt8">Le di <span class="num">$ 4.000</span> de vuelto a don Luis y no alcancé a pasar por el banco.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="lbl">Movimientos del día</div>
+        <div class="stack mt16">
+          <div class="spread">
+            <div>Cobrado · 18 pagos</div>
+            <span class="num strong t-green">+ $ 486.000</span>
+          </div>
+          <div class="spread">
+            <div>Gastos · 2</div>
+            <span class="num strong t-orange">− $ 32.000</span>
+          </div>
+          <div class="spread">
+            <div>Prestado · 2 préstamos</div>
+            <span class="num strong t-orange">− $ 200.000</span>
+          </div>
+          <div class="spread">
+            <div class="strong">Entrega esperada</div>
+            <div class="h3 num">$ 254.000</div>
+          </div>
+        </div>
+        <button class="btn btn--ghost btn--sm mt16" type="button">Ver los 24 movimientos</button>
+      </div>
+
+      <div class="spread">
+        <div class="lbl">No pagaron hoy · 4 clientes</div>
+        <span class="num strong t-orange">$ 85.000</span>
+      </div>
+
+      <div>
+        <button class="btn btn--primary" type="button" data-go="adminHoy" data-toast="Cierre aprobado">Aprobar cierre</button>
+        <button class="btn btn--ghost btn--sm mt12" type="button" data-back data-toast="Devuelta a Andrés para corregir">Devolver para corregir</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="reportes" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" type="button" data-back>
+      <svg class="i"><use href="#i-back"></use></svg>
+    </button>
+    <div class="topbar__grow">
+      <div class="topbar__title">Reportes</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-20">
+
+      <div>
+        <div class="lbl">Periodo</div>
+        <div class="grid4 mt8">
+          <div class="chip">Hoy</div>
+          <div class="chip">Semana</div>
+          <div class="chip is-on">Mes</div>
+          <div class="chip">Otro</div>
+        </div>
+        <div class="small num mt8">Del 1 al 31 de agosto de 2026</div>
+      </div>
+
+      <div>
+        <div class="lbl">Rutas</div>
+        <div class="field__box mt8">
+          <div class="grow">Todas las rutas</div>
+          <svg class="i"><use href="#i-down"></use></svg>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="lbl">Lo que va a incluir</div>
+        <div class="stack mt16">
+          <div class="spread">
+            <div>Recaudado</div>
+            <div class="num strong">$ 24.860.000</div>
+          </div>
+          <div class="spread">
+            <div>Prestado</div>
+            <div class="num strong">$ 19.400.000</div>
+          </div>
+          <div class="spread">
+            <div>Gastos</div>
+            <div class="num strong">$ 720.000</div>
+          </div>
+          <div class="spread">
+            <div>Interés cobrado</div>
+            <span class="num strong t-green">$ 4.180.000</span>
+          </div>
+          <div class="spread">
+            <div>Cierres aprobados</div>
+            <div class="num strong">62 de 62</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn--primary" data-go="reporteDetalle" type="button" data-toast="Archivo generado">
+        <svg class="i"><use href="#i-download"></use></svg>
+        Descargar Excel
+      </button>
+
+      <div class="alert alert--gray">
+        <svg class="i"><use href="#i-info"></use></svg>
+        <div class="grow">El archivo se arma con los cierres aprobados del periodo. Los cierres pendientes no entran.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="invitacion" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" type="button" data-back>
+      <svg class="i"><use href="#i-close"></use></svg>
+    </button>
+    <div class="topbar__grow">
+      <div class="topbar__title">Invitar cobrador</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-16">
+
+      <div class="card">
+        <div class="lbl">Entra como</div>
+        <div class="listrow">
+          <div class="grow">Rol</div>
+          <div class="strong none">Cobrador</div>
+        </div>
+        <div class="listrow">
+          <div class="grow">Ruta asignada</div>
+          <div class="strong none">Ruta Sur</div>
+          <svg class="i i--sm"><use href="#i-down"></use></svg>
+        </div>
+        <div class="listrow">
+          <div class="grow">El código vence</div>
+          <div class="strong num none">en 3 días</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <div class="grow"></div>
+          <div class="avatar" style="width:160px;height:160px;border-radius:24px">
+            <svg class="i" style="width:96px;height:96px"><use href="#i-qr"></use></svg>
+          </div>
+          <div class="grow"></div>
+        </div>
+        <div class="small center mt16">o dale este código</div>
+        <div class="h1 num center mt8">7K4M2P</div>
+      </div>
+
+      <div class="grid2">
+        <button class="btn btn--ghost btn--sm" type="button" data-toast="Código copiado">
+          <svg class="i"><use href="#i-copy"></use></svg>
+          Copiar
+        </button>
+        <button class="btn btn--primary btn--sm" type="button" data-toast="Listo para compartir">
+          <svg class="i"><use href="#i-share"></use></svg>
+          Compartir
+        </button>
+      </div>
+
+      <div class="alert alert--gray">
+        <svg class="i"><use href="#i-info"></use></svg>
+        <div class="grow">El código sirve una sola vez. Si alguien más lo usa antes, tendrás que generar otro.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="crearNegocio" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" type="button" data-back>
+      <svg class="i"><use href="#i-close"></use></svg>
+    </button>
+    <div class="topbar__grow">
+      <div class="topbar__title">Crear tu negocio</div>
+      <div class="topbar__sub">Vas a ser el administrador</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-20">
+
+      <div class="mt8">
+        <div class="h1">¿Cómo se llama tu negocio?</div>
+        <div class="muted mt8">Es el nombre que van a ver tus cobradores cuando entren con tu código.</div>
+      </div>
+
+      <div class="field">
+        <label class="field__label">Nombre del negocio</label>
+        <div class="field__box">
+          <input placeholder="Créditos Duarte">
+        </div>
+        <div class="field__hint">Máximo 80 letras. Lo puedes cambiar después.</div>
+      </div>
+
+      <div class="card">
+        <div class="lbl">Qué cuesta</div>
+        <div class="stack mt12">
+          <div class="spread">
+            <div>Abrir el negocio</div>
+            <span class="num strong t-green">Gratis</span>
+          </div>
+          <div class="spread">
+            <div>Cada ruta, los primeros 14 días</div>
+            <span class="num strong t-green">Gratis</span>
+          </div>
+          <div class="spread">
+            <div class="strong">Cada ruta, después</div>
+            <div class="h3 num">$ 25.000 / mes</div>
+          </div>
+        </div>
+        <div class="small mt12">Sin límite de clientes ni de cobradores. Pagas por ruta abierta.</div>
+      </div>
+
+      <button class="btn btn--primary" type="button" data-go="verificarCorreo">Crear negocio</button>
+
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="verificarCorreo" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" type="button" data-back>
+      <svg class="i"><use href="#i-close"></use></svg>
+    </button>
+    <div class="topbar__grow">
+      <div class="topbar__title">Confirma tu correo</div>
+      <div class="topbar__sub">Paso final del registro</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-20">
+
+      <div class="mt8">
+        <div class="h1">Te enviamos un enlace</div>
+        <div class="h3 mt8">carlos.duarte@gmail.com</div>
+      </div>
+
+      <div class="alert alert--amber">
+        <svg class="i"><use href="#i-clock"></use></svg>
+        <div class="grow">El enlace sirve por <span class="strong num">24 horas</span>. Te quedan 23.</div>
+      </div>
+
+      <div class="card">
+        <div class="lbl">Qué tienes que hacer</div>
+        <div class="timeline mt16">
+          <div class="tl">
+            <div class="tl__rail">
+              <div class="tl__num">1</div>
+              <div class="tl__line"></div>
+            </div>
+            <div class="tl__body">
+              <div class="strong">Abre tu correo</div>
+              <div class="small">Busca el mensaje de CrediRuta.</div>
+            </div>
+          </div>
+          <div class="tl">
+            <div class="tl__rail">
+              <div class="tl__num">2</div>
+              <div class="tl__line"></div>
+            </div>
+            <div class="tl__body">
+              <div class="strong">Si no llega, mira en spam</div>
+              <div class="small">A veces cae en correo no deseado.</div>
+            </div>
+          </div>
+          <div class="tl">
+            <div class="tl__rail">
+              <div class="tl__num">3</div>
+            </div>
+            <div class="tl__body">
+              <div class="strong">Toca el enlace y vuelve aquí</div>
+              <div class="small">Con eso queda listo.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stack-8">
+        <button class="btn btn--primary" type="button" data-go="adminHoy">Ya confirmé mi correo</button>
+        <button class="btn btn--ghost btn--sm" type="button" data-toast="Enlace enviado otra vez">Enviar el enlace otra vez</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="cuentaPausada" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <div class="topbar__grow">
+      <div class="topbar__title">CrediRuta</div>
+      <div class="topbar__sub">andres.gil@gmail.com</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-20 mt28">
+
+      <div class="avatar avatar--orange avatar--lg">
+        <svg class="i i--lg"><use href="#i-clock"></use></svg>
+      </div>
+
+      <div>
+        <div class="h1">Carlos pausó tu acceso</div>
+        <div class="muted mt12">
+          Mientras esté pausado no puedes cobrar ni cerrar caja. Tus cobros quedan guardados:
+          cuando Carlos te reactive, entras con este mismo correo y sigues donde ibas.
+        </div>
+      </div>
+
+      <div class="card card--flat">
+        <div class="lbl">Lo que quedó guardado</div>
+        <div class="stack mt12">
+          <div class="spread">
+            <div>Caja del martes 31 de agosto</div>
+            <span class="badge badge--green">Enviada</span>
+          </div>
+          <div class="spread">
+            <div>Pagos sin subir</div>
+            <span class="num strong">0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert--gray">
+        <svg class="i"><use href="#i-info"></use></svg>
+        <div class="grow">Si crees que es un error, habla con Carlos Duarte. Él es quien reactiva la cuenta.</div>
+      </div>
+
+      <button class="btn btn--ghost" type="button" data-go="bienvenida">
+        <svg class="i"><use href="#i-logout"></use></svg>
+        Cerrar sesión
+      </button>
+
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="relojAlterado" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <div class="topbar__grow">
+      <div class="topbar__title">Ruta Centro</div>
+      <div class="topbar__sub">Andrés Gil</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-20 mt24">
+
+      <div class="avatar avatar--orange avatar--lg">
+        <svg class="i i--lg"><use href="#i-clock"></use></svg>
+      </div>
+
+      <div>
+        <div class="h1">La hora del teléfono no cuadra</div>
+        <div class="muted mt12">
+          Cada pago se guarda con la hora en que lo registraste. El teléfono tiene la hora puesta
+          a mano, así que los cobros de hoy quedarían con fecha equivocada.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="lbl">Cómo se arregla</div>
+        <div class="timeline mt16">
+          <div class="tl">
+            <div class="tl__rail">
+              <div class="tl__num">1</div>
+              <div class="tl__line"></div>
+            </div>
+            <div class="tl__body">
+              <div class="strong">Abre los ajustes del teléfono</div>
+              <div class="small">Los del teléfono, no los de CrediRuta.</div>
+            </div>
+          </div>
+          <div class="tl">
+            <div class="tl__rail">
+              <div class="tl__num">2</div>
+              <div class="tl__line"></div>
+            </div>
+            <div class="tl__body">
+              <div class="strong">Busca «Fecha y hora»</div>
+              <div class="small">Suele estar dentro de «Sistema».</div>
+            </div>
+          </div>
+          <div class="tl">
+            <div class="tl__rail">
+              <div class="tl__num">3</div>
+            </div>
+            <div class="tl__body">
+              <div class="strong">Enciende «Hora automática»</div>
+              <div class="small">La que toma la hora de la red.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stack-8">
+        <button class="btn btn--primary" type="button" data-go="ruta">Ya la puse en automática</button>
+        <div class="small center">Lo que cobraste antes de hoy está a salvo.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="modoCarretera" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="roadmap">
+    <div class="map">
+      <div class="map__road" style="left:0;top:34%;right:0;height:14px"></div>
+      <div class="map__road" style="left:24%;top:0;bottom:0;width:12px"></div>
+      <div class="map__road" style="left:0;top:72%;right:0;height:10px"></div>
+      <div class="map__road" style="left:68%;top:0;bottom:0;width:10px"></div>
+      <div class="map__pin map__pin--done" style="left:18%;top:20%">7</div>
+      <div class="map__pin" style="left:60%;top:44%">8</div>
+      <div class="map__pin" style="left:30%;top:62%">9</div>
+    </div>
+
+    <div class="roadmap__top">
+      <button class="iconbtn iconbtn--float" type="button" data-back>
+        <svg class="i"><use href="#i-back"></use></svg>
+      </button>
+      <div class="grow center">
+        <span class="pill">
+          <svg class="i i--sm"><use href="#i-nav"></use></svg>
+          Modo carretera
+        </span>
+      </div>
+      <button class="iconbtn iconbtn--float" type="button">
+        <svg class="i"><use href="#i-pin"></use></svg>
+      </button>
+    </div>
+
+    <div class="roadmap__card card">
+      <div class="row">
+        <span class="badge badge--dark">Siguiente</span>
+        <div class="grow"></div>
+        <span class="badge badge--orange">3 cuotas atrás</span>
+      </div>
+
+      <div class="spread mt12">
+        <div class="grow">
+          <div class="h2">María Restrepo</div>
+          <div class="small">Cra 12 #4-30, Centro · a 320 m</div>
+        </div>
+        <div class="right none">
+          <div class="h3 num">$ 25.000</div>
+          <div class="small">cuota</div>
+        </div>
+      </div>
+
+      <div class="cuotas mt16">
+        <div class="cuota is-paid"></div><div class="cuota is-paid"></div>
+        <div class="cuota is-paid"></div><div class="cuota is-paid"></div>
+        <div class="cuota is-paid"></div><div class="cuota is-paid"></div>
+        <div class="cuota is-paid"></div><div class="cuota is-paid"></div>
+        <div class="cuota is-late"></div><div class="cuota is-late"></div>
+        <div class="cuota is-late"></div><div class="cuota is-today"></div>
+        <div class="cuota"></div><div class="cuota"></div><div class="cuota"></div>
+        <div class="cuota"></div><div class="cuota"></div><div class="cuota"></div>
+        <div class="cuota"></div><div class="cuota"></div>
+      </div>
+
+      <div class="row mt16">
+        <button class="iconbtn iconbtn--soft" type="button">
+          <svg class="i"><use href="#i-phone"></use></svg>
+        </button>
+        <button class="iconbtn iconbtn--soft" type="button">
+          <svg class="i"><use href="#i-nav"></use></svg>
+        </button>
+        <button class="btn btn--primary btn--sm grow" type="button" data-sheet="sheetCobro">
+          Registrar pago de $ 25.000
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="ordenVisita" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" type="button" data-back>
+      <svg class="i"><use href="#i-back"></use></svg>
+    </button>
+    <div class="topbar__grow">
+      <div class="topbar__title">Orden de visita</div>
+      <div class="topbar__sub">Ruta Centro · 24 clientes</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-16">
+
+      <div class="alert alert--gray">
+        <svg class="i"><use href="#i-drag"></use></svg>
+        <div class="grow">Mantén presionado el asa y arrastra para cambiar el orden. Se guarda para todos los días.</div>
+      </div>
+
+      <div class="list">
+        <div class="listrow listrow--static">
+          <div class="avatar avatar--sm num">1</div>
+          <div class="grow">
+            <div class="listrow__title">Luz Carmona</div>
+            <div class="listrow__sub num">Cra 9 #2-15 · cuota $ 20.000</div>
+          </div>
+          <svg class="i none t-mute"><use href="#i-drag"></use></svg>
+        </div>
+        <div class="listrow listrow--static">
+          <div class="avatar avatar--sm num">2</div>
+          <div class="grow">
+            <div class="listrow__title">María Restrepo</div>
+            <div class="listrow__sub num">Cra 12 #4-30 · cuota $ 25.000</div>
+          </div>
+          <svg class="i none t-mute"><use href="#i-drag"></use></svg>
+        </div>
+        <div class="listrow listrow--static">
+          <div class="avatar avatar--sm num">3</div>
+          <div class="grow">
+            <div class="listrow__title">Jorge Álvarez</div>
+            <div class="listrow__sub num">Calle 5 #11-08 · cuota $ 15.000</div>
+          </div>
+          <svg class="i none t-mute"><use href="#i-drag"></use></svg>
+        </div>
+        <div class="listrow listrow--static">
+          <div class="avatar avatar--sm num">4</div>
+          <div class="grow">
+            <div class="listrow__title">Nelson Ruiz</div>
+            <div class="listrow__sub num">Cra 14 #8-05 · cuota $ 18.000</div>
+          </div>
+          <svg class="i none t-mute"><use href="#i-drag"></use></svg>
+        </div>
+        <div class="listrow listrow--static">
+          <div class="avatar avatar--sm num">5</div>
+          <div class="grow">
+            <div class="listrow__title">Diana Ortiz</div>
+            <div class="listrow__sub num">Calle 9 #3-11 · cuota $ 30.000</div>
+          </div>
+          <svg class="i none t-mute"><use href="#i-drag"></use></svg>
+        </div>
+        <div class="listrow listrow--static">
+          <div class="avatar avatar--sm num">6</div>
+          <div class="grow">
+            <div class="listrow__title">Hernán Pardo</div>
+            <div class="listrow__sub num">Calle 3 #14-22 · clavo</div>
+          </div>
+          <svg class="i none t-mute"><use href="#i-drag"></use></svg>
+        </div>
+      </div>
+
+      <div class="small center">18 clientes más abajo.</div>
+
+      <button class="btn btn--primary" type="button" data-back data-toast="Orden guardado">Guardar el orden</button>
+
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="editarCliente" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" type="button" data-back>
+      <svg class="i"><use href="#i-close"></use></svg>
+    </button>
+    <div class="topbar__grow">
+      <div class="topbar__title">Editar cliente</div>
+      <div class="topbar__sub">María Restrepo · Ruta Centro</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-16">
+
+      <div class="field">
+        <label class="field__label">Nombre y apellido</label>
+        <div class="field__box">
+          <input value="María Restrepo">
+        </div>
+      </div>
+
+      <div class="field is-error">
+        <label class="field__label">Cédula</label>
+        <div class="field__box">
+          <input class="num" value="4127" inputmode="numeric">
+        </div>
+        <div class="field__error">La cédula debe tener al menos 6 números.</div>
+      </div>
+
+      <div class="field">
+        <label class="field__label">Teléfono</label>
+        <div class="field__box">
+          <input class="num" value="310 555 4412" inputmode="tel">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field__label">Dónde vive</label>
+        <div class="field__box">
+          <input value="Cra 12 #4-30, Centro">
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="spread">
+          <div class="grow">
+            <div class="strong">Marcar como clavo</div>
+            <div class="small">Cliente que no responde. Es un aviso para ti y para Carlos.</div>
+          </div>
+          <div class="toggle none"><i></i></div>
+        </div>
+      </div>
+
+      <div class="stack-8">
+        <button class="btn btn--primary" type="button" data-back data-toast="Cliente guardado">Guardar cambios</button>
+        <div class="small center">Marcar el clavo no bloquea el cobro ni borra el préstamo.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="historialCierres" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" type="button" data-back>
+      <svg class="i"><use href="#i-back"></use></svg>
+    </button>
+    <div class="topbar__grow">
+      <div class="topbar__title">Cierres anteriores</div>
+      <div class="topbar__sub">Ruta Centro · últimos 30 días</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack">
+
+      <div class="card card--warn">
+        <div class="spread">
+          <div class="h3 num">Hoy · martes 31 de agosto</div>
+          <span class="badge badge--indigo">Enviada</span>
+        </div>
+        <div class="mt16">
+          <div class="lbl">Entregaste</div>
+          <div class="h1 num mt8">$ 250.000</div>
+        </div>
+        <div class="alert alert--amber mt16">
+          <svg class="i i--sm"><use href="#i-clock"></use></svg>
+          <div class="grow">Faltaron $ 4.000, con tu nota. Esperando a que Carlos la revise.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="spread">
+          <div class="h3 num">Lunes 30 de agosto</div>
+          <span class="badge badge--green">Aprobada</span>
+        </div>
+        <div class="mt16">
+          <div class="lbl">Entregaste</div>
+          <div class="h3 num mt8">$ 373.000</div>
+        </div>
+        <div class="alert alert--gray mt16">
+          <svg class="i i--sm"><use href="#i-check"></use></svg>
+          <div class="grow">Cuadró exacto. Carlos la aprobó a las 7:12 p. m.</div>
+        </div>
+      </div>
+
+      <div class="card card--warn">
+        <div class="spread">
+          <div class="h3 num">Viernes 27 de agosto</div>
+          <span class="badge badge--orange">Devuelta</span>
+        </div>
+        <div class="grid2 mt16">
+          <div>
+            <div class="lbl">Entregaste</div>
+            <div class="h3 num mt8">$ 340.000</div>
+          </div>
+          <div>
+            <div class="lbl">Se esperaba</div>
+            <div class="h3 num mt8">$ 360.000</div>
+          </div>
+        </div>
+        <div class="alert alert--amber mt16">
+          <svg class="i i--sm"><use href="#i-alert"></use></svg>
+          <div class="grow"><span class="strong">Faltaron $ 20.000.</span> Carlos pide el gasto de la grúa con foto.</div>
+        </div>
+      </div>
+
+      <div class="small center mt8">Una caja aprobada no se vuelve a abrir. Si hay un error, Carlos crea un ajuste.</div>
+
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="rutaVencida" data-nav="cobrador">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <div class="topbar__grow">
+      <div class="topbar__title">Ruta Sur</div>
+      <div class="topbar__sub">Martes 31 de agosto · 18 clientes</div>
+    </div>
+    <div class="topbar__actions">
+      <button class="iconbtn" type="button">
+        <svg class="i"><use href="#i-search"></use></svg>
+      </button>
+      <button class="iconbtn" type="button">
+        <svg class="i"><use href="#i-nav"></use></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-16">
+
+      <div class="alert alert--amber">
+        <svg class="i"><use href="#i-alert"></use></svg>
+        <div class="grow">
+          <div class="strong">La mensualidad de esta ruta venció el 24 de agosto.</div>
+          <div class="mt8">Puedes cobrar, registrar visitas y cerrar caja normal. No puedes prestar
+          ni retaquear hasta que Carlos la renueve.</div>
+        </div>
+      </div>
+
+      <div class="list">
+        <div class="listrow">
+          <div class="avatar avatar--orange">RG</div>
+          <div class="grow">
+            <div class="listrow__title">Rubén Gaviria</div>
+            <div class="listrow__sub">2 cuotas atrás · Calle 40 #6-12</div>
+          </div>
+          <div class="right none">
+            <div class="num strong">$ 22.000</div>
+            <div class="small">cuota</div>
+          </div>
+        </div>
+        <div class="listrow">
+          <div class="avatar avatar--green">
+            <svg class="i"><use href="#i-check"></use></svg>
+          </div>
+          <div class="grow">
+            <div class="listrow__title">Amparo Cifuentes</div>
+            <div class="listrow__sub num">Pagó 1:05 p. m. · $ 20.000</div>
+          </div>
+          <span class="badge badge--green none">Al día</span>
+        </div>
+        <div class="listrow">
+          <div class="avatar avatar--indigo">TM</div>
+          <div class="grow">
+            <div class="listrow__title">Teresa Mena</div>
+            <div class="listrow__sub">Al día · Cra 22 #18-40</div>
+          </div>
+          <div class="right none">
+            <div class="num strong">$ 15.000</div>
+            <div class="small">cuota</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button class="btn btn--soft is-off" type="button">
+          <svg class="i"><use href="#i-plus"></use></svg>
+          Nuevo préstamo · bloqueado
+        </button>
+        <button class="btn btn--primary btn--sm mt12" type="button" data-toast="Le avisamos a Carlos Duarte">
+          <svg class="i"><use href="#i-phone"></use></svg>
+          Avisarle a Carlos
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="nuevaRuta" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" type="button" data-back>
+      <svg class="i"><use href="#i-close"></use></svg>
+    </button>
+    <div class="topbar__grow">
+      <div class="topbar__title">Nueva ruta</div>
+      <div class="topbar__sub">CrediRuta · Carlos Duarte</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-16">
+
+      <div class="field">
+        <label class="field__label">¿Cómo se llama la ruta?</label>
+        <div class="field__box">
+          <input placeholder="Ruta Oriente">
+        </div>
+        <div class="field__hint">Los cobradores la buscan por este nombre.</div>
+      </div>
+
+      <div>
+        <div class="lbl">¿Cada cuánto se cobra?</div>
+        <div class="seg grid2 mt12">
+          <button class="seg__item is-on" type="button">Diaria</button>
+          <button class="seg__item" type="button">Semanal</button>
+          <button class="seg__item" type="button">Quincenal</button>
+          <button class="seg__item" type="button">Mensual</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="lbl">¿Quién la cobra?</div>
+        <div class="list mt12">
+          <div class="listrow">
+            <div class="avatar avatar--indigo">AG</div>
+            <div class="grow">
+              <div class="listrow__title">Andrés Gil</div>
+              <div class="listrow__sub">Ya lleva Ruta Centro · 24 clientes</div>
+            </div>
+            <svg class="i none t-mute"><use href="#i-right"></use></svg>
+          </div>
+        </div>
+        <div class="field__hint">Puedes dejarla sin cobrador y asignarla después.</div>
+      </div>
+
+      <div class="alert alert--blue">
+        <svg class="i"><use href="#i-info"></use></svg>
+        <div class="grow">La ruta trae <span class="strong">14 días de prueba</span>. Después son
+        $ 25.000 al mes, sin límite de clientes.</div>
+      </div>
+
+      <button class="btn btn--primary" type="button" data-go="adminRutas" data-toast="Ruta creada">Crear ruta</button>
+
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="mensualidad" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" type="button" data-back>
+      <svg class="i"><use href="#i-close"></use></svg>
+    </button>
+    <div class="topbar__grow">
+      <div class="topbar__title">Mensualidad de la ruta</div>
+      <div class="topbar__sub">Ruta Sur · Julián Marín</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-16">
+
+      <div class="alert alert--amber">
+        <svg class="i"><use href="#i-alert"></use></svg>
+        <div class="grow">
+          <div class="strong">Venció el 24 de agosto.</div>
+          <div class="mt8">Julián sigue cobrando y cerrando caja. Lo que está bloqueado es
+          prestar y retaquear en esta ruta.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="spread">
+          <div class="lbl">Plan único</div>
+          <div class="h3 num">$ 25.000 / mes</div>
+        </div>
+        <div class="small mt8">Por ruta abierta. Sin límite de clientes. Si pagas varios meses,
+        el precio por mes es el mismo.</div>
+      </div>
+
+      <div>
+        <div class="lbl">¿Cuánto vas a pagar?</div>
+        <div class="list mt12">
+          <div class="listrow">
+            <div class="grow">
+              <div class="listrow__title">1 mes</div>
+              <div class="listrow__sub">Queda al día hasta el 30 de septiembre</div>
+            </div>
+            <div class="num strong none">$ 25.000</div>
+            <svg class="i none t-indigo"><use href="#i-checkc"></use></svg>
+          </div>
+          <div class="listrow">
+            <div class="grow">
+              <div class="listrow__title">3 meses</div>
+              <div class="listrow__sub">Hasta el 30 de noviembre</div>
+            </div>
+            <div class="num strong none t-mute">$ 75.000</div>
+            <svg class="i none t-mute"><use href="#i-right"></use></svg>
+          </div>
+          <div class="listrow">
+            <div class="grow">
+              <div class="listrow__title">6 meses</div>
+              <div class="listrow__sub">Hasta el 28 de febrero</div>
+            </div>
+            <div class="num strong none t-mute">$ 150.000</div>
+            <svg class="i none t-mute"><use href="#i-right"></use></svg>
+          </div>
+          <div class="listrow">
+            <div class="grow">
+              <div class="listrow__title">12 meses</div>
+              <div class="listrow__sub">Hasta el 31 de agosto de 2027</div>
+            </div>
+            <div class="num strong none t-mute">$ 300.000</div>
+            <svg class="i none t-mute"><use href="#i-right"></use></svg>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn--primary" type="button" data-back data-toast="Ruta Sur al día">Pagar $ 25.000</button>
+
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="equipoVacio" data-nav="admin">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <div class="topbar__grow">
+      <div class="topbar__title">Equipo</div>
+      <div class="topbar__sub">CrediRuta · todavía sin cobradores</div>
+    </div>
+    <div class="topbar__actions">
+      <button class="iconbtn" type="button" data-go="ajustes">
+        <svg class="i"><use href="#i-settings"></use></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-20">
+
+      <div class="card center">
+        <div class="mid mt8">
+          <div class="avatar avatar--indigo avatar--lg">
+            <svg class="i i--lg"><use href="#i-users"></use></svg>
+          </div>
+        </div>
+        <div class="h2 mt16">Todavía estás solo</div>
+        <div class="muted mt8">Invita a tu primer cobrador para asignarle una ruta.</div>
+      </div>
+
+      <div class="card card--flat">
+        <div class="lbl">Cómo funciona</div>
+        <div class="timeline mt16">
+          <div class="tl">
+            <div class="tl__rail">
+              <div class="tl__num">1</div>
+              <div class="tl__line"></div>
+            </div>
+            <div class="tl__body">
+              <div class="strong">Generas un código</div>
+              <div class="small">Sirve una sola vez y vence en 3 días.</div>
+            </div>
+          </div>
+          <div class="tl">
+            <div class="tl__rail">
+              <div class="tl__num">2</div>
+              <div class="tl__line"></div>
+            </div>
+            <div class="tl__body">
+              <div class="strong">Se lo pasas al cobrador</div>
+              <div class="small">Él lo escribe al abrir la app.</div>
+            </div>
+          </div>
+          <div class="tl">
+            <div class="tl__rail">
+              <div class="tl__num">3</div>
+            </div>
+            <div class="tl__body">
+              <div class="strong">Le asignas una ruta</div>
+              <div class="small">Solo ve los clientes de esa ruta.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn--primary" type="button" data-go="invitacion">
+        <svg class="i"><use href="#i-plus"></use></svg>
+        Invitar cobrador
+      </button>
+
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="permisosCobrador" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" type="button" data-back>
+      <svg class="i"><use href="#i-back"></use></svg>
+    </button>
+    <div class="topbar__grow">
+      <div class="topbar__title">Andrés Gil</div>
+      <div class="topbar__sub">Cobrador · Ruta Centro · 24 clientes</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-16">
+
+      <div>
+        <div class="lbl">Qué ve Andrés al cerrar la caja</div>
+        <div class="card mt12">
+          <div class="stack-16">
+            <div class="spread">
+              <div class="grow">Lo que cobró en el día</div>
+              <div class="toggle is-on none"><i></i></div>
+            </div>
+            <div class="spread">
+              <div class="grow">Préstamos y retaques que hizo</div>
+              <div class="toggle is-on none"><i></i></div>
+            </div>
+            <div class="spread">
+              <div class="grow">Ganancia e interés de la ruta</div>
+              <div class="toggle none"><i></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="field__hint">Lo que falte o sobre en la entrega siempre lo ve: es su plata contada.</div>
+      </div>
+
+      <div>
+        <div class="lbl">Qué puede hacer</div>
+        <div class="card mt12">
+          <div class="spread">
+            <div class="grow">
+              <div>Aplicar descuentos</div>
+              <div class="small">Si está apagado, el botón no le aparece.</div>
+            </div>
+            <div class="toggle none"><i></i></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="lbl">¿Cada cuánto te entrega?</div>
+        <div class="chips mt12">
+          <button class="chip is-on" type="button">Diaria</button>
+          <button class="chip" type="button">Semanal</button>
+          <button class="chip" type="button">Quincenal</button>
+          <button class="chip" type="button">Mensual</button>
+        </div>
+      </div>
+
+      <button class="btn btn--primary" type="button" data-back data-toast="Permisos guardados">Guardar permisos</button>
+
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="ajustes" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" type="button" data-back>
+      <svg class="i"><use href="#i-back"></use></svg>
+    </button>
+    <div class="topbar__grow">
+      <div class="topbar__title">Ajustes</div>
+      <div class="topbar__sub">CrediRuta</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-20">
+
+      <div>
+        <div class="lbl">Tu cuenta</div>
+        <div class="list mt12">
+          <div class="listrow">
+            <div class="avatar avatar--indigo">CD</div>
+            <div class="grow">
+              <div class="listrow__title">Carlos Duarte</div>
+              <div class="listrow__sub">Administrador · carlos.duarte@gmail.com</div>
+            </div>
+            <svg class="i none t-mute"><use href="#i-right"></use></svg>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="lbl">El negocio</div>
+        <div class="list mt12">
+          <div class="listrow">
+            <div class="avatar avatar--purple">
+              <svg class="i"><use href="#i-trend"></use></svg>
+            </div>
+            <div class="grow">
+              <div class="listrow__title">Interés por defecto</div>
+              <div class="listrow__sub">El que trae cada préstamo nuevo</div>
+            </div>
+            <div class="num strong none">25%</div>
+          </div>
+          <div class="listrow" data-go="adminRutas">
+            <div class="avatar avatar--orange">
+              <svg class="i"><use href="#i-calendar"></use></svg>
+            </div>
+            <div class="grow">
+              <div class="listrow__title">Mensualidad de las rutas</div>
+              <div class="listrow__sub">Ruta Sur vencida hace 7 días</div>
+            </div>
+            <span class="badge badge--orange none">1</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="lbl">Tus datos</div>
+        <div class="list mt12">
+          <div class="listrow">
+            <div class="avatar avatar--green">
+              <svg class="i"><use href="#i-download"></use></svg>
+            </div>
+            <div class="grow">
+              <div class="listrow__title">Respaldar mis datos</div>
+              <div class="listrow__sub">Baja un archivo con clientes, préstamos y cierres</div>
+            </div>
+            <svg class="i none t-mute"><use href="#i-right"></use></svg>
+          </div>
+        </div>
+        <div class="field__hint">Todo se guarda en el teléfono y se envía cuando haya señal.</div>
+      </div>
+
+      <button class="btn btn--ghost" type="button" data-go="bienvenida">
+        <svg class="i"><use href="#i-logout"></use></svg>
+        Cerrar sesión
+      </button>
+
+      <div class="card card--flat center">
+        <div class="strong">CrediRuta</div>
+        <div class="small mt8 num">Versión 0.1.0</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="reporteDetalle" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" type="button" data-back>
+      <svg class="i"><use href="#i-back"></use></svg>
+    </button>
+    <div class="topbar__grow">
+      <div class="topbar__title">Recaudo por cliente</div>
+      <div class="topbar__sub">Ruta Centro · martes 31 de agosto</div>
+    </div>
+    <div class="topbar__actions">
+      <button class="iconbtn" type="button">
+        <svg class="i"><use href="#i-download"></use></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stack-16">
+
+      <div class="grid2">
+        <div class="kpi kpi--green">
+          <div class="kpi__top">
+            <div class="kpi__label">Recaudado</div>
+            <svg class="i"><use href="#i-money"></use></svg>
+          </div>
+          <div>
+            <div class="kpi__value num">$ 486.000</div>
+            <div class="kpi__label mt8">18 pagos</div>
+          </div>
+        </div>
+        <div class="kpi kpi--orange">
+          <div class="kpi__top">
+            <div class="kpi__label">Sin cobrar</div>
+            <svg class="i"><use href="#i-alert"></use></svg>
+          </div>
+          <div>
+            <div class="kpi__value num">$ 85.000</div>
+            <div class="kpi__label mt8">4 no pagaron</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="list">
+        <div class="listrow">
+          <div class="grow">
+            <div class="listrow__title">Luz Carmona</div>
+            <div class="listrow__sub num">9:42 a. m. · cuota completa</div>
+          </div>
+          <div class="num strong none t-green">+ $ 20.000</div>
+        </div>
+        <div class="listrow">
+          <div class="grow">
+            <div class="listrow__title">Jorge Álvarez</div>
+            <div class="listrow__sub num">10:18 a. m. · cuota completa</div>
+          </div>
+          <div class="num strong none t-green">+ $ 15.000</div>
+        </div>
+        <div class="listrow">
+          <div class="grow">
+            <div class="listrow__title">María Restrepo</div>
+            <div class="listrow__sub num">11:04 a. m. · abono parcial</div>
+          </div>
+          <div class="num strong none t-green">+ $ 10.000</div>
+        </div>
+        <div class="listrow">
+          <div class="grow">
+            <div class="listrow__title">Nelson Ruiz</div>
+            <div class="listrow__sub num">12:20 p. m. · cuota completa</div>
+          </div>
+          <div class="num strong none t-green">+ $ 18.000</div>
+        </div>
+        <div class="listrow">
+          <div class="grow">
+            <div class="listrow__title">Hernán Pardo</div>
+            <div class="listrow__sub">2:35 p. m. · no estaba · clavo</div>
+          </div>
+          <div class="num strong none t-mute">$ 0</div>
+        </div>
+        <div class="listrow">
+          <div class="grow">
+            <div class="listrow__title">Diana Ortiz</div>
+            <div class="listrow__sub num">3:12 p. m. · cuota completa</div>
+          </div>
+          <div class="num strong none t-green">+ $ 30.000</div>
+        </div>
+      </div>
+
+      <div class="small center">12 clientes más. El Excel trae la lista completa con cuotas y saldos.</div>
+
+      <button class="btn btn--ghost" type="button" data-toast="Excel generado">
+        <svg class="i"><use href="#i-download"></use></svg>
+        Descargar el Excel del día
+      </button>
+
+    </div>
+  </div>
+</section>
+
+<div class="sheet" id="sheetCobro">
+  <div class="sheet__scrim" data-close></div>
+  <div class="sheet__panel">
+    <div class="sheet__handle"></div>
+
+    <div class="row">
+      <div class="avatar avatar--orange">MR</div>
+      <div class="grow">
+        <div class="h2">María Restrepo</div>
+        <div class="small">Cuota $ 25.000 · saldo $ 300.000</div>
+      </div>
+      <button class="iconbtn none" data-close><svg class="i"><use href="#i-close"></use></svg></button>
+    </div>
+
+    <div class="lbl mt20">¿Qué pasó en la visita?</div>
+    <div class="seg grid2 mt12">
+      <div class="seg__item is-on">
+        <svg class="i i--sm"><use href="#i-check"></use></svg>
+        Pagó
+      </div>
+      <div class="seg__item">Abono parcial</div>
+      <div class="seg__item">No pagó</div>
+      <div class="seg__item">No estaba</div>
+    </div>
+
+    <div class="lbl mt20">Monto recibido</div>
+    <div class="money mt12">
+      <div class="money__cur">$</div>
+      <input class="money__val num" id="montoCobro" value="25.000" inputmode="numeric">
+    </div>
+
+    <div class="grid3 mt12">
+      <div class="chip is-on">Cuota $ 25.000</div>
+      <div class="chip">Media $ 12.500</div>
+      <div class="chip">Saldo total</div>
+    </div>
+
+    <div class="card card--flat mt16">
+      <div class="spread">
+        <div class="muted">Saldo después del pago</div>
+        <div class="num strong">$ 275.000</div>
+      </div>
+      <div class="spread mt12">
+        <div class="muted">Queda</div>
+        <div class="strong">2 cuotas atrás</div>
+      </div>
+    </div>
+
+    <button class="btn btn--primary mt20" data-close data-toast="Pago registrado">Registrar pago de $ 25.000</button>
+    <button class="btn btn--soft btn--sm mt8" data-close>Cancelar</button>
+  </div>
+</div>
+
+<div class="sheet" id="sheetVisita">
+  <div class="sheet__scrim" data-close></div>
+  <div class="sheet__panel">
+    <div class="sheet__handle"></div>
+
+    <div class="row">
+      <div class="avatar avatar--red">HP</div>
+      <div class="grow">
+        <div class="h2">Hernán Pardo</div>
+        <div class="small">Cuota $ 20.000 · saldo $ 480.000</div>
+      </div>
+      <button class="iconbtn none" data-close><svg class="i"><use href="#i-close"></use></svg></button>
+    </div>
+
+    <div class="lbl mt20">¿Qué pasó en la visita?</div>
+    <div class="seg grid2 mt12">
+      <div class="seg__item">Pagó</div>
+      <div class="seg__item">Abono parcial</div>
+      <div class="seg__item is-on is-on--orange">
+        <svg class="i i--sm"><use href="#i-check"></use></svg>
+        No pagó
+      </div>
+      <div class="seg__item">No estaba</div>
+    </div>
+
+    <div class="lbl mt20">Motivo</div>
+    <div class="chips mt12">
+      <div class="chip is-on">Dijo que no tenía</div>
+      <div class="chip">Local cerrado</div>
+      <div class="chip">Pidió plazo</div>
+      <div class="chip">Se mudó</div>
+      <div class="chip">Otro</div>
+    </div>
+
+    <div class="lbl mt20">Nota para el administrador (opcional)</div>
+    <div class="field mt12">
+      <div class="field__box">
+        <textarea rows="3" placeholder="Vuelvo el viernes, dice que cobra el jueves."></textarea>
+      </div>
+    </div>
+
+    <div class="alert alert--gray mt16">
+      <svg class="i"><use href="#i-info"></use></svg>
+      <div>La visita queda registrada con hora y ubicación. No mueve el saldo ni la caja.</div>
+    </div>
+
+    <button class="btn btn--dark mt20" data-close data-toast="Visita guardada">Guardar visita</button>
+    <button class="btn btn--soft btn--sm mt8" data-close>Cancelar</button>
+  </div>
+</div>
+
+<div class="sheet" id="sheetRetaque">
+  <div class="sheet__scrim" data-close></div>
+  <div class="sheet__panel">
+    <div class="sheet__handle"></div>
+
+    <div class="spread">
+      <div class="h2">Retaque</div>
+      <button class="iconbtn" data-close><svg class="i"><use href="#i-close"></use></svg></button>
+    </div>
+    <div class="small">Prestarle más sobre el préstamo que ya tiene.</div>
+
+    <div class="mt20">
+      <div class="lbl">Cuánto le prestas de más</div>
+      <div class="money mt8">
+        <span class="money__cur">$</span>
+        <input class="money__val num" value="100.000" inputmode="numeric">
+      </div>
+    </div>
+
+    <div>
+      <div class="lbl">¿Sobre qué se cobra el interés del 25%?</div>
+      <div class="seg mt12">
+        <div class="seg__item is-on">
+          Solo sobre los <span class="num">$ 100.000</span> nuevos · saldo <span class="num">$ 425.000</span>
+        </div>
+        <div class="seg__item">
+          Sobre todo el capital · saldo <span class="num">$ 450.000</span>
+        </div>
+      </div>
+      <div class="field__hint">Son <span class="num">$ 25.000</span> de diferencia para María. Elige antes de mirar el resumen.</div>
+    </div>
+
+    <div class="list mt16">
+      <div class="listrow">
+        <div class="grow">Saldo</div>
+        <span class="muted num">$ 300.000</span>
+        <svg class="i i--sm"><use href="#i-arrow"></use></svg>
+        <span class="num strong">$ 425.000</span>
+      </div>
+      <div class="listrow">
+        <div class="grow">Cuotas</div>
+        <span class="muted num">12 de 20</span>
+        <svg class="i i--sm"><use href="#i-arrow"></use></svg>
+        <span class="num strong">12 de 25</span>
+      </div>
+    </div>
+
+    <div class="stack-8 mt20">
+      <button class="btn btn--primary" data-close data-toast="Retaque registrado">Entregar <span class="num">$ 100.000</span></button>
+      <button class="btn btn--soft btn--sm" data-close>Cancelar</button>
+    </div>
+
+  </div>
+</div>
+
+<div class="sheet" id="sheetGasto">
+  <div class="sheet__scrim" data-close></div>
+  <div class="sheet__panel">
+    <div class="sheet__handle"></div>
+
+    <div class="spread">
+      <div class="h2">Agregar gasto</div>
+      <button class="iconbtn" type="button" data-close>
+        <svg class="i"><use href="#i-close"></use></svg>
+      </button>
+    </div>
+
+    <div class="stack-16 mt16">
+
+      <div>
+        <div class="lbl">Concepto</div>
+        <div class="chips mt8">
+          <button class="chip is-on" type="button">Gasolina</button>
+          <button class="chip" type="button">Almuerzo</button>
+          <button class="chip" type="button">Transporte</button>
+          <button class="chip" type="button">Recarga</button>
+          <button class="chip" type="button">Otro</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field__label">Detalle (opcional)</label>
+        <div class="field__box">
+          <input placeholder="Tanqueada en la bomba de la 20">
+        </div>
+      </div>
+
+      <div>
+        <div class="lbl">Monto</div>
+        <div class="money mt8">
+          <span class="money__cur">$</span>
+          <input class="money__val num" value="20.000" inputmode="numeric">
+        </div>
+      </div>
+
+      <div class="alert alert--gray">
+        <svg class="i"><use href="#i-info"></use></svg>
+        <div class="grow">El gasto baja lo que tienes que entregar hoy.</div>
+      </div>
+
+      <div class="stack-8">
+        <button class="btn btn--primary" type="button" data-close data-toast="Gasto agregado">Agregar gasto</button>
+        <button class="btn btn--soft btn--sm" type="button" data-close>Cancelar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+    <div class="toast" id="toast"></div>
+  </div>
+
+  <div class="hud">
+    <span class="hud__lbl">Entrar como</span>
+    <button class="hud__btn" data-jump="bienvenida">Inicio</button>
+    <button class="hud__btn is-on" data-jump="ruta">Cobrador</button>
+    <button class="hud__btn" data-jump="adminHoy">Administrador</button>
+  </div>
+  <p class="hud__note">Prototipo navegable. Toca las tarjetas, la barra de abajo y los botones:
+  las hojas de cobro, los formularios y los selectores responden.</p>
+</div>
+
+<script>window.PANTALLA_INICIAL='ruta';</script>
+<script>
+/* CrediRuta · shell del prototipo
+   Router de pantallas, navegación inferior, hojas, selección y formato de dinero.
+   Las pantallas son markup puro; toda la interacción vive aquí. */
+(function () {
+  var phone = document.getElementById('phone');
+  var toastEl = document.getElementById('toast');
+  var toastTimer = null;
+  var stack = [];
+
+  var TABS = {
+    cobrador: [
+      { id: 'ruta', icon: 'i-route', label: 'Ruta' },
+      { id: 'clientes', icon: 'i-users', label: 'Clientes' },
+      { id: 'caja', icon: 'i-wallet', label: 'Caja' }
+    ],
+    admin: [
+      { id: 'adminHoy', icon: 'i-grid', label: 'Hoy' },
+      { id: 'adminRutas', icon: 'i-route', label: 'Rutas' },
+      { id: 'adminCartera', icon: 'i-card', label: 'Cartera' },
+      { id: 'adminEquipo', icon: 'i-users', label: 'Equipo' }
+    ]
+  };
+
+  /* pantallas que no son una pestana pero se pintan dentro de una */
+  var PESTANA_ACTIVA = { rutaVencida: 'ruta', equipoVacio: 'adminEquipo' };
+
+  /* ---- monta nav + barra de gesto en cada pantalla ---- */
+  function mountChrome() {
+    var screens = phone.querySelectorAll('.screen');
+    for (var i = 0; i < screens.length; i++) {
+      var s = screens[i];
+      if (!s.querySelector('.inset')) {
+        var ins = document.createElement('div');
+        ins.className = 'inset';
+        s.insertBefore(ins, s.firstChild);
+      }
+      var kind = s.getAttribute('data-nav');
+      if (kind && TABS[kind]) {
+        var nav = document.createElement('div');
+        nav.className = 'nav';
+        var items = '<div class="nav__items">';
+        TABS[kind].forEach(function (t) {
+          var on = t.id === (PESTANA_ACTIVA[s.id] || s.id) ? ' is-on' : '';
+          items += '<button class="nav__item' + on + '" data-go="' + t.id + '">' +
+            '<span class="nav__pill"><svg class="i"><use href="#' + t.icon + '"></use></svg></span>' +
+            '<span class="nav__label">' + t.label + '</span></button>';
+        });
+        nav.innerHTML = items + '</div>';
+        s.appendChild(nav);
+      }
+      var g = document.createElement('div');
+      g.className = 'gesture';
+      g.innerHTML = '<i></i>';
+      s.appendChild(g);
+    }
+  }
+
+  /* ---- router ---- */
+  function show(id) {
+    var target = document.getElementById(id);
+    if (!target || !target.classList.contains('screen')) return;
+    var all = phone.querySelectorAll('.screen');
+    for (var i = 0; i < all.length; i++) all[i].classList.remove('is-active');
+    target.classList.add('is-active');
+    var body = target.querySelector('.body');
+    if (body) body.scrollTop = 0;
+    phone.setAttribute('data-screen', id);
+    closeSheets();
+  }
+
+  function go(id) {
+    var cur = phone.getAttribute('data-screen');
+    if (cur && cur !== id) stack.push(cur);
+    if (stack.length > 30) stack.shift();
+    show(id);
+  }
+
+  function back() {
+    var prev = stack.pop();
+    show(prev || 'ruta');
+  }
+
+  /* ---- hojas ---- */
+  function openSheet(id) {
+    var sh = document.getElementById(id);
+    if (sh) sh.classList.add('is-open');
+  }
+  function closeSheets() {
+    var sheets = phone.querySelectorAll('.sheet.is-open');
+    for (var i = 0; i < sheets.length; i++) sheets[i].classList.remove('is-open');
+  }
+
+  /* ---- brindis ---- */
+  function toast(msg) {
+    if (!toastEl) return;
+    toastEl.innerHTML = '<svg class="i i--sm"><use href="#i-check"></use></svg><span>' + msg + '</span>';
+    toastEl.classList.add('is-on');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toastEl.classList.remove('is-on'); }, 2400);
+  }
+
+  /* ---- marca la siguiente visita como hecha tras cobrar ---- */
+  function marcarVisita(msg) {
+    if (!/pago|abono|visita/i.test(msg)) return;
+    var ruta = document.getElementById('ruta');
+    if (!ruta) return;
+    var nums = ruta.querySelectorAll('.tl__num');
+    for (var i = 0; i < nums.length; i++) {
+      if (!nums[i].classList.contains('is-done') && !nums[i].classList.contains('is-skip')) {
+        nums[i].classList.add('is-done');
+        nums[i].innerHTML = '<svg class="i i--sm"><use href="#i-check"></use></svg>';
+        break;
+      }
+    }
+  }
+
+  /* ---- formato de dinero ---- */
+  function formatMoney(v) {
+    var digits = String(v).replace(/\D/g, '').replace(/^0+(?=\d)/, '');
+    if (!digits) return '';
+    return digits.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  }
+
+  phone.addEventListener('input', function (e) {
+    var t = e.target;
+    if (t.classList && t.classList.contains('money__val') && t.getAttribute('inputmode') === 'numeric') {
+      var pos = t.value.length - t.selectionStart;
+      t.value = formatMoney(t.value);
+      var np = Math.max(0, t.value.length - pos);
+      try { t.setSelectionRange(np, np); } catch (err) { /* input sin selección */ }
+    }
+  });
+
+  /* ---- clics ---- */
+  phone.addEventListener('click', function (e) {
+    var el = e.target.closest ? e.target.closest('[data-go],[data-back],[data-sheet],[data-close],[data-toast],[data-toggle],.chip,.seg__item,.stepper__btn') : null;
+    if (!el) return;
+
+    /* selección exclusiva dentro de su grupo */
+    if (el.classList.contains('chip') || el.classList.contains('seg__item')) {
+      var group = el.parentElement;
+      var sibs = group.children;
+      for (var i = 0; i < sibs.length; i++) sibs[i].classList.remove('is-on');
+      el.classList.add('is-on');
+    }
+
+    if (el.classList.contains('toggle') || el.hasAttribute('data-toggle')) {
+      el.classList.toggle('is-on');
+      return;
+    }
+
+    if (el.classList.contains('stepper__btn')) {
+      var val = el.parentElement.querySelector('.stepper__val');
+      if (val) {
+        var n = parseInt(val.textContent.replace(/\D/g, ''), 10) || 0;
+        var minus = !!el.querySelector('use[href="#i-minus"]');
+        n = Math.max(1, n + (minus ? -1 : 1));
+        val.textContent = n;
+      }
+      return;
+    }
+
+    var msg = el.getAttribute('data-toast');
+    if (msg) { toast(msg); marcarVisita(msg); }
+
+    if (el.hasAttribute('data-close')) closeSheets();
+
+    var sheet = el.getAttribute('data-sheet');
+    if (sheet) { openSheet(sheet); return; }
+
+    if (el.hasAttribute('data-back')) { back(); return; }
+
+    var dest = el.getAttribute('data-go');
+    if (dest) {
+      if (msg) setTimeout(function () { go(dest); }, 380);
+      else go(dest);
+    }
+  });
+
+  /* ---- cambiar de rol desde el HUD ---- */
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest ? e.target.closest('[data-jump]') : null;
+    if (!el) return;
+    stack = [];
+    show(el.getAttribute('data-jump'));
+    var hud = document.querySelectorAll('[data-jump]');
+    for (var i = 0; i < hud.length; i++) hud[i].classList.remove('is-on');
+    el.classList.add('is-on');
+  });
+
+  mountChrome();
+  show(window.PANTALLA_INICIAL || 'bienvenida');
+})();
+
+</script>
+</body>
+</html>

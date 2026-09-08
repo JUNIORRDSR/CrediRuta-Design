@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap">
+  <style>
+    *{ box-sizing: border-box; }
+    body { margin: 0; background: #F5F7F9; color: #0F1720;
+           font-family: Archivo, Roboto, "Helvetica Neue", Arial, sans-serif;
+           font-size: 15px; line-height: 1.35; -webkit-font-smoothing: antialiased; }
+    a { color: #0C6B8F; text-decoration: none; } a:hover { color: #08536F; }
+    .num { font-variant-numeric: tabular-nums; letter-spacing: -0.012em; }
+    .cap { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; }
+    .lbl { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+    .chip { height: 46px; border-radius: 11px; display: flex; align-items: center; justify-content: center;
+            font-size: 15px; font-weight: 500; background: #FFFFFF; border: 1px solid #DDE3E9;
+            font-variant-numeric: tabular-nums; }
+    .chip-on { height: 46px; border-radius: 11px; display: flex; align-items: center; justify-content: center;
+               font-size: 15px; font-weight: 600; background: #0F1720; color: #FFFFFF; border: 1px solid #0F1720;
+               font-variant-numeric: tabular-nums; }
+  </style>
+</helmet>
+
+<div style="width: 390px; min-height: 900px; background: #F5F7F9; display: flex; flex-direction: column">
+
+  <div style="height: 44px; flex: none; background: #FFFFFF"></div>
+
+  <div style="flex: none; background: #FFFFFF; border-bottom: 1px solid #DDE3E9; display: flex; align-items: center; padding: 0 8px 0 4px; height: 56px">
+    <div style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex: none">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0F1720" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"></path><path d="M6 6l12 12"></path></svg>
+    </div>
+    <div style="flex-grow: 1">
+      <div style="font-size: 17px; font-weight: 600; letter-spacing: -0.01em">Nuevo préstamo</div>
+      <div style="font-size: 12px; color: #5C6672">María Restrepo</div>
+    </div>
+  </div>
+
+  <div style="flex-grow: 1; padding: 20px 16px 24px 16px; display: flex; flex-direction: column; gap: 22px">
+
+    <!-- Capital -->
+    <div>
+      <div class="lbl">¿Cuánto le vas a prestar?</div>
+      <div style="border: 2px solid #0C6B8F; border-radius: 14px; padding: 14px 16px; display: flex; align-items: baseline; gap: 6px; background: #FFFFFF">
+        <div class="num" style="font-size: 26px; font-weight: 600; color: #8A94A1">$</div>
+        <div class="num" style="font-size: 34px; font-weight: 700; letter-spacing: -0.03em; flex-grow: 1">400.000</div>
+        <div style="width: 2px; height: 34px; background: #0C6B8F"></div>
+      </div>
+    </div>
+
+    <!-- Interés -->
+    <div>
+      <div class="lbl">Interés</div>
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+        <div class="chip">20%</div>
+        <div class="chip-on">25%</div>
+        <div class="chip">30%</div>
+        <div class="chip">Otro</div>
+      </div>
+    </div>
+
+    <!-- Frecuencia -->
+    <div>
+      <div class="lbl">¿Cada cuánto cobra?</div>
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+        <div class="chip-on">Diario</div>
+        <div class="chip">Semanal</div>
+        <div class="chip">Quincenal</div>
+        <div class="chip">Mensual</div>
+      </div>
+    </div>
+
+    <!-- Cuotas -->
+    <div>
+      <div class="lbl">Número de cuotas</div>
+      <div style="display: flex; align-items: center; gap: 12px">
+        <div style="width: 54px; height: 54px; flex: none; border: 1px solid #DDE3E9; border-radius: 12px; background: #FFFFFF; display: flex; align-items: center; justify-content: center">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0F1720" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"></path></svg>
+        </div>
+        <div class="num" style="flex-grow: 1; height: 54px; border: 1px solid #DDE3E9; border-radius: 12px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700">20</div>
+        <div style="width: 54px; height: 54px; flex: none; border: 1px solid #DDE3E9; border-radius: 12px; background: #FFFFFF; display: flex; align-items: center; justify-content: center">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0F1720" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resumen en vivo -->
+    <div style="background: #0F1720; border-radius: 16px; padding: 18px">
+      <div class="cap" style="color: #97A2AE">Así queda el préstamo</div>
+      <div style="display: flex; align-items: flex-end; gap: 16px; margin-top: 12px">
+        <div style="flex-grow: 1">
+          <div style="font-size: 13px; color: #C3CBD3">Cuota diaria</div>
+          <div class="num" style="font-size: 32px; font-weight: 700; letter-spacing: -0.03em; color: #FFFFFF; margin-top: 2px">$ 25.000</div>
+        </div>
+        <div style="text-align: right; padding-bottom: 4px">
+          <div style="font-size: 13px; color: #C3CBD3">Total a pagar</div>
+          <div class="num" style="font-size: 20px; font-weight: 700; color: #FFFFFF; margin-top: 2px">$ 500.000</div>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(20, minmax(0, 1fr)); gap: 2px; margin-top: 16px">
+        <div style="height: 10px; border-radius: 2px; background: #3D4855"></div>
+        <div style="height: 10px; border-radius: 2px; background: #3D4855"></div>
+        <div style="height: 10px; border-radius: 2px; background: #3D4855"></div>
+        <div style="height: 10px; border-radius: 2px; background: #3D4855"></div>
+        <div style="height: 10px; border-radius: 2px; background: #3D4855"></div>
+        <div style="height: 10px; border-radius: 2px; background: #3D4855"></div>
+        <div style="height: 10px; border-radius: 2px; background: #3D4855"></div>
+        <div style="height: 10px; border-radius: 2px; background: #3D4855"></div>
+        <div style="height: 10px; border-radius: 2px; background: #3D4855"></div>
+        <div style="height: 10px; border-radius: 2px; background: #3D4855"></div>
+        <div style="height: 10px; border-radius: 2px; background: #3D4855"></div>
+        <div style="height: 10px; border-radius: 2px; background: #3D4855"></div>
+        <div style="height: 10px; border-radius: 2px; background: #3D4855"></div>
+        <div style="height: 10px; border-radius: 2px; background: #3D4855"></div>
+        <div style="height: 10px; border-radius: 2px; background: #3D4855"></div>
+        <div style="height: 10px; border-radius: 2px; background: #3D4855"></div>
+        <div style="height: 10px; border-radius: 2px; background: #3D4855"></div>
+        <div style="height: 10px; border-radius: 2px; background: #3D4855"></div>
+        <div style="height: 10px; border-radius: 2px; background: #3D4855"></div>
+        <div style="height: 10px; border-radius: 2px; background: #3D4855"></div>
+      </div>
+
+      <div style="border-top: 1px solid #2A333D; margin-top: 16px; padding-top: 14px; display: flex; flex-direction: column; gap: 9px">
+        <div style="display: flex; align-items: center; justify-content: space-between">
+          <div style="font-size: 14px; color: #C3CBD3">Primera cuota</div>
+          <div class="num" style="font-size: 14px; font-weight: 600; color: #FFFFFF">Miércoles 1 de sep</div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between">
+          <div style="font-size: 14px; color: #C3CBD3">Última cuota</div>
+          <div class="num" style="font-size: 14px; font-weight: 600; color: #FFFFFF">Lunes 20 de sep</div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between">
+          <div style="font-size: 14px; color: #C3CBD3">Ganancia</div>
+          <div class="num" style="font-size: 14px; font-weight: 600; color: #FFFFFF">$ 100.000</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="flex: none; background: #FFFFFF; border-top: 1px solid #DDE3E9; padding: 12px 16px 8px 16px">
+    <div style="height: 56px; border-radius: 14px; background: #0C6B8F; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 17px; font-weight: 600">Entregar $ 400.000</div>
+    <div style="font-size: 13px; color: #8A94A1; text-align: center; margin-top: 9px">Sale de tu caja de hoy.</div>
+    <div style="height: 12px"></div>
+    <div style="display: flex; justify-content: center">
+      <div style="width: 130px; height: 4px; border-radius: 2px; background: #0F1720; opacity: 0.25"></div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

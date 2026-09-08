@@ -1,0 +1,96 @@
+<section class="screen" id="nuevoPrestamo" data-nav="none">
+  <div class="inset"></div>
+
+  <div class="topbar">
+    <button class="iconbtn" type="button" data-back>
+      <svg class="i"><use href="#i-close"></use></svg>
+    </button>
+    <div class="topbar__grow">
+      <div class="topbar__title">Nuevo préstamo</div>
+      <div class="topbar__sub">María Restrepo</div>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <label class="field__label">¿Cuánto le vas a prestar?</label>
+    <div class="money">
+      <div class="money__cur">$</div>
+      <input class="money__val num" id="capital" value="400.000" inputmode="numeric">
+    </div>
+
+    <div class="lbl mt24">Interés</div>
+    <div class="grid4 mt8">
+      <div class="chip">20%</div>
+      <div class="chip is-on">25%</div>
+      <div class="chip">30%</div>
+      <div class="chip">Otro</div>
+    </div>
+
+    <div class="lbl mt24">¿Cada cuánto cobra?</div>
+    <div class="grid4 mt8">
+      <div class="chip is-on">Diario</div>
+      <div class="chip">Semanal</div>
+      <div class="chip">Quincenal</div>
+      <div class="chip">Mensual</div>
+    </div>
+
+    <div class="lbl mt24">Número de cuotas</div>
+    <div class="stepper mt8">
+      <div class="stepper__btn">
+        <svg class="i"><use href="#i-minus"></use></svg>
+      </div>
+      <div class="stepper__val num">20</div>
+      <div class="stepper__btn">
+        <svg class="i"><use href="#i-plus"></use></svg>
+      </div>
+    </div>
+
+    <div class="kpi kpi--indigo mt24">
+      <div class="kpi__top">
+        <div class="kpi__label">Así queda el préstamo</div>
+        <svg class="i"><use href="#i-money"></use></svg>
+      </div>
+      <div class="spread mt12">
+        <div>
+          <div class="kpi__label">Cuota diaria</div>
+          <div class="kpi__value h1 num">$ 25.000</div>
+        </div>
+        <div class="right">
+          <div class="kpi__label">Total a pagar</div>
+          <div class="kpi__value num">$ 500.000</div>
+        </div>
+      </div>
+      <div class="cuotas mt12">
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+        <div class="cuota"></div>
+      </div>
+    </div>
+
+    <div class="small mt20 num">Primera cuota el miércoles 1 de sep · última el lunes 20 de sep</div>
+
+    <button class="btn btn--primary mt16" type="button" data-go="cartulina" data-toast="Préstamo entregado">
+      Entregar <span class="num">$ 400.000</span>
+    </button>
+    <div class="small center mt12">Sale de tu caja de hoy.</div>
+
+  </div>
+</section>

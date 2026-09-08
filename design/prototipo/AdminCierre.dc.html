@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap">
+  <style>
+    *{ box-sizing: border-box; }
+    body { margin: 0; background: #F5F7F9; color: #0F1720;
+           font-family: Archivo, Roboto, "Helvetica Neue", Arial, sans-serif;
+           font-size: 15px; line-height: 1.35; -webkit-font-smoothing: antialiased; }
+    a { color: #0C6B8F; text-decoration: none; } a:hover { color: #08536F; }
+    .num { font-variant-numeric: tabular-nums; letter-spacing: -0.012em; }
+    .cap { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; }
+  </style>
+</helmet>
+
+<div style="width: 390px; min-height: 844px; background: #F5F7F9; display: flex; flex-direction: column">
+
+  <div style="height: 44px; flex: none; background: #FFFFFF"></div>
+
+  <div style="flex: none; background: #FFFFFF; border-bottom: 1px solid #DDE3E9; display: flex; align-items: center; padding: 0 8px 0 4px; height: 56px">
+    <div style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex: none">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0F1720" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"></path><path d="M12 19l-7-7 7-7"></path></svg>
+    </div>
+    <div style="flex-grow: 1">
+      <div style="font-size: 17px; font-weight: 600; letter-spacing: -0.01em">Cierre de Andrés Gil</div>
+      <div class="num" style="font-size: 12px; color: #5C6672">Ruta Centro · martes 31 de agosto</div>
+    </div>
+  </div>
+
+  <div style="flex-grow: 1; padding: 16px 16px 24px 16px; display: flex; flex-direction: column; gap: 12px">
+
+    <!-- Estado -->
+    <div style="display: flex; align-items: center; gap: 10px; background: #FFFFFF; border: 1px solid #DDE3E9; border-radius: 14px; padding: 14px 16px">
+      <div style="display: flex; align-items: center; gap: 7px; flex-grow: 1">
+        <div style="width: 9px; height: 9px; border-radius: 5px; background: #12704A"></div>
+        <div style="font-size: 14px; color: #5C6672">Abierta</div>
+      </div>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#B9C0CA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+      <div style="display: flex; align-items: center; gap: 7px; flex-grow: 1">
+        <div style="width: 9px; height: 9px; border-radius: 5px; background: #0C6B8F"></div>
+        <div style="font-size: 14px; font-weight: 700; color: #0C6B8F">Enviada</div>
+      </div>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#B9C0CA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+      <div style="display: flex; align-items: center; gap: 7px; flex-grow: 1">
+        <div style="width: 9px; height: 9px; border-radius: 5px; background: #DDE3E9"></div>
+        <div style="font-size: 14px; color: #8A94A1">Aprobada</div>
+      </div>
+    </div>
+
+    <!-- Descuadre -->
+    <div style="background: #FBE7D4; border: 1px solid #E8B98F; border-radius: 14px; padding: 16px">
+      <div style="display: flex; align-items: center; justify-content: space-between">
+        <div>
+          <div style="font-size: 15px; font-weight: 700; color: #A9530B">Faltan en la entrega</div>
+          <div class="num" style="font-size: 13px; color: #8A5426; margin-top: 2px">Esperado $ 254.000 · entregó $ 250.000</div>
+        </div>
+        <div class="num" style="font-size: 26px; font-weight: 700; color: #A9530B; flex: none">$ 4.000</div>
+      </div>
+      <div style="background: #FFFFFF; border-radius: 11px; padding: 13px 14px; margin-top: 13px">
+        <div class="cap" style="color: #A9530B">Nota de Andrés</div>
+        <div style="font-size: 14px; margin-top: 5px; line-height: 1.45">Le di $4.000 de vuelto a don Luis y no alcancé a pasar por el banco.</div>
+      </div>
+    </div>
+
+    <!-- Detalle -->
+    <div style="background: #FFFFFF; border: 1px solid #DDE3E9; border-radius: 14px; padding: 16px">
+      <div class="cap" style="color: #8A94A1">Movimientos del día</div>
+      <div style="display: flex; flex-direction: column; margin-top: 12px">
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #EDF1F4">
+          <div style="font-size: 14px; color: #5C6672">Cobrado · 18 pagos</div>
+          <div class="num" style="font-size: 15px; font-weight: 600; color: #12704A">+ $ 486.000</div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #EDF1F4">
+          <div style="font-size: 14px; color: #5C6672">Gastos · 2</div>
+          <div class="num" style="font-size: 15px; font-weight: 600; color: #A9530B">− $ 32.000</div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #EDF1F4">
+          <div style="font-size: 14px; color: #5C6672">Prestado · 2 préstamos</div>
+          <div class="num" style="font-size: 15px; font-weight: 600; color: #A9530B">− $ 200.000</div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 0 0 0">
+          <div style="font-size: 15px; font-weight: 700">Entrega esperada</div>
+          <div class="num" style="font-size: 17px; font-weight: 700">$ 254.000</div>
+        </div>
+      </div>
+      <div style="height: 46px; border: 1px solid #DDE3E9; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; margin-top: 14px">Ver los 24 movimientos</div>
+    </div>
+
+    <!-- Sin cobrar -->
+    <div style="background: #FFFFFF; border: 1px solid #DDE3E9; border-radius: 14px; padding: 16px">
+      <div style="display: flex; align-items: center; justify-content: space-between">
+        <div class="cap" style="color: #8A94A1">No pagaron hoy</div>
+        <div class="num" style="font-size: 15px; font-weight: 700; color: #A9530B">$ 85.000</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 9px; margin-top: 12px">
+        <div style="display: flex; align-items: center; gap: 10px">
+          <div style="flex-grow: 1; font-size: 14px">María Restrepo</div>
+          <div style="font-size: 13px; color: #5C6672">Dijo que no tenía</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px">
+          <div style="flex-grow: 1; font-size: 14px">Hernán Pardo</div>
+          <div style="font-size: 13px; color: #5C6672">Local cerrado</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px">
+          <div style="flex-grow: 1; font-size: 14px">Nelson Ruiz</div>
+          <div style="font-size: 13px; color: #5C6672">Pidió plazo</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px">
+          <div style="flex-grow: 1; font-size: 14px">Diana Ortiz</div>
+          <div style="font-size: 13px; color: #5C6672">No estaba</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="flex: none; background: #FFFFFF; border-top: 1px solid #DDE3E9; padding: 12px 16px 8px 16px">
+    <div style="height: 56px; border-radius: 14px; background: #0C6B8F; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 17px; font-weight: 600">Aprobar cierre</div>
+    <div style="height: 50px; border-radius: 14px; border: 1px solid #DDE3E9; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600; margin-top: 8px">Devolver para corregir</div>
+    <div style="height: 12px"></div>
+    <div style="display: flex; justify-content: center">
+      <div style="width: 130px; height: 4px; border-radius: 2px; background: #0F1720; opacity: 0.25"></div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>
