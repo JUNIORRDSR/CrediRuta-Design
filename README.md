@@ -58,6 +58,5 @@ node design/app/artboards.mjs
 ## Sobre el nombre
 
 El producto se llama **CrediRuta** (ADR-001, contrato 05 §1). `CobroMaster` y `Presta Ya`
-son nombres heredados del sistema anterior: el repositorio en GitHub todavía se llama
-`CobroMaster-Design` y la carpeta de auditoría conserva los nombres viejos a propósito,
-porque uno de sus hallazgos es que las tres marcas convivían.
+son nombres heredados del sistema anterior. La carpeta de auditoría conserva los nombres
+viejos a propósito, porque uno de sus hallazgos es que las tres marcas convivían.
